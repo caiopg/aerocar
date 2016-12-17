@@ -1,4 +1,4 @@
-package br.com.curiousguy.aeorcar;
+package br.com.curiousguy.aerocar;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

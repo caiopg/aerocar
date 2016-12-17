@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Aeorcar</string>
+    <string name="app_name">Aerocar</string>
+    
+    <string name="splash.title">Aerocar</string>
+    <string name="splash.desc">Serviços Automobilisticos</string>
+    <string name="splash.loading">Carregando...</string>
 </resources>

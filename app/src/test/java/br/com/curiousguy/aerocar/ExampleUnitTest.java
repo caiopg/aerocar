@@ -1,4 +1,4 @@
-package br.com.curiousguy.aeorcar;
+package br.com.curiousguy.aerocar;
 
 import org.junit.Test;
 
