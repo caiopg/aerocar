@@ -2,6 +2,10 @@
     <string name="app_name">Aerocar</string>
     
     <string name="splash.title">Aerocar</string>
-    <string name="splash.desc">Serviços Automobilisticos</string>
+    <string name="splash.desc">Serviços Automotivos</string>
     <string name="splash.loading">Carregando...</string>
+
+    <string name="main.bottom_navigation_bar.car_list">Lista de Carros</string>
+    <string name="main.bottom_navigation_bar.settings">Configurações</string>
+    <string name="main.bottom_navigation_bar.report">Relatório</string>
 </resources>
