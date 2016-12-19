@@ -10,15 +10,15 @@ import br.com.curiousguy.aerocar.databinding.ActivitySplashBinding;
 public class SplashActivity extends BaseActivity {
 
     ActivitySplashBinding binding;
-    ViewModel viewModel;
+    SplashViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
-        viewModel = new ViewModel(this);
-        binding.setViewModel(viewModel);
+        viewModel = new SplashViewModel(this);
+        binding.setSplashViewModel(viewModel);
 
         viewModel.goToMainActivity();
     }

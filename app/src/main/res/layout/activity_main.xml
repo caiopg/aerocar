@@ -4,14 +4,19 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="br.com.curiousguy.aerocar.main.ViewModel"/>
+            name="mainViewModel"
+            type="br.com.curiousguy.aerocar.main.MainViewModel"/>
 
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/main_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/main_bottom_navigation"
@@ -22,10 +27,6 @@
             app:itemIconTint="@drawable/bottom_navigation_state_selector"
             app:itemTextColor="@drawable/bottom_navigation_state_selector"
             app:menu="@menu/bottom_navigation_main"/>
-
-        <android.support.v4.view.ViewPager
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
     </FrameLayout>
 

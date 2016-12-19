@@ -1,7 +1,28 @@
 package br.com.curiousguy.aerocar.splash;
 
-public interface SplashViewModel {
+import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
 
-    void goToMainActivity();
+import br.com.curiousguy.aerocar.main.MainActivity;
 
+public class SplashViewModel implements ISplashViewModel {
+
+    Context context;
+
+    public SplashViewModel(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    public void goToMainActivity() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(context, MainActivity.class);
+                context.startActivity(intent);
+            }
+        }, 2000);
+    }
 }
