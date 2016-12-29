@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_favorites"
+        android:id="@+id/action_cars"
         android:enabled="true"
         android:title="@string/main.bottom_navigation_bar.car_list"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_schedules"
+        android:id="@+id/action_config"
         android:enabled="true"
         android:title="@string/main.bottom_navigation_bar.settings"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_music"
+        android:id="@+id/action_report"
         android:enabled="true"
         android:title="@string/main.bottom_navigation_bar.report"
         app:showAsAction="always" />

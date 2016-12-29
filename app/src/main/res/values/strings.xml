@@ -8,4 +8,5 @@
     <string name="main.bottom_navigation_bar.car_list">Carros</string>
     <string name="main.bottom_navigation_bar.settings">Configurações</string>
     <string name="main.bottom_navigation_bar.report">Relatório</string>
+    <string name="main.menu.add_car">Adicionar Carro</string>
 </resources>
