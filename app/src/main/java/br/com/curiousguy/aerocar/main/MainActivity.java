@@ -18,7 +18,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        viewModel = new MainViewModel();
+        viewModel = new MainViewModelImpl();
         binding.setMainViewModel(viewModel);
     }
 }
