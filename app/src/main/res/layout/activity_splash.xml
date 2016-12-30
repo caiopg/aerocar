@@ -3,7 +3,7 @@
     <data>
 
         <variable
-            name="splashViewModel"
+            name="viewModel"
             type="br.com.curiousguy.aerocar.splash.SplashViewModel"/>
 
     </data>

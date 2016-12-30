@@ -9,4 +9,27 @@
     <string name="main.bottom_navigation_bar.settings">Configurações</string>
     <string name="main.bottom_navigation_bar.report">Relatório</string>
     <string name="main.menu.add_car">Adicionar Carro</string>
+
+    <string name="new_car.toolbar.title">Adicionar carro</string>
+    <string name="new_car.plate">Placa</string>
+    <string name="new_car.plate.hint">Insira a placa do carro</string>
+    <string name="new_car.client_name">Nome do cliente</string>
+    <string name="new_car.client_name.hint">Insira o nome do cliente</string>
+    <string name="new_car.client_tel">Telefone do cliente</string>
+    <string name="new_car.client_tel.hint">Insira o telefone do cliente</string>
+    <string name="new_car.type">Tipo</string>
+    <string name="new_car.type.small">Pequeno</string>
+    <string name="new_car.type.medium">Médio</string>
+    <string name="new_car.type.big">Grande</string>
+    <string name="new_car.type.taxi">Taxi</string>
+    <string name="new_car.type.uber">Uber</string>
+    <string name="new_car.wash">Lavagem</string>
+    <string name="new_car.wash.simple">Simples</string>
+    <string name="new_car.wash.wax">Cera</string>
+    <string name="new_car.wash.resin">Resina</string>
+    <string name="new_car.services">Serviços</string>
+    <string name="new_car.services.polishing">Polimento</string>
+    <string name="new_car.services.sanitation">Higienização</string>
+    <string name="new_car.services.little_repairs">Pequenos reparos</string>
+    <string name="new_car.finished">OK</string>
 </resources>

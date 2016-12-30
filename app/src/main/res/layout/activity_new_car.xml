@@ -1,0 +1,225 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="br.com.curiousguy.aerocar.newcar.NewCarViewModel"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/new_car_toolbar"
+                layout="@layout/toolbar_default" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+                <TextView
+                    style="@style/InputTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_car.plate"/>
+
+                <EditText
+                    style="@style/Input"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/new_car.plate.hint"/>
+
+                <TextView
+                    style="@style/InputTitle"
+                    android:layout_marginTop="24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_car.client_name"/>
+
+                <EditText
+                    style="@style/Input"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/new_car.client_name.hint"/>
+
+                <TextView
+                    style="@style/InputTitle"
+                    android:layout_marginTop="24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_car.client_tel"/>
+
+                <EditText
+                    style="@style/Input"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/new_car.client_tel.hint"/>
+
+                <TextView
+                    style="@style/InputTitle"
+                    android:layout_marginTop="24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_car.type"/>
+
+                <RadioGroup
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:paddingBottom="10dp"
+                    android:weightSum="5">
+
+                    <RadioButton
+                        style="@style/NewCarRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/new_car.type.small"/>
+
+                    <RadioButton
+                        style="@style/NewCarRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/new_car.type.medium"/>
+
+                    <RadioButton
+                        style="@style/NewCarRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/new_car.type.big"/>
+
+                    <RadioButton
+                        style="@style/NewCarRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/new_car.type.taxi"/>
+
+                    <RadioButton
+                        style="@style/NewCarRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/new_car.type.uber"/>
+
+                </RadioGroup>
+
+                <TextView
+                    style="@style/InputTitle"
+                    android:layout_marginTop="19dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_car.wash"/>
+
+                <RadioGroup
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:paddingBottom="10dp"
+                    android:weightSum="3">
+
+                    <RadioButton
+                        style="@style/NewCarRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/new_car.wash.simple"/>
+
+                    <RadioButton
+                        style="@style/NewCarRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/new_car.wash.wax"/>
+
+                    <RadioButton
+                        style="@style/NewCarRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/new_car.wash.resin"/>
+
+                </RadioGroup>
+
+                <TextView
+                    style="@style/InputTitle"
+                    android:layout_marginTop="19dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_car.services"/>
+
+                <RadioGroup
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:paddingBottom="10dp"
+                    android:weightSum="3">
+
+                    <RadioButton
+                        style="@style/NewCarRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/new_car.services.sanitation"/>
+
+                    <RadioButton
+                        style="@style/NewCarRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/new_car.services.polishing"/>
+
+                    <RadioButton
+                        style="@style/NewCarRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/new_car.services.little_repairs"/>
+
+                </RadioGroup>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    android:backgroundTint="@color/blue_light"
+                    android:textColor="@color/white"
+                    android:textSize="24dp"
+                    android:text="@string/new_car.finished"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

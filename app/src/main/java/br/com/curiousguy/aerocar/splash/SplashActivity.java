@@ -18,7 +18,7 @@ public class SplashActivity extends BaseActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
         viewModel = new SplashViewModelImpl(this);
-        binding.setSplashViewModel(viewModel);
+        binding.setViewModel(viewModel);
 
         viewModel.goToMainActivity();
     }

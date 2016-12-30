@@ -23,9 +23,8 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name="br.com.curiousguy.aerocar.addnewcar.AddNewCarActivity"
+            android:name="br.com.curiousguy.aerocar.newcar.NewCarActivity"
             android:screenOrientation="portrait"/>
-
 
     </application>
 

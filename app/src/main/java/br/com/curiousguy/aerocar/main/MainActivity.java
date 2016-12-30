@@ -10,7 +10,7 @@ import android.view.MenuItem;
 
 import br.com.curiousguy.aerocar.BaseActivity;
 import br.com.curiousguy.aerocar.R;
-import br.com.curiousguy.aerocar.addnewcar.AddNewCarActivity;
+import br.com.curiousguy.aerocar.newcar.NewCarActivity;
 import br.com.curiousguy.aerocar.databinding.ActivityMainBinding;
 
 
@@ -25,7 +25,7 @@ public class MainActivity extends BaseActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         viewModel = new MainViewModelImpl();
-        binding.setMainViewModel(viewModel);
+        binding.setViewModel(viewModel);
 
         setupToolbar();
     }
@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void startAddNewCarActivity() {
-        Intent intent = AddNewCarActivity.getStartIntent(this);
+        Intent intent = NewCarActivity.getStartIntent(this);
         startActivity(intent);
     }
 
