@@ -39,6 +39,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="7"
                     android:hint="@string/new_car.plate.hint"/>
 
                 <TextView
@@ -67,6 +68,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="11"
                     android:hint="@string/new_car.client_tel.hint"/>
 
                 <TextView
