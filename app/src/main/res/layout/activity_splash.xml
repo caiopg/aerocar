@@ -1,58 +1,47 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-    <data>
-
-        <variable
-            name="viewModel"
-            type="br.com.curiousguy.aerocar.splash.SplashViewModel"/>
-
-    </data>
-
-    <FrameLayout
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/splash.title"
-                android:textSize="46sp"
-                android:textColor="@color/blue_light"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:src="@drawable/aerocar_logo"/>
-
-            <TextView
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/splash.desc"
-                android:textSize="46sp"
-                android:textColor="@color/blue_light"/>
-
-        </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="46dp"
-            android:textSize="24dp"
-            android:textColor="@color/blue_light"
-            android:text="@string/splash.loading"/>
+            android:text="@string/splash.title"
+            android:textSize="46sp"
+            android:textColor="@color/blue_light"/>
 
-    </FrameLayout>
-</layout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/aerocar_logo"/>
+
+        <TextView
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/splash.desc"
+            android:textSize="46sp"
+            android:textColor="@color/blue_light"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="46dp"
+        android:textSize="24dp"
+        android:textColor="@color/blue_light"
+        android:text="@string/splash.loading"/>
+
+</FrameLayout>

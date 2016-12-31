@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="br.com.curiousguy.aerocar.main.MainViewModel"/>
+            type="br.com.curiousguy.aerocar.feature.main.MainViewModelImpl"/>
     </data>
 
     <RelativeLayout

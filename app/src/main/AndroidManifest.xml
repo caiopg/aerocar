@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="br.com.curiousguy.aerocar.splash.SplashActivity"
+            android:name="br.com.curiousguy.aerocar.feature.splash.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,11 +19,11 @@
         </activity>
 
         <activity
-            android:name="br.com.curiousguy.aerocar.main.MainActivity"
+            android:name="br.com.curiousguy.aerocar.feature.main.MainActivity"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name="br.com.curiousguy.aerocar.newcar.NewCarActivity"
+            android:name="br.com.curiousguy.aerocar.feature.newcar.NewCarActivity"
             android:screenOrientation="portrait"/>
 
     </application>

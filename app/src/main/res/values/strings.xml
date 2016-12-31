@@ -23,6 +23,8 @@
     <string name="new_car.type.big">Grande</string>
     <string name="new_car.type.taxi">Taxi</string>
     <string name="new_car.type.uber">Uber</string>
+    <string name="new_car.uber_registry">Registro do Uber</string>
+    <string name="new_car.uber_registry.hint">Insira o registro do Uber</string>
     <string name="new_car.wash">Lavagem</string>
     <string name="new_car.wash.simple">Simples</string>
     <string name="new_car.wash.wax">Cera</string>

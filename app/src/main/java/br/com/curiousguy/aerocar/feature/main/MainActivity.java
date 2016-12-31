@@ -1,4 +1,4 @@
-package br.com.curiousguy.aerocar.main;
+package br.com.curiousguy.aerocar.feature.main;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -10,14 +10,14 @@ import android.view.MenuItem;
 
 import br.com.curiousguy.aerocar.BaseActivity;
 import br.com.curiousguy.aerocar.R;
-import br.com.curiousguy.aerocar.newcar.NewCarActivity;
+import br.com.curiousguy.aerocar.feature.newcar.NewCarActivity;
 import br.com.curiousguy.aerocar.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends BaseActivity {
 
     ActivityMainBinding binding;
-    MainViewModel viewModel;
+    MainViewModelImpl viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
