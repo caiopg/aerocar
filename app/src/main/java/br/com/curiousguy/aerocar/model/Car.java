@@ -2,11 +2,14 @@ package br.com.curiousguy.aerocar.model;
 
 import java.util.Date;
 
-import br.com.curiousguy.aerocar.enums.CarType;
 import lombok.Data;
 
 @Data
 public class Car {
+
+    public enum CarType {
+        SMALL, MEDIUM, BIG, TAXI, UBER;
+    }
 
     private String plate;
 

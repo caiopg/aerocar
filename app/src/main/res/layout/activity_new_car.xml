@@ -88,10 +88,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:paddingBottom="10dp"
-                    android:weightSum="5">
+                    android:weightSum="5"
+                    android:onCheckedChanged="@{(radioGroup, checkedId) -> viewModel.onCarTypeChanged(radioGroup, checkedId)}">
 
                     <RadioButton
                         style="@style/NewCarRadioButton"
+                        android:id="@+id/new_car_small_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -99,6 +101,7 @@
 
                     <RadioButton
                         style="@style/NewCarRadioButton"
+                        android:id="@+id/new_car_medium_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
@@ -107,6 +110,7 @@
 
                     <RadioButton
                         style="@style/NewCarRadioButton"
+                        android:id="@+id/new_car_big_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
@@ -115,6 +119,7 @@
 
                     <RadioButton
                         style="@style/NewCarRadioButton"
+                        android:id="@+id/new_car_taxi_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
@@ -123,6 +128,7 @@
 
                     <RadioButton
                         style="@style/NewCarRadioButton"
+                        android:id="@+id/new_car_uber_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
@@ -165,6 +171,7 @@
 
                     <RadioButton
                         style="@style/NewCarRadioButton"
+                        android:id="@+id/new_car_simple_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -172,6 +179,7 @@
 
                     <RadioButton
                         style="@style/NewCarRadioButton"
+                        android:id="@+id/new_car_wax_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
@@ -180,6 +188,7 @@
 
                     <RadioButton
                         style="@style/NewCarRadioButton"
+                        android:id="@+id/new_car_resin_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
@@ -205,6 +214,7 @@
 
                     <RadioButton
                         style="@style/NewCarRadioButton"
+                        android:id="@+id/new_car_sanitation_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -212,6 +222,7 @@
 
                     <RadioButton
                         style="@style/NewCarRadioButton"
+                        android:id="@+id/new_car_polishing_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
@@ -220,6 +231,7 @@
 
                     <RadioButton
                         style="@style/NewCarRadioButton"
+                        android:id="@+id/new_car_little_repairs_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
