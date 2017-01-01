@@ -1,25 +1,33 @@
 package br.com.curiousguy.aerocar.model;
 
-import java.util.Date;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import lombok.Getter;
+import lombok.Setter;
 
-import lombok.Data;
-
-@Data
-public class Car {
+public class Car extends RealmObject {
 
     public enum CarType {
         SMALL, MEDIUM, BIG, TAXI, UBER;
     }
 
+    @PrimaryKey
+    @Getter @Setter
     private String plate;
 
+    @Getter @Setter
     private Client client;
 
-    private CarType type;
+    private String type;
 
+    @Getter @Setter
     private String uberRegistry;
 
-    private Date entry;
+    public CarType getType() {
+        return CarType.valueOf(type);
+    }
 
-    private Date exit;
+    public void setType(CarType type) {
+        this.type = String.valueOf(type);
+    }
 }

@@ -8,8 +8,10 @@ public interface NewCarViewModel {
 
     void onCarTypeChanged(RadioGroup radioGroup, int checkedId);
 
-    void onWashTypeChanged(RadioGroup radioGroup, int checkedId);
+    void onWashChanged(RadioGroup radioGroup, int checkedId);
 
     void onServiceChanged(RadioGroup radioGroup, int checkedId);
+
+    void onPlateTextChanged(CharSequence s, int start, int before, int count);
 
 }
