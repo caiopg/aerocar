@@ -14,4 +14,8 @@ public interface NewCarViewModel {
 
     void onPlateTextChanged(CharSequence s, int start, int before, int count);
 
+    void onClientNameTextChanged(CharSequence s, int start, int before, int count);
+
+    void onClientTelTextChanged(CharSequence s, int start, int before, int count);
+
 }

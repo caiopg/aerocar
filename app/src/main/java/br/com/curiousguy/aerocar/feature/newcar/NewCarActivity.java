@@ -27,7 +27,7 @@ public class NewCarActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_car);
-        viewModel = new NewCarViewModelImpl();
+        viewModel = new NewCarViewModelImpl(this);
         binding.setViewModel(viewModel);
 
         setupToolbar();

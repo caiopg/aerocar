@@ -34,4 +34,7 @@
     <string name="new_car.services.sanitation">Higienização</string>
     <string name="new_car.services.little_repairs">Pequenos reparos</string>
     <string name="new_car.finished">OK</string>
+    <string name="new_car.toast.search_for_car">Procurando carro...</string>
+    <string name="new_car.toast.car_found">Carro encontrado! Informações atualizadas.</string>
+    <string name="new_car.toast.car_not_found">Carro não encontrado.</string>
 </resources>

@@ -1,6 +1,7 @@
 package br.com.curiousguy.aerocar.model;
 
 import java.util.Date;
+import java.util.Random;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -9,6 +10,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class WorkSession extends RealmObject {
+
+    public WorkSession () {
+        Random generator = new Random();
+        this.id = generator.nextLong();
+    }
 
     public enum Service {
         SANITATION, POLISHING, LITTLE_REPAIRS;

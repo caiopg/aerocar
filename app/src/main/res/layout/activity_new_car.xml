@@ -43,7 +43,8 @@
                     android:maxLength="7"
                     android:hint="@string/new_car.plate.hint"
                     android:text="@={viewModel.plate}"
-                    android:onTextChanged="@{viewModel::onPlateTextChanged}"/>
+                    android:onTextChanged="@{viewModel::onPlateTextChanged}"
+                    android:textAllCaps="true"/>
 
                 <TextView
                     style="@style/InputTitle"
@@ -74,7 +75,8 @@
                     android:layout_height="wrap_content"
                     android:maxLength="11"
                     android:hint="@string/new_car.client_tel.hint"
-                    android:text="@={viewModel.clientTel}"/>
+                    android:text="@={viewModel.clientTel}"
+                    android:inputType="numberDecimal"/>
 
                 <TextView
                     style="@style/InputTitle"
@@ -98,7 +100,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/new_car.type.small"/>
+                        android:text="@string/new_car.type.small"
+                        android:checked="@{viewModel.isSmallChecked}"/>
 
                     <RadioButton
                         style="@style/NewCarRadioButton"
@@ -107,7 +110,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:text="@string/new_car.type.medium"/>
+                        android:text="@string/new_car.type.medium"
+                        android:checked="@{viewModel.isMediumChecked}"/>
 
                     <RadioButton
                         style="@style/NewCarRadioButton"
@@ -116,7 +120,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:text="@string/new_car.type.big"/>
+                        android:text="@string/new_car.type.big"
+                        android:checked="@{viewModel.isBigChecked}"/>
 
                     <RadioButton
                         style="@style/NewCarRadioButton"
@@ -125,16 +130,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:text="@string/new_car.type.taxi"/>
+                        android:text="@string/new_car.type.taxi"
+                        android:checked="@{viewModel.isTaxiChecked}"/>
 
                     <RadioButton
                         style="@style/NewCarRadioButton"
-                        android:id="@+id/new_car_uber_radiobutton"
+                        android:id="@+id/car_uber_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:text="@string/new_car.type.uber"/>
+                        android:text="@string/new_car.type.uber"
+                        android:checked="@{viewModel.isUberChecked}"/>
 
                 </RadioGroup>
 

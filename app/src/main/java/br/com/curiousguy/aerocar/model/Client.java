@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 public class Client extends RealmObject {
 
-    private String name;
+    private String name = "";
 
-    private String telefone;
+    private String telefone = "";
 
 }
