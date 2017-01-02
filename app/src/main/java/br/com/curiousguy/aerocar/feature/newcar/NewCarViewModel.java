@@ -18,4 +18,6 @@ public interface NewCarViewModel {
 
     void onClientTelTextChanged(CharSequence s, int start, int before, int count);
 
+    void onUberRegistryTextChanged(CharSequence s, int start, int before, int count);
+
 }

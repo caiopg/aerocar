@@ -147,7 +147,7 @@
                 </RadioGroup>
 
                 <TextView
-                    android:visibility="gone"
+                    android:visibility="@{viewModel.uberRegisterVisibility}"
                     style="@style/InputTitle"
                     android:layout_marginTop="24dp"
                     android:layout_width="wrap_content"
@@ -155,13 +155,14 @@
                     android:text="@string/new_car.uber_registry"/>
 
                 <EditText
-                    android:visibility="gone"
+                    android:visibility="@{viewModel.uberRegisterVisibility}"
                     style="@style/Input"
                     android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/new_car.uber_registry.hint"
-                    android:text="@={viewModel.uberRegistry}"/>
+                    android:text="@={viewModel.uberRegistry}"
+                    android:onTextChanged="@{viewModel::onUberRegistryTextChanged}"/>
 
                 <TextView
                     style="@style/InputTitle"

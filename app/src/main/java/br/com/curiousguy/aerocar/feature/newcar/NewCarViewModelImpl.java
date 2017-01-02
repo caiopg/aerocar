@@ -3,13 +3,14 @@ package br.com.curiousguy.aerocar.feature.newcar;
 import android.app.Activity;
 import android.content.Context;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.curiousguy.aerocar.R;
@@ -23,7 +24,8 @@ import lombok.val;
 
 public class NewCarViewModelImpl implements NewCarViewModel {
 
-    public static final int SEARCH_DELAY_IN_SECONDS = 2000;
+    public static final int SEARCH_DELAY_IN_MILLIS = 2000;
+    public static final int DELAY_MILLIS = 250;
 
     public final ObservableField<String> plate = new ObservableField<>();
     public final ObservableField<String> clientName = new ObservableField<>();
@@ -35,6 +37,8 @@ public class NewCarViewModelImpl implements NewCarViewModel {
     public final ObservableField<Boolean> isBigChecked = new ObservableField<>(false);
     public final ObservableField<Boolean> isTaxiChecked = new ObservableField<>(false);
     public final ObservableField<Boolean> isUberChecked = new ObservableField<>(false);
+
+    public final ObservableInt uberRegisterVisibility = new ObservableInt(View.GONE);
 
     private DbFacade facade = new RealmFacade();
     Handler handler = new Handler();
@@ -50,7 +54,7 @@ public class NewCarViewModelImpl implements NewCarViewModel {
                     client = car.getClient();
                 }
 
-                updateFields(car);
+                updateFields();
 
                 String carFound = context.getString(R.string.new_car_toast_car_found);
                 showToast(carFound);
@@ -70,24 +74,28 @@ public class NewCarViewModelImpl implements NewCarViewModel {
         this.context = context;
     }
 
-
     @Override
     public void onCarTypeChanged (RadioGroup radioGroup, int checkedId) {
         switch (checkedId) {
             case R.id.new_car_small_radiobutton:
                 car.setType(Car.CarType.SMALL);
+                hideUberFields();
                 break;
             case R.id.new_car_medium_radiobutton:
                 car.setType(Car.CarType.MEDIUM);
+                hideUberFields();
                 break;
             case R.id.new_car_big_radiobutton:
                 car.setType(Car.CarType.BIG);
+                hideUberFields();
                 break;
             case R.id.new_car_taxi_radiobutton:
                 car.setType(Car.CarType.TAXI);
+                hideUberFields();
                 break;
             case R.id.car_uber_radiobutton:
                 car.setType(Car.CarType.UBER);
+                showUberFields();
                 break;
         }
     }
@@ -125,7 +133,7 @@ public class NewCarViewModelImpl implements NewCarViewModel {
     @Override
     public void onPlateTextChanged (CharSequence s, int start, int before, int count) {
         handler.removeCallbacks(searchCar);
-        handler.postDelayed(searchCar, SEARCH_DELAY_IN_SECONDS);
+        handler.postDelayed(searchCar, SEARCH_DELAY_IN_MILLIS);
     }
 
     @Override
@@ -136,7 +144,7 @@ public class NewCarViewModelImpl implements NewCarViewModel {
             public void run() {
                 client.setName(clientName.get());
             }
-        }, 250);
+        }, DELAY_MILLIS);
     }
 
     @Override
@@ -147,7 +155,18 @@ public class NewCarViewModelImpl implements NewCarViewModel {
             public void run() {
                 client.setTelefone(clientTel.get());
             }
-        }, 250);
+        }, DELAY_MILLIS);
+    }
+
+    @Override
+    public void onUberRegistryTextChanged(CharSequence s, int start, int before, int count) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                car.setUberRegistry(uberRegistry.get());
+            }
+        }, DELAY_MILLIS);
     }
 
     @Override
@@ -158,6 +177,14 @@ public class NewCarViewModelImpl implements NewCarViewModel {
 
         persistData();
         ((Activity) context).finish();
+    }
+
+    private void showUberFields() {
+        uberRegisterVisibility.set(View.VISIBLE);
+    }
+
+    private void hideUberFields() {
+        uberRegisterVisibility.set(View.GONE);
     }
 
     private void persistData() {
@@ -214,33 +241,40 @@ public class NewCarViewModelImpl implements NewCarViewModel {
         }
     }
 
-    private void updateFields(Car car) {
+    private void updateFields() {
         if(car.getClient() != null) {
             updateClientFields(car.getClient());
         }
 
         if(car != null) {
-            updateCarFields(car);
+            updateCarFields();
         }
     }
 
-    private void updateCarFields(Car car) {
+    private void updateCarFields() {
         if(car.getType() != null) {
             switch (car.getType()) {
                 case SMALL:
                     isSmallChecked.set(true);
+                    hideUberFields();
                     break;
                 case MEDIUM:
                     isMediumChecked.set(true);
+                    hideUberFields();
                     break;
                 case BIG:
                     isBigChecked.set(true);
+                    hideUberFields();
                     break;
                 case TAXI:
                     isTaxiChecked.set(true);
+                    hideUberFields();
                     break;
                 case UBER:
                     isUberChecked.set(true);
+                    showUberFields();
+
+                    uberRegistry.set(car.getUberRegistry());
                     break;
             }
         }
