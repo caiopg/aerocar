@@ -1,8 +1,13 @@
 package br.com.curiousguy.aerocar.model;
 
+import android.text.TextUtils;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
+import br.com.curiousguy.aerocar.R;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import lombok.Data;
@@ -55,5 +60,15 @@ public class WorkSession extends RealmObject {
 
     public void setWash(Wash wash) {
         this.wash = String.valueOf(wash);
+    }
+
+    public List<Integer> getErrorIdList() {
+        ArrayList<Integer> errors = new ArrayList<>();
+
+        if(TextUtils.isEmpty(service) && TextUtils.isEmpty(wash)) {
+            errors.add(R.string.new_car_error_no_work);
+        }
+
+        return errors;
     }
 }

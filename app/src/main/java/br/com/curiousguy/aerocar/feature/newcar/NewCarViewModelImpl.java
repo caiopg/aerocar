@@ -1,11 +1,16 @@
 package br.com.curiousguy.aerocar.feature.newcar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.databinding.ObservableField;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.db.CarNotFoundException;
@@ -14,8 +19,11 @@ import br.com.curiousguy.aerocar.db.RealmFacade;
 import br.com.curiousguy.aerocar.model.Car;
 import br.com.curiousguy.aerocar.model.Client;
 import br.com.curiousguy.aerocar.model.WorkSession;
+import lombok.val;
 
 public class NewCarViewModelImpl implements NewCarViewModel {
+
+    public static final int SEARCH_DELAY_IN_SECONDS = 2000;
 
     public final ObservableField<String> plate = new ObservableField<>();
     public final ObservableField<String> clientName = new ObservableField<>();
@@ -36,9 +44,6 @@ public class NewCarViewModelImpl implements NewCarViewModel {
     private Runnable searchCar = new Runnable() {
         @Override
         public void run() {
-            String searchingForCar = context.getString(R.string.new_car_toast_search_for_car);
-            showToast(searchingForCar);
-
             try {
                 car = facade.fetchCarCopy(plate.get().toUpperCase());
                 if(car.getClient() != null) {
@@ -46,13 +51,15 @@ public class NewCarViewModelImpl implements NewCarViewModel {
                 }
 
                 updateFields(car);
+
                 String carFound = context.getString(R.string.new_car_toast_car_found);
                 showToast(carFound);
             } catch (CarNotFoundException e) {
                 String carNotFound = context.getString(R.string.new_car_toast_car_not_found);
                 showToast(carNotFound);
             } finally {
-                car.setPlate(plate.get());
+                plate.set(plate.get().toUpperCase());
+                car.setPlate(plate.get().toUpperCase());
             }
         }
     };
@@ -118,31 +125,79 @@ public class NewCarViewModelImpl implements NewCarViewModel {
     @Override
     public void onPlateTextChanged (CharSequence s, int start, int before, int count) {
         handler.removeCallbacks(searchCar);
-        handler.postDelayed(searchCar, 1000);
+        handler.postDelayed(searchCar, SEARCH_DELAY_IN_SECONDS);
     }
 
     @Override
     public void onClientNameTextChanged(CharSequence s, int start, int before, int count) {
-        client.setName(clientName.get());
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                client.setName(clientName.get());
+            }
+        }, 250);
     }
 
     @Override
     public void onClientTelTextChanged(CharSequence s, int start, int before, int count) {
-        client.setTelefone(clientTel.get());
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                client.setTelefone(clientTel.get());
+            }
+        }, 250);
     }
 
     @Override
     public void onOkClicked() {
-        //todo verify if everything valid
-        //todo client not saving
-        facade.updateOrSaveClient(client);
+        if(verifyAndShowErrors()) {
+            return;
+        }
 
+        persistData();
+        ((Activity) context).finish();
+    }
+
+    private void persistData() {
         car.setClient(client);
         facade.updateOrSaveCar(car);
 
         workSession.setCar(car);
         facade.updateOrSaveWorkSession(workSession);
+    }
 
+    private boolean verifyAndShowErrors() {
+        val errorIds = car.getErrorIdList();
+        errorIds.addAll(workSession.getErrorIdList());
+
+        if(errorIds.size() > 0) {
+            showErrors(errorIds);
+            return true;
+        }
+
+        return false;
+    }
+
+    private void showErrors(List<Integer> errorIds) {
+        String title = context.getString(R.string.new_car_error_title);
+        String content = assembleErrorContent(errorIds);
+
+        new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(content)
+                .setNeutralButton(R.string.new_car_error_ok, null)
+                .show();
+    }
+
+    private String assembleErrorContent(List<Integer> errorIds) {
+        String content = context.getString(R.string.new_car_error_content);
+        for(int errorId : errorIds) {
+            content = content.concat(context.getString(errorId));
+        }
+
+        return content;
     }
 
     private void showToast(String content) {

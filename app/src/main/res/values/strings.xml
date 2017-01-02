@@ -37,4 +37,11 @@
     <string name="new_car.toast.search_for_car">Procurando carro...</string>
     <string name="new_car.toast.car_found">Carro encontrado! Informações atualizadas.</string>
     <string name="new_car.toast.car_not_found">Carro não encontrado.</string>
+    <string name="new_car.error.title">Erro!</string>
+    <string name="new_car.error.content">Os seguintes erros foram encontrados:\n\n</string>
+    <string name="new_car.error.no_plate">Placa não informada\n</string>
+    <string name="new_car.error.no_car_type">Tipo do carro não informado\n</string>
+    <string name="new_car.error.no_uber_register">Registro do uber não informado\n</string>
+    <string name="new_car.error.no_work">Nenhuma lavagem ou serviço selecionado\n</string>
+    <string name="new_car.error.ok">OK</string>
 </resources>
