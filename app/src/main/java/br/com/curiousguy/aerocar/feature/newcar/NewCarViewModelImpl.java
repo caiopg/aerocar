@@ -25,7 +25,7 @@ import lombok.val;
 public class NewCarViewModelImpl implements NewCarViewModel {
 
     public static final int SEARCH_DELAY_IN_MILLIS = 2000;
-    public static final int DELAY_MILLIS = 250;
+    public static final int TEXT_CHANGED_DELAY_IN_MILLIS = 250;
 
     public final ObservableField<String> plate = new ObservableField<>();
     public final ObservableField<String> clientName = new ObservableField<>();
@@ -144,7 +144,7 @@ public class NewCarViewModelImpl implements NewCarViewModel {
             public void run() {
                 client.setName(clientName.get());
             }
-        }, DELAY_MILLIS);
+        }, TEXT_CHANGED_DELAY_IN_MILLIS);
     }
 
     @Override
@@ -155,7 +155,7 @@ public class NewCarViewModelImpl implements NewCarViewModel {
             public void run() {
                 client.setTelefone(clientTel.get());
             }
-        }, DELAY_MILLIS);
+        }, TEXT_CHANGED_DELAY_IN_MILLIS);
     }
 
     @Override
@@ -166,7 +166,7 @@ public class NewCarViewModelImpl implements NewCarViewModel {
             public void run() {
                 car.setUberRegistry(uberRegistry.get());
             }
-        }, DELAY_MILLIS);
+        }, TEXT_CHANGED_DELAY_IN_MILLIS);
     }
 
     @Override
