@@ -28,15 +28,12 @@ import br.com.curiousguy.aerocar.feature.settings.SettingsFragment;
 public class MainActivity extends BaseActivity {
 
     ActivityMainBinding binding;
-    MainViewModelImpl viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        viewModel = new MainViewModelImpl(this);
-        binding.setViewModel(viewModel);
 
         setupToolbar();
         setupViewpager();
