@@ -49,7 +49,7 @@ public class NewCarViewModelImpl implements NewCarViewModel {
         @Override
         public void run() {
             try {
-                car = facade.fetchCarCopy(plate.get().toUpperCase());
+                car = facade.fetchCarCopyByPlate(plate.get().toUpperCase());
                 if(car.getClient() != null) {
                     client = car.getClient();
                 }
@@ -189,10 +189,10 @@ public class NewCarViewModelImpl implements NewCarViewModel {
 
     private void persistData() {
         car.setClient(client);
-        facade.updateOrSaveCar(car);
+        facade.updateOrSave(car);
 
         workSession.setCar(car);
-        facade.updateOrSaveWorkSession(workSession);
+        facade.updateOrSave(workSession);
     }
 
     private boolean verifyAndShowErrors() {

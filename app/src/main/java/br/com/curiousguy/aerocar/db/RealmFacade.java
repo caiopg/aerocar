@@ -4,6 +4,7 @@ import br.com.curiousguy.aerocar.model.Car;
 import br.com.curiousguy.aerocar.model.Client;
 import br.com.curiousguy.aerocar.model.WorkSession;
 import io.realm.Realm;
+import io.realm.RealmObject;
 
 public class RealmFacade implements DbFacade {
 
@@ -14,7 +15,7 @@ public class RealmFacade implements DbFacade {
     }
 
     @Override
-    public Car fetchCarCopy(String plate) throws CarNotFoundException {
+    public Car fetchCarCopyByPlate(String plate) throws CarNotFoundException {
         Car car = realm.where(Car.class)
                 .equalTo("plate", plate)
                 .findFirst();
@@ -27,31 +28,11 @@ public class RealmFacade implements DbFacade {
     }
 
     @Override
-    public void updateOrSaveClient(final Client client) {
+    public <T extends RealmObject> void updateOrSave(final T data) {
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                realm.copyToRealmOrUpdate(client);
-            }
-        });
-    }
-
-    @Override
-    public void updateOrSaveCar(final Car car) {
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                realm.copyToRealmOrUpdate(car);
-            }
-        });
-    }
-
-    @Override
-    public void updateOrSaveWorkSession(final WorkSession workSession) {
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                realm.copyToRealmOrUpdate(workSession);
+                realm.copyToRealmOrUpdate(data);
             }
         });
     }
