@@ -3,15 +3,26 @@ package br.com.curiousguy.aerocar.feature.main;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.curiousguy.aerocar.BaseActivity;
+import br.com.curiousguy.aerocar.BaseFragment;
 import br.com.curiousguy.aerocar.R;
+import br.com.curiousguy.aerocar.feature.carlist.CarListFragment;
 import br.com.curiousguy.aerocar.feature.newcar.NewCarActivity;
 import br.com.curiousguy.aerocar.databinding.ActivityMainBinding;
+import br.com.curiousguy.aerocar.feature.report.ReportFragment;
+import br.com.curiousguy.aerocar.feature.settings.SettingsFragment;
 
 
 public class MainActivity extends BaseActivity {
@@ -24,10 +35,65 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        viewModel = new MainViewModelImpl();
+        viewModel = new MainViewModelImpl(this);
         binding.setViewModel(viewModel);
 
         setupToolbar();
+        setupViewpager();
+        setupBottomNavigationView();
+    }
+
+    private void setupBottomNavigationView() {
+        BottomNavigationView bottomNavigationView = binding.mainBottomNavigation;
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                ViewPager viewPager = binding.mainViewpager;
+
+                switch (item.getItemId()) {
+                    case R.id.action_cars:
+                        viewPager.setCurrentItem(0);
+                        break;
+                    case R.id.action_config:
+                        viewPager.setCurrentItem(1);
+                        break;
+                    case R.id.action_report:
+                        viewPager.setCurrentItem(2);
+                        break;
+                }
+
+                return true;
+            }
+        });
+    }
+
+    private void setupViewpager() {
+        List<BaseFragment> fragments = new ArrayList<>();
+        fragments.add(CarListFragment.newInstance());
+        fragments.add(SettingsFragment.newInstance());
+        fragments.add(ReportFragment.newInstance());
+
+        final ViewPager viewPager = binding.mainViewpager;
+        viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), fragments));
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                BottomNavigationView bottomNavigationView = binding.mainBottomNavigation;
+                bottomNavigationView.getMenu().getItem(position).setChecked(true);
+
+                viewPager.setCurrentItem(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
