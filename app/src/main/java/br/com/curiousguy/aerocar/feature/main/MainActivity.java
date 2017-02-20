@@ -40,6 +40,25 @@ public class MainActivity extends BaseActivity {
         setupBottomNavigationView();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_main, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_add_car) {
+            startAddNewCarActivity();
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void setupBottomNavigationView() {
         BottomNavigationView bottomNavigationView = binding.mainBottomNavigation;
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,10 +84,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setupViewpager() {
-        List<BaseFragment> fragments = new ArrayList<>();
-        fragments.add(CarListFragment.newInstance());
-        fragments.add(SettingsFragment.newInstance());
-        fragments.add(ReportFragment.newInstance());
+        List<BaseFragment> fragments = populateFragmentList();
 
         final ViewPager viewPager = binding.mainViewpager;
         viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), fragments));
@@ -93,23 +109,14 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_main, menu);
+    private List<BaseFragment> populateFragmentList() {
+        List<BaseFragment> fragments = new ArrayList<>();
 
-        return super.onCreateOptionsMenu(menu);
-    }
+        fragments.add(CarListFragment.newInstance());
+        fragments.add(SettingsFragment.newInstance());
+        fragments.add(ReportFragment.newInstance());
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_add_car) {
-            startAddNewCarActivity();
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return fragments;
     }
 
     private void setupToolbar() {
