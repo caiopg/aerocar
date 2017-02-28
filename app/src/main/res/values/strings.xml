@@ -47,4 +47,5 @@
 
     <string name="item_car_list.payed">PAGO</string>
     <string name="item_car_list.not_payed">PENDENTE</string>
+    <string name="item_car_list.plate">Placa: %s</string>
 </resources>

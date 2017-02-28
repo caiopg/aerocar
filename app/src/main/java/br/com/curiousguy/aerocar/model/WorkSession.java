@@ -41,6 +41,9 @@ public class WorkSession extends RealmObject {
     private String wash;
 
     @Getter @Setter
+    private boolean isPayed;
+
+    @Getter @Setter
     private Date entry;
 
     @Getter @Setter

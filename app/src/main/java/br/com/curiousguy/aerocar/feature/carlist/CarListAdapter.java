@@ -17,12 +17,14 @@ import br.com.curiousguy.aerocar.model.WorkSession;
 public class CarListAdapter extends BaseAdapter {
 
     List<WorkSession> sessions;
+    Context context;
 
-    public CarListAdapter(List<WorkSession> sessions) {
+    public CarListAdapter(Context context, List<WorkSession> sessions) {
         if(sessions == null) {
             throw new NullPointerException("Empty sessions list");
         }
 
+        this.context = context;
         this.sessions = sessions;
     }
 
@@ -48,7 +50,10 @@ public class CarListAdapter extends BaseAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         ItemCarListBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_car_list, parent, false);
-        binding.setViewModel(new CarListItemViewModelImpl((WorkSession) this.getItem(position)));
+
+        WorkSession workSession = (WorkSession) this.getItem(position);
+        CarListItemViewModelImpl itemViewModel = new CarListItemViewModelImpl(context, workSession);
+        binding.setViewModel(itemViewModel);
 
         return binding.getRoot();
     }
