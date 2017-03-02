@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-        <variable
-            name="viewModel"
-            type="br.com.curiousguy.aerocar.feature.carlist.CarListViewModelImpl"/>
-    </data>
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ListView
-            android:id="@+id/car_list_listview"
+            android:id="@+id/work_session_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

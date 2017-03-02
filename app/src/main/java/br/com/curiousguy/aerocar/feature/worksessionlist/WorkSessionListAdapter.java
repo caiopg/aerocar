@@ -1,4 +1,4 @@
-package br.com.curiousguy.aerocar.feature.carlist;
+package br.com.curiousguy.aerocar.feature.worksessionlist;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -10,16 +10,16 @@ import android.widget.BaseAdapter;
 import java.util.List;
 
 import br.com.curiousguy.aerocar.R;
-import br.com.curiousguy.aerocar.databinding.ItemCarListBinding;
-import br.com.curiousguy.aerocar.feature.carlist.carlistitem.CarListItemViewModelImpl;
+import br.com.curiousguy.aerocar.databinding.ItemWorkSessionListBinding;
+import br.com.curiousguy.aerocar.feature.worksessionlist.worksessionlistitem.WorkSessionListItemViewModelImpl;
 import br.com.curiousguy.aerocar.model.WorkSession;
 
-public class CarListAdapter extends BaseAdapter {
+public class WorkSessionListAdapter extends BaseAdapter {
 
     List<WorkSession> sessions;
     Context context;
 
-    public CarListAdapter(Context context, List<WorkSession> sessions) {
+    public WorkSessionListAdapter(Context context, List<WorkSession> sessions) {
         if(sessions == null) {
             throw new NullPointerException("Empty sessions list");
         }
@@ -49,10 +49,10 @@ public class CarListAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) parent.getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        ItemCarListBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_car_list, parent, false);
+        ItemWorkSessionListBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_work_session_list, parent, false);
 
         WorkSession workSession = (WorkSession) this.getItem(position);
-        CarListItemViewModelImpl itemViewModel = new CarListItemViewModelImpl(context, workSession);
+        WorkSessionListItemViewModelImpl itemViewModel = new WorkSessionListItemViewModelImpl(context, workSession);
         binding.setViewModel(itemViewModel);
 
         return binding.getRoot();

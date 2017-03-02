@@ -5,7 +5,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -18,7 +17,7 @@ import java.util.List;
 import br.com.curiousguy.aerocar.BaseActivity;
 import br.com.curiousguy.aerocar.BaseFragment;
 import br.com.curiousguy.aerocar.R;
-import br.com.curiousguy.aerocar.feature.carlist.CarListFragment;
+import br.com.curiousguy.aerocar.feature.worksessionlist.WorkSessionListFragment;
 import br.com.curiousguy.aerocar.feature.newcar.NewCarActivity;
 import br.com.curiousguy.aerocar.databinding.ActivityMainBinding;
 import br.com.curiousguy.aerocar.feature.report.ReportFragment;
@@ -112,7 +111,7 @@ public class MainActivity extends BaseActivity {
     private List<BaseFragment> populateFragmentList() {
         List<BaseFragment> fragments = new ArrayList<>();
 
-        fragments.add(CarListFragment.newInstance());
+        fragments.add(WorkSessionListFragment.newInstance());
         fragments.add(SettingsFragment.newInstance());
         fragments.add(ReportFragment.newInstance());
 

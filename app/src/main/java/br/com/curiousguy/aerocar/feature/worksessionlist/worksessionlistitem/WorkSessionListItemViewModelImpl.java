@@ -1,21 +1,23 @@
-package br.com.curiousguy.aerocar.feature.carlist.carlistitem;
+package br.com.curiousguy.aerocar.feature.worksessionlist.worksessionlistitem;
 
 import android.content.Context;
 import android.databinding.ObservableField;
 
 import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.model.WorkSession;
+import br.com.curiousguy.aerocar.util.Pricer;
 
-public class CarListItemViewModelImpl implements CarListItemViewModel {
+public class WorkSessionListItemViewModelImpl implements WorkSessionListItemViewModel {
 
     public final ObservableField<String> paymentStatus = new ObservableField<>();
     public final ObservableField<String> plate = new ObservableField<>();
+    public final ObservableField<String> price = new ObservableField<>();
     public final ObservableField<Integer> paymentStatusColor = new ObservableField<>();
 
     private WorkSession workSession;
     private Context context;
 
-    public CarListItemViewModelImpl(Context context, WorkSession workSession) {
+    public WorkSessionListItemViewModelImpl(Context context, WorkSession workSession) {
         this.context = context;
         this.workSession = workSession;
 
@@ -24,9 +26,17 @@ public class CarListItemViewModelImpl implements CarListItemViewModel {
 
     @Override
     public void populateItem() {
+        //todo fix color of strings
         populatePaymentStatus();
         populatePlate();
+        populatePrice();
 
+
+    }
+
+    private void populatePrice() {
+        //todo set em reais.
+        price.set(String.valueOf(Pricer.price(workSession)));
     }
 
     private void populatePlate() {
@@ -46,5 +56,6 @@ public class CarListItemViewModelImpl implements CarListItemViewModel {
         int colorId = workSession.isPayed() ? R.color.green : R.color.red;
 
         paymentStatusColor.set(colorId);
+
     }
 }

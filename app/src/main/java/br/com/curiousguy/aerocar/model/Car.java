@@ -6,16 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.curiousguy.aerocar.R;
+import br.com.curiousguy.aerocar.enums.CarType;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import lombok.Getter;
 import lombok.Setter;
 
 public class Car extends RealmObject {
-
-    public enum CarType {
-        SMALL, MEDIUM, BIG, TAXI, UBER
-    }
 
     @PrimaryKey
     @Getter @Setter
@@ -51,5 +48,9 @@ public class Car extends RealmObject {
         }
 
         return errors;
+    }
+
+    public boolean hasType() {
+        return type != null;
     }
 }

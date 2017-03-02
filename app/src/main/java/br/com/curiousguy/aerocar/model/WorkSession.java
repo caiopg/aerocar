@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Random;
 
 import br.com.curiousguy.aerocar.R;
+import br.com.curiousguy.aerocar.enums.Service;
+import br.com.curiousguy.aerocar.enums.Wash;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import lombok.Data;
@@ -19,14 +21,6 @@ public class WorkSession extends RealmObject {
     public WorkSession () {
         Random generator = new Random();
         this.id = generator.nextLong();
-    }
-
-    public enum Service {
-        SANITATION, POLISHING, LITTLE_REPAIRS;
-    }
-
-    public enum Wash {
-        SIMPLE, WAX, RESIN
     }
 
     @PrimaryKey
@@ -73,5 +67,17 @@ public class WorkSession extends RealmObject {
         }
 
         return errors;
+    }
+
+    public boolean hasCar() {
+        return car != null;
+    }
+
+    public boolean hasService() {
+        return !TextUtils.isEmpty(service);
+    }
+
+    public boolean hasWash() {
+        return !TextUtils.isEmpty(wash);
     }
 }

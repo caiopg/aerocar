@@ -11,12 +11,16 @@ import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.db.CarNotFoundException;
 import br.com.curiousguy.aerocar.db.DbFacade;
 import br.com.curiousguy.aerocar.db.RealmFacade;
+import br.com.curiousguy.aerocar.enums.CarType;
+import br.com.curiousguy.aerocar.enums.Service;
+import br.com.curiousguy.aerocar.enums.Wash;
 import br.com.curiousguy.aerocar.model.Car;
 import br.com.curiousguy.aerocar.model.Client;
 import br.com.curiousguy.aerocar.model.WorkSession;
@@ -78,23 +82,23 @@ public class NewCarViewModelImpl implements NewCarViewModel {
     public void onCarTypeChanged (RadioGroup radioGroup, int checkedId) {
         switch (checkedId) {
             case R.id.new_car_small_radiobutton:
-                car.setType(Car.CarType.SMALL);
+                car.setType(CarType.SMALL);
                 hideUberFields();
                 break;
             case R.id.new_car_medium_radiobutton:
-                car.setType(Car.CarType.MEDIUM);
+                car.setType(CarType.MEDIUM);
                 hideUberFields();
                 break;
             case R.id.new_car_big_radiobutton:
-                car.setType(Car.CarType.BIG);
+                car.setType(CarType.BIG);
                 hideUberFields();
                 break;
             case R.id.new_car_taxi_radiobutton:
-                car.setType(Car.CarType.TAXI);
+                car.setType(CarType.TAXI);
                 hideUberFields();
                 break;
             case R.id.car_uber_radiobutton:
-                car.setType(Car.CarType.UBER);
+                car.setType(CarType.UBER);
                 showUberFields();
                 break;
         }
@@ -104,13 +108,13 @@ public class NewCarViewModelImpl implements NewCarViewModel {
     public void onWashChanged (RadioGroup radioGroup, int checkedId) {
         switch (checkedId) {
             case R.id.new_car_simple_radiobutton:
-                workSession.setWash(WorkSession.Wash.SIMPLE);
+                workSession.setWash(Wash.SIMPLE);
                 break;
             case R.id.new_car_wax_radiobutton:
-                workSession.setWash(WorkSession.Wash.WAX);
+                workSession.setWash(Wash.WAX);
                 break;
             case R.id.new_car_resin_radiobutton:
-                workSession.setWash(WorkSession.Wash.RESIN);
+                workSession.setWash(Wash.RESIN);
                 break;
         }
     }
@@ -119,13 +123,13 @@ public class NewCarViewModelImpl implements NewCarViewModel {
     public void onServiceChanged (RadioGroup radioGroup, int checkedId) {
         switch (checkedId) {
             case R.id.new_car_sanitation_radiobutton:
-                workSession.setService(WorkSession.Service.SANITATION);
+                workSession.setService(Service.SANITATION);
                 break;
             case R.id.new_car_polishing_radiobutton:
-                workSession.setService(WorkSession.Service.POLISHING);
+                workSession.setService(Service.POLISHING);
                 break;
             case R.id.new_car_little_repairs_radiobutton:
-                workSession.setService(WorkSession.Service.LITTLE_REPAIRS);
+                workSession.setService(Service.LITTLE_REPAIRS);
                 break;
         }
     }
@@ -192,6 +196,7 @@ public class NewCarViewModelImpl implements NewCarViewModel {
         facade.updateOrSave(car);
 
         workSession.setCar(car);
+        workSession.setEntry(new Date());
         facade.updateOrSave(workSession);
     }
 
