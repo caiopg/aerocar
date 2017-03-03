@@ -1,5 +1,7 @@
 package br.com.curiousguy.aerocar.feature.worksessionlist;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +15,8 @@ import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.databinding.FragmentWorkSessionListBinding;
 import br.com.curiousguy.aerocar.db.DbFacade;
 import br.com.curiousguy.aerocar.db.RealmFacade;
+import br.com.curiousguy.aerocar.enums.RequestCode;
+import br.com.curiousguy.aerocar.feature.main.MainActivity;
 
 public class WorkSessionListFragment extends BaseFragment {
 
@@ -39,5 +43,15 @@ public class WorkSessionListFragment extends BaseFragment {
     private void setupListView(ListView carListView) {
         WorkSessionListAdapter adapter = new WorkSessionListAdapter(getActivity(), dbFacade.fetchAllWorkSessions());
         carListView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(resultCode == Activity.RESULT_OK && requestCode == RequestCode.NEW_CAR.getRequestCode()) {
+            setupListView(binding.workSessionListview);
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

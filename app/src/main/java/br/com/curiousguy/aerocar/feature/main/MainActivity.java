@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import java.util.List;
 import br.com.curiousguy.aerocar.BaseActivity;
 import br.com.curiousguy.aerocar.BaseFragment;
 import br.com.curiousguy.aerocar.R;
+import br.com.curiousguy.aerocar.enums.RequestCode;
 import br.com.curiousguy.aerocar.feature.worksessionlist.WorkSessionListFragment;
 import br.com.curiousguy.aerocar.feature.newcar.NewCarActivity;
 import br.com.curiousguy.aerocar.databinding.ActivityMainBinding;
@@ -56,6 +58,21 @@ public class MainActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callChildOnActivityResult(requestCode, resultCode, data);
+    }
+
+    private void callChildOnActivityResult(int requestCode, int resultCode, Intent data) {
+        ViewPager viewPager = binding.mainViewpager;
+        MainPagerAdapter adapter = (MainPagerAdapter) viewPager.getAdapter();
+
+        for(int i = 0; i < adapter.getCount(); i++) {
+            Fragment fragment = adapter.getItem(i);
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     private void setupBottomNavigationView() {
@@ -125,7 +142,7 @@ public class MainActivity extends BaseActivity {
 
     private void startAddNewCarActivity() {
         Intent intent = NewCarActivity.getStartIntent(this);
-        startActivity(intent);
+        startActivityForResult(intent, RequestCode.NEW_CAR.getRequestCode());
     }
 
 }

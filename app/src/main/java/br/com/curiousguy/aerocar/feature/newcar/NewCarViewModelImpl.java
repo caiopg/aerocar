@@ -180,7 +180,14 @@ public class NewCarViewModelImpl implements NewCarViewModel {
         }
 
         persistData();
-        ((Activity) context).finish();
+        returnToMain();
+    }
+
+    private void returnToMain() {
+        Activity activity = (Activity) this.context;
+
+        activity.setResult(Activity.RESULT_OK);
+        activity.finish();
     }
 
     private void showUberFields() {

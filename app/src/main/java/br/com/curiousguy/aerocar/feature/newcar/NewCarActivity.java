@@ -1,5 +1,6 @@
 package br.com.curiousguy.aerocar.feature.newcar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -41,6 +42,12 @@ public class NewCarActivity extends BaseActivity {
         }
 
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(Activity.RESULT_CANCELED);
+        finish();
     }
 
     private void setupToolbar() {
