@@ -33,8 +33,9 @@ public class RealmFacade implements DbFacade {
     }
 
     @Override
-    public List<WorkSession> fetchAllWorkSessions() {
+    public List<WorkSession> fetchActiveWorkSessions() {
         List<WorkSession> workSessions = realm.where(WorkSession.class)
+                .equalTo("isActive", true)
                 .findAllSorted("entry", Sort.DESCENDING);
 
         return realm.copyFromRealm(workSessions);

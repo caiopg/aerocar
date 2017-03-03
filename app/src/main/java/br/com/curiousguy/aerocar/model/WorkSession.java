@@ -28,6 +28,9 @@ public class WorkSession extends RealmObject {
     private long id;
 
     @Getter @Setter
+    private boolean isActive = true;
+
+    @Getter @Setter
     private Car car;
 
     private String service;

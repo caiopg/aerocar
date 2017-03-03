@@ -16,7 +16,6 @@ import br.com.curiousguy.aerocar.databinding.FragmentWorkSessionListBinding;
 import br.com.curiousguy.aerocar.db.DbFacade;
 import br.com.curiousguy.aerocar.db.RealmFacade;
 import br.com.curiousguy.aerocar.enums.RequestCode;
-import br.com.curiousguy.aerocar.feature.main.MainActivity;
 
 public class WorkSessionListFragment extends BaseFragment {
 
@@ -41,7 +40,7 @@ public class WorkSessionListFragment extends BaseFragment {
     }
 
     private void setupListView(ListView carListView) {
-        WorkSessionListAdapter adapter = new WorkSessionListAdapter(getActivity(), dbFacade.fetchAllWorkSessions());
+        WorkSessionListAdapter adapter = new WorkSessionListAdapter(getActivity(), dbFacade.fetchActiveWorkSessions());
         carListView.setAdapter(adapter);
     }
 

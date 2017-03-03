@@ -12,7 +12,7 @@ public interface DbFacade {
 
     Car fetchCarCopyByPlate(String plate) throws CarNotFoundException;
 
-    List<WorkSession> fetchAllWorkSessions();
+    List<WorkSession> fetchActiveWorkSessions();
 
     Price fetchNewestPriceTable();
 
