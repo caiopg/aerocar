@@ -4,11 +4,9 @@ import br.com.curiousguy.aerocar.model.WorkSession;
 
 public class Pricer {
 
-    public static int price(WorkSession workSession) {
+    public static long price(WorkSession workSession) {
 
-        ALGUMA COISA TA TRAVANDO
-
-        int price = 0;
+        long price = 0;
 
         if(workSession.hasCar() && workSession.getCar().hasType()) {
             price = price + workSession.getCar().getType().getPrice();

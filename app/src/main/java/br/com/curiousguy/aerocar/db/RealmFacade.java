@@ -37,7 +37,7 @@ public class RealmFacade implements DbFacade {
         List<WorkSession> workSessions = realm.where(WorkSession.class)
                 .findAllSorted("entry", Sort.DESCENDING);
 
-        return workSessions;
+        return realm.copyFromRealm(workSessions);
     }
 
     @Override
@@ -45,7 +45,11 @@ public class RealmFacade implements DbFacade {
         Price price = realm.where(Price.class)
                 .findFirst();
 
-        return price;
+        if(price == null) {
+            return null;
+        }
+
+        return realm.copyFromRealm(price);
     }
 
     @Override

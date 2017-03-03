@@ -2,6 +2,9 @@ package br.com.curiousguy.aerocar;
 
 import android.app.Application;
 
+import br.com.curiousguy.aerocar.db.DbFacade;
+import br.com.curiousguy.aerocar.db.RealmFacade;
+import br.com.curiousguy.aerocar.model.Price;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -11,6 +14,8 @@ public class AeroCarApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initializeRealm();
+
+        createDefaultPriceTableIfNecessary();
     }
 
     private void initializeRealm() {
@@ -18,6 +23,15 @@ public class AeroCarApplication extends Application {
         RealmConfiguration config = new RealmConfiguration.Builder().build();
 
         Realm.setDefaultConfiguration(config);
+    }
+
+    private void createDefaultPriceTableIfNecessary() {
+        DbFacade facade = new RealmFacade();
+        Price price = facade.fetchNewestPriceTable();
+
+        if(price == null) {
+            facade.updateOrSave(new Price());
+        }
     }
 
 }

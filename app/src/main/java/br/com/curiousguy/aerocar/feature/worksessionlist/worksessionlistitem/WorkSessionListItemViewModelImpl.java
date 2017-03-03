@@ -2,6 +2,10 @@ package br.com.curiousguy.aerocar.feature.worksessionlist.worksessionlistitem;
 
 import android.content.Context;
 import android.databinding.ObservableField;
+import android.support.v4.content.ContextCompat;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.model.WorkSession;
@@ -10,9 +14,9 @@ import br.com.curiousguy.aerocar.util.Pricer;
 public class WorkSessionListItemViewModelImpl implements WorkSessionListItemViewModel {
 
     public final ObservableField<String> paymentStatus = new ObservableField<>();
+    public final ObservableField<Integer> paymentStatusColor = new ObservableField<>();
     public final ObservableField<String> plate = new ObservableField<>();
     public final ObservableField<String> price = new ObservableField<>();
-    public final ObservableField<Integer> paymentStatusColor = new ObservableField<>();
 
     private WorkSession workSession;
     private Context context;
@@ -26,17 +30,20 @@ public class WorkSessionListItemViewModelImpl implements WorkSessionListItemView
 
     @Override
     public void populateItem() {
-        //todo fix color of strings
         populatePaymentStatus();
         populatePlate();
         populatePrice();
 
-
     }
 
     private void populatePrice() {
-        //todo set em reais.
-        price.set(String.valueOf(Pricer.price(workSession)));
+        NumberFormat real = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
+        String priceInReal = real.format(Pricer.price(workSession));
+        String unformattedPrice = context.getString(R.string.item_car_list_price);
+        String formattedPrice = String.format(unformattedPrice, priceInReal);
+
+        price.set(formattedPrice);
     }
 
     private void populatePlate() {
@@ -54,8 +61,6 @@ public class WorkSessionListItemViewModelImpl implements WorkSessionListItemView
         paymentStatus.set(paymentStatusText);
 
         int colorId = workSession.isPayed() ? R.color.green : R.color.red;
-
-        paymentStatusColor.set(colorId);
-
+        paymentStatusColor.set(ContextCompat.getColor(context, colorId));
     }
 }
