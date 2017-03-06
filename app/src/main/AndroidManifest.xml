@@ -24,7 +24,7 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name="br.com.curiousguy.aerocar.feature.newcar.NewCarActivity"
+            android:name="br.com.curiousguy.aerocar.feature.newworksession.NewWorkSessionActivity"
             android:screenOrientation="portrait"/>
 
     </application>

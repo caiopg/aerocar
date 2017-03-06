@@ -20,7 +20,7 @@ import br.com.curiousguy.aerocar.BaseFragment;
 import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.enums.RequestCode;
 import br.com.curiousguy.aerocar.feature.worksessionlist.WorkSessionListFragment;
-import br.com.curiousguy.aerocar.feature.newcar.NewCarActivity;
+import br.com.curiousguy.aerocar.feature.newworksession.NewWorkSessionActivity;
 import br.com.curiousguy.aerocar.databinding.ActivityMainBinding;
 import br.com.curiousguy.aerocar.feature.report.ReportFragment;
 import br.com.curiousguy.aerocar.feature.settings.SettingsFragment;
@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_add_car) {
-            startAddNewCarActivity();
+            startAddNewWorkSessionActivity();
 
             return true;
         }
@@ -140,9 +140,9 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(toolbar);
     }
 
-    private void startAddNewCarActivity() {
-        Intent intent = NewCarActivity.getStartIntent(this);
-        startActivityForResult(intent, RequestCode.NEW_CAR.getRequestCode());
+    private void startAddNewWorkSessionActivity() {
+        Intent intent = NewWorkSessionActivity.getStartIntent(this);
+        startActivityForResult(intent, RequestCode.NEW_WORK_SESSION.getRequestCode());
     }
 
 }

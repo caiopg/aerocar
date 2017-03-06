@@ -1,4 +1,4 @@
-package br.com.curiousguy.aerocar.feature.newcar;
+package br.com.curiousguy.aerocar.feature.newworksession;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,15 +10,15 @@ import android.view.MenuItem;
 
 import br.com.curiousguy.aerocar.BaseActivity;
 import br.com.curiousguy.aerocar.R;
-import br.com.curiousguy.aerocar.databinding.ActivityNewCarBinding;
+import br.com.curiousguy.aerocar.databinding.ActivityNewWorkSessionBinding;
 
-public class NewCarActivity extends BaseActivity {
+public class NewWorkSessionActivity extends BaseActivity {
 
-    ActivityNewCarBinding binding;
-    NewCarViewModelImpl viewModel;
+    ActivityNewWorkSessionBinding binding;
+    NewWorkSessionViewModelImpl viewModel;
 
     public static Intent getStartIntent(Context context) {
-        Intent intent = new Intent(context, NewCarActivity.class);
+        Intent intent = new Intent(context, NewWorkSessionActivity.class);
 
         return intent;
     }
@@ -27,8 +27,8 @@ public class NewCarActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_new_car);
-        viewModel = new NewCarViewModelImpl(this);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_new_work_session);
+        viewModel = new NewWorkSessionViewModelImpl(this);
         binding.setViewModel(viewModel);
 
         setupToolbar();
@@ -51,11 +51,11 @@ public class NewCarActivity extends BaseActivity {
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = binding.newCarToolbar.toolbar;
+        Toolbar toolbar = binding.newWorkSessionToolbar.toolbar;
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.new_car_toolbar_title));
+        getSupportActionBar().setTitle(getString(R.string.new_work_session_toolbar_title));
     }
 
 }

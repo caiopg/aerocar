@@ -29,11 +29,11 @@
         <item name="android:singleLine">true</item>
     </style>
 
-    <style name="NewCarRadioButton">
+    <style name="NewWorkSessionRadioButton">
         <item name="android:gravity">center</item>
         <item name="android:padding">10dp</item>
-        <item name="android:background">@drawable/new_car_radiobutton_state_selector</item>
-        <item name="android:textColor">@drawable/new_car_radiobutton_textcolor_state_selector</item>
+        <item name="android:background">@drawable/new_work_session_radiobutton_state_selector</item>
+        <item name="android:textColor">@drawable/new_work_session_radiobutton_textcolor_state_selector</item>
         <item name="android:button">@null</item>
         <item name="android:textSize">24dp</item>
     </style>

@@ -66,7 +66,7 @@ public class WorkSession extends RealmObject {
         ArrayList<Integer> errors = new ArrayList<>();
 
         if(TextUtils.isEmpty(service) && TextUtils.isEmpty(wash)) {
-            errors.add(R.string.new_car_error_no_work);
+            errors.add(R.string.new_work_session_error_no_work);
         }
 
         return errors;

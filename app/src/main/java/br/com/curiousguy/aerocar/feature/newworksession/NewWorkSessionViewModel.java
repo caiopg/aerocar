@@ -1,8 +1,8 @@
-package br.com.curiousguy.aerocar.feature.newcar;
+package br.com.curiousguy.aerocar.feature.newworksession;
 
 import android.widget.RadioGroup;
 
-public interface NewCarViewModel {
+public interface NewWorkSessionViewModel {
 
     void onOkClicked();
 

@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="br.com.curiousguy.aerocar.feature.newcar.NewCarViewModelImpl"/>
+            type="br.com.curiousguy.aerocar.feature.newworksession.NewWorkSessionViewModelImpl"/>
     </data>
 
     <LinearLayout
@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <include
-            android:id="@+id/new_car_toolbar"
+            android:id="@+id/new_work_session_toolbar"
             layout="@layout/toolbar_default" />
 
         <ScrollView
@@ -33,7 +33,7 @@
                     style="@style/InputTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/new_car.plate" />
+                    android:text="@string/new_work_session.plate" />
 
                 <EditText
                     style="@style/Input"
@@ -41,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLength="7"
-                    android:hint="@string/new_car.plate.hint"
+                    android:hint="@string/new_work_session.plate.hint"
                     android:text="@={viewModel.plate}"
                     android:onTextChanged="@{viewModel::onPlateTextChanged}"/>
 
@@ -50,14 +50,14 @@
                     android:layout_marginTop="24dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/new_car.client_name"/>
+                    android:text="@string/new_work_session.client_name"/>
 
                 <EditText
                     style="@style/Input"
                     android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/new_car.client_name.hint"
+                    android:hint="@string/new_work_session.client_name.hint"
                     android:text="@={viewModel.clientName}"
                     android:onTextChanged="@{viewModel::onClientNameTextChanged}"/>
 
@@ -66,7 +66,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/new_car.client_tel"/>
+                    android:text="@string/new_work_session.client_tel"/>
 
                 <EditText
                     style="@style/Input"
@@ -74,7 +74,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLength="11"
-                    android:hint="@string/new_car.client_tel.hint"
+                    android:hint="@string/new_work_session.client_tel.hint"
                     android:text="@={viewModel.clientTel}"
                     android:onTextChanged="@{viewModel::onClientTelTextChanged}"
                     android:inputType="numberDecimal"/>
@@ -84,7 +84,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/new_car.type"/>
+                    android:text="@string/new_work_session.type"/>
 
                 <RadioGroup
                     android:orientation="horizontal"
@@ -96,52 +96,52 @@
                     android:onCheckedChanged="@{viewModel::onCarTypeChanged}">
 
                     <RadioButton
-                        style="@style/NewCarRadioButton"
-                        android:id="@+id/new_car_small_radiobutton"
+                        style="@style/NewWorkSessionRadioButton"
+                        android:id="@+id/new_work_session_small_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/new_car.type.small"
+                        android:text="@string/new_work_session.type.small"
                         android:checked="@{viewModel.isSmallChecked}"/>
 
                     <RadioButton
-                        style="@style/NewCarRadioButton"
-                        android:id="@+id/new_car_medium_radiobutton"
+                        style="@style/NewWorkSessionRadioButton"
+                        android:id="@+id/new_work_session_medium_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:text="@string/new_car.type.medium"
+                        android:text="@string/new_work_session.type.medium"
                         android:checked="@{viewModel.isMediumChecked}"/>
 
                     <RadioButton
-                        style="@style/NewCarRadioButton"
-                        android:id="@+id/new_car_big_radiobutton"
+                        style="@style/NewWorkSessionRadioButton"
+                        android:id="@+id/new_work_session_big_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:text="@string/new_car.type.big"
+                        android:text="@string/new_work_session.type.big"
                         android:checked="@{viewModel.isBigChecked}"/>
 
                     <RadioButton
-                        style="@style/NewCarRadioButton"
-                        android:id="@+id/new_car_taxi_radiobutton"
+                        style="@style/NewWorkSessionRadioButton"
+                        android:id="@+id/new_work_session_taxi_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:text="@string/new_car.type.taxi"
+                        android:text="@string/new_work_session.type.taxi"
                         android:checked="@{viewModel.isTaxiChecked}"/>
 
                     <RadioButton
-                        style="@style/NewCarRadioButton"
+                        style="@style/NewWorkSessionRadioButton"
                         android:id="@+id/car_uber_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:text="@string/new_car.type.uber"
+                        android:text="@string/new_work_session.type.uber"
                         android:checked="@{viewModel.isUberChecked}"/>
 
                 </RadioGroup>
@@ -152,7 +152,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/new_car.uber_registry"/>
+                    android:text="@string/new_work_session.uber_registry"/>
 
                 <EditText
                     android:visibility="@{viewModel.uberRegisterVisibility}"
@@ -160,7 +160,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/new_car.uber_registry.hint"
+                    android:hint="@string/new_work_session.uber_registry.hint"
                     android:text="@={viewModel.uberRegistry}"
                     android:onTextChanged="@{viewModel::onUberRegistryTextChanged}"/>
 
@@ -169,7 +169,7 @@
                     android:layout_marginTop="19dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/new_car.wash"/>
+                    android:text="@string/new_work_session.wash"/>
 
                 <RadioGroup
                     android:orientation="horizontal"
@@ -181,30 +181,30 @@
                     android:onCheckedChanged="@{viewModel::onWashChanged}">
 
                     <RadioButton
-                        style="@style/NewCarRadioButton"
-                        android:id="@+id/new_car_simple_radiobutton"
+                        style="@style/NewWorkSessionRadioButton"
+                        android:id="@+id/new_work_session_simple_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/new_car.wash.simple"/>
+                        android:text="@string/new_work_session.wash.simple"/>
 
                     <RadioButton
-                        style="@style/NewCarRadioButton"
-                        android:id="@+id/new_car_wax_radiobutton"
+                        style="@style/NewWorkSessionRadioButton"
+                        android:id="@+id/new_work_session_wax_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:text="@string/new_car.wash.wax"/>
+                        android:text="@string/new_work_session.wash.wax"/>
 
                     <RadioButton
-                        style="@style/NewCarRadioButton"
-                        android:id="@+id/new_car_resin_radiobutton"
+                        style="@style/NewWorkSessionRadioButton"
+                        android:id="@+id/new_work_session_resin_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:text="@string/new_car.wash.resin"/>
+                        android:text="@string/new_work_session.wash.resin"/>
 
                 </RadioGroup>
 
@@ -213,7 +213,7 @@
                     android:layout_marginTop="19dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/new_car.services"/>
+                    android:text="@string/new_work_session.services"/>
 
                 <RadioGroup
                     android:orientation="horizontal"
@@ -225,30 +225,30 @@
                     android:onCheckedChanged="@{viewModel::onServiceChanged}">
 
                     <RadioButton
-                        style="@style/NewCarRadioButton"
-                        android:id="@+id/new_car_sanitation_radiobutton"
+                        style="@style/NewWorkSessionRadioButton"
+                        android:id="@+id/new_work_session_sanitation_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/new_car.services.sanitation"/>
+                        android:text="@string/new_work_session.services.sanitation"/>
 
                     <RadioButton
-                        style="@style/NewCarRadioButton"
-                        android:id="@+id/new_car_polishing_radiobutton"
+                        style="@style/NewWorkSessionRadioButton"
+                        android:id="@+id/new_work_session_polishing_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:text="@string/new_car.services.polishing"/>
+                        android:text="@string/new_work_session.services.polishing"/>
 
                     <RadioButton
-                        style="@style/NewCarRadioButton"
-                        android:id="@+id/new_car_little_repairs_radiobutton"
+                        style="@style/NewWorkSessionRadioButton"
+                        android:id="@+id/new_work_session_little_repairs_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:text="@string/new_car.services.little_repairs"/>
+                        android:text="@string/new_work_session.services.little_repairs"/>
 
                 </RadioGroup>
 
@@ -261,7 +261,7 @@
                     android:backgroundTint="@color/blue_light"
                     android:textColor="@color/white"
                     android:textSize="24dp"
-                    android:text="@string/new_car.finished"
+                    android:text="@string/new_work_session.finished"
                     android:onClick="@{() -> viewModel.onOkClicked()}"/>
 
             </LinearLayout>

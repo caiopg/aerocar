@@ -38,13 +38,13 @@ public class Car extends RealmObject {
         ArrayList<Integer> errors = new ArrayList<>();
 
         if(TextUtils.isEmpty(plate)) {
-            errors.add(R.string.new_car_error_no_plate);
+            errors.add(R.string.new_work_session_error_no_plate);
         }
 
         if(TextUtils.isEmpty(type)) {
-            errors.add(R.string.new_car_error_no_car_type);
+            errors.add(R.string.new_work_session_error_no_car_type);
         } else if(type.equals(String.valueOf(CarType.UBER)) && TextUtils.isEmpty(uberRegistry)) {
-            errors.add(R.string.new_car_error_no_uber_register);
+            errors.add(R.string.new_work_session_error_no_uber_register);
         }
 
         return errors;

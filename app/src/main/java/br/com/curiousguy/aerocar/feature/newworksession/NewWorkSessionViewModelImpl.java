@@ -1,4 +1,4 @@
-package br.com.curiousguy.aerocar.feature.newcar;
+package br.com.curiousguy.aerocar.feature.newworksession;
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,7 +26,7 @@ import br.com.curiousguy.aerocar.model.Client;
 import br.com.curiousguy.aerocar.model.WorkSession;
 import lombok.val;
 
-public class NewCarViewModelImpl implements NewCarViewModel {
+public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
 
     public static final int SEARCH_DELAY_IN_MILLIS = 2000;
     public static final int TEXT_CHANGED_DELAY_IN_MILLIS = 250;
@@ -60,10 +60,10 @@ public class NewCarViewModelImpl implements NewCarViewModel {
 
                 updateFields();
 
-                String carFound = context.getString(R.string.new_car_toast_car_found);
+                String carFound = context.getString(R.string.new_work_session_toast_car_found);
                 showToast(carFound);
             } catch (CarNotFoundException e) {
-                String carNotFound = context.getString(R.string.new_car_toast_car_not_found);
+                String carNotFound = context.getString(R.string.new_work_session_toast_car_not_found);
                 showToast(carNotFound);
             } finally {
                 plate.set(plate.get().toUpperCase());
@@ -74,26 +74,26 @@ public class NewCarViewModelImpl implements NewCarViewModel {
 
     Context context;
 
-    public NewCarViewModelImpl (Context context) {
+    public NewWorkSessionViewModelImpl(Context context) {
         this.context = context;
     }
 
     @Override
     public void onCarTypeChanged (RadioGroup radioGroup, int checkedId) {
         switch (checkedId) {
-            case R.id.new_car_small_radiobutton:
+            case R.id.new_work_session_small_radiobutton:
                 car.setType(CarType.SMALL);
                 hideUberFields();
                 break;
-            case R.id.new_car_medium_radiobutton:
+            case R.id.new_work_session_medium_radiobutton:
                 car.setType(CarType.MEDIUM);
                 hideUberFields();
                 break;
-            case R.id.new_car_big_radiobutton:
+            case R.id.new_work_session_big_radiobutton:
                 car.setType(CarType.BIG);
                 hideUberFields();
                 break;
-            case R.id.new_car_taxi_radiobutton:
+            case R.id.new_work_session_taxi_radiobutton:
                 car.setType(CarType.TAXI);
                 hideUberFields();
                 break;
@@ -107,13 +107,13 @@ public class NewCarViewModelImpl implements NewCarViewModel {
     @Override
     public void onWashChanged (RadioGroup radioGroup, int checkedId) {
         switch (checkedId) {
-            case R.id.new_car_simple_radiobutton:
+            case R.id.new_work_session_simple_radiobutton:
                 workSession.setWash(Wash.SIMPLE);
                 break;
-            case R.id.new_car_wax_radiobutton:
+            case R.id.new_work_session_wax_radiobutton:
                 workSession.setWash(Wash.WAX);
                 break;
-            case R.id.new_car_resin_radiobutton:
+            case R.id.new_work_session_resin_radiobutton:
                 workSession.setWash(Wash.RESIN);
                 break;
         }
@@ -122,13 +122,13 @@ public class NewCarViewModelImpl implements NewCarViewModel {
     @Override
     public void onServiceChanged (RadioGroup radioGroup, int checkedId) {
         switch (checkedId) {
-            case R.id.new_car_sanitation_radiobutton:
+            case R.id.new_work_session_sanitation_radiobutton:
                 workSession.setService(Service.SANITATION);
                 break;
-            case R.id.new_car_polishing_radiobutton:
+            case R.id.new_work_session_polishing_radiobutton:
                 workSession.setService(Service.POLISHING);
                 break;
-            case R.id.new_car_little_repairs_radiobutton:
+            case R.id.new_work_session_little_repairs_radiobutton:
                 workSession.setService(Service.LITTLE_REPAIRS);
                 break;
         }
@@ -220,18 +220,18 @@ public class NewCarViewModelImpl implements NewCarViewModel {
     }
 
     private void showErrors(List<Integer> errorIds) {
-        String title = context.getString(R.string.new_car_error_title);
+        String title = context.getString(R.string.new_work_session_error_title);
         String content = assembleErrorContent(errorIds);
 
         new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(content)
-                .setNeutralButton(R.string.new_car_error_ok, null)
+                .setNeutralButton(R.string.new_work_session_error_ok, null)
                 .show();
     }
 
     private String assembleErrorContent(List<Integer> errorIds) {
-        String content = context.getString(R.string.new_car_error_content);
+        String content = context.getString(R.string.new_work_session_error_content);
         for(int errorId : errorIds) {
             content = content.concat(context.getString(errorId));
         }
