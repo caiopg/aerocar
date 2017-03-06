@@ -7,37 +7,33 @@
     android:layout_height="match_parent"
     android:background="@color/grey_light">
 
-    <include
-        android:id="@+id/new_work_session_toolbar"
-        layout="@layout/toolbar_default" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 style="@style/TextTitle.Big"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
                 android:layout_gravity="center"
-                tools:text="Dados" />
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/close_work_session.data" />
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin">
+                android:paddingTop="@dimen/activity_vertical_margin">
 
                 <TextView
                     style="@style/TextTitle"
@@ -57,6 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:textStyle="bold"
                     tools:text="Uber" />
 
                 <TextView
@@ -72,10 +69,10 @@
                 style="@style/TextTitle.Big"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
                 android:layout_gravity="center"
-                tools:text="Valores" />
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/close_work_session.values" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -162,55 +159,55 @@
                 style="@style/TextTitle.Big"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
                 android:layout_gravity="center"
-                tools:text="Pagamento" />
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/close_work_session.payment" />
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin">
+                android:paddingTop="@dimen/activity_vertical_margin">
 
                 <TextView
                     style="@style/TextTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    tools:text="Meio de Pagamento" />
+                    android:text="@string/close_work_session.payment.mode" />
 
                 <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:weightSum="3"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
                     <RadioButton
                         style="@style/TextTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        tools:text="Dinheiro"/>
+                        android:text="@string/close_work_session.payment.mode.money" />
 
                     <RadioButton
                         style="@style/TextTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        tools:text="Cartão"/>
+                        android:text="@string/close_work_session.payment.mode.card" />
 
                     <RadioButton
                         style="@style/TextTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        tools:text="Cheque"/>
+                        android:text="@string/close_work_session.payment.mode.check" />
 
                 </RadioGroup>
 
@@ -219,69 +216,59 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    tools:text="Valor pago"/>
+                    android:text="@string/close_work_session.payment.plus" />
 
                 <EditText
                     style="@style/Input"
-                    android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLength="7" />
-
-                <TextView
-                    style="@style/InputTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    tools:text="Gorjeta"/>
-
-                <EditText
-                    style="@style/Input"
                     android:layout_marginTop="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:maxLength="7" />
 
             </LinearLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:weightSum="2">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:weightSum="2">
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginTop="30dp"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp"
-                android:backgroundTint="@color/blue_light"
-                android:textColor="@color/white"
-                android:textSize="24dp"
-                tools:text="Pagou e retirou carro"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/blue_light"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    android:textColor="@color/white"
+                    android:textSize="24dp"
+                    android:text="@string/close_work_session.button.pay_and_retreive" />
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginTop="30dp"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp"
-                android:backgroundTint="@color/blue_light"
-                android:textColor="@color/white"
-                android:textSize="24dp"
-                tools:text="Só pagou"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/blue_light"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    android:textColor="@color/white"
+                    android:textSize="24dp"
+                    android:text="@string/close_work_session.button.only_pay" />
 
             </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
+
+    <include
+        android:id="@+id/new_work_session_toolbar"
+        layout="@layout/toolbar_default" />
 
 </LinearLayout>
