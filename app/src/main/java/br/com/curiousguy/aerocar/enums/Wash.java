@@ -1,34 +1,17 @@
 package br.com.curiousguy.aerocar.enums;
 
-import br.com.curiousguy.aerocar.db.DbFacade;
-import br.com.curiousguy.aerocar.db.RealmFacade;
-import br.com.curiousguy.aerocar.model.Price;
 import br.com.curiousguy.aerocar.util.Pricer;
+import lombok.Getter;
 
-public enum Wash implements Pricer.Priced {
-    SIMPLE {
-        @Override
-        public int getPrice() {
-            return 0;
-        }
-    },
-    WAX {
-        @Override
-        public int getPrice() {
-            Price price = getPriceTable();
-            return price.getAdditionalWax();
-        }
-    },
-    RESIN {
-        @Override
-        public int getPrice() {
-            Price price = getPriceTable();
-            return price.getAdditionalResin();
-        }
-    };
+public enum Wash {
+    SIMPLE ("Simples"),
+    WAX ("Cera"),
+    RESIN ("Resina");
 
-    private static Price getPriceTable() {
-        DbFacade facade = new RealmFacade();
-        return facade.fetchNewestPriceTable();
+    @Getter
+    private String name;
+
+    Wash(String name) {
+        this.name = name;
     }
 }

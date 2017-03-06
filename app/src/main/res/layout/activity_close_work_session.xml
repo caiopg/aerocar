@@ -111,10 +111,11 @@
                     android:paddingTop="@dimen/activity_vertical_margin">
 
                     <TextView
-                        android:id="@+id/close_work_session_wash"
+                        android:id="@+id/close_work_session_car_type"
                         style="@style/TextTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@{viewModel.carType}"
                         tools:text="Lavagem: Carro pequeno" />
 
                     <TextView
@@ -125,12 +126,14 @@
                         tools:text="R$30,00" />
 
                     <TextView
+                        android:visibility="@{viewModel.washVisibility}"
                         android:id="@+id/close_work_session_additionals"
                         style="@style/TextTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/close_work_session_wash"
+                        android:layout_below="@id/close_work_session_car_type"
                         android:layout_marginTop="8dp"
+                        android:text="@{viewModel.wash}"
                         tools:text="Adicionais: Com cera" />
 
                     <TextView
@@ -138,17 +141,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_below="@id/close_work_session_wash"
+                        android:layout_below="@id/close_work_session_car_type"
                         android:layout_marginTop="8dp"
                         tools:text="R$4,00" />
 
                     <TextView
+                        android:visibility="@{viewModel.serviceVisibility}"
                         android:id="@+id/close_work_session_services"
                         style="@style/TextTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/close_work_session_additionals"
                         android:layout_marginTop="8dp"
+                        android:text="@{viewModel.service}"
                         tools:text="Serviços: Pequenos Reparos" />
 
                     <TextView

@@ -19,10 +19,18 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
     public final ObservableField<String> clientTel = new ObservableField<>();
     public final ObservableField<String> specialCar = new ObservableField<>();
     public final ObservableField<String> entry = new ObservableField<>();
+    public final ObservableField<String> carType = new ObservableField<>();
+    public final ObservableField<String> wash = new ObservableField<>();
+    public final ObservableField<String> service = new ObservableField<>();
+    public final ObservableField<String> carTypePrice = new ObservableField<>();
+    public final ObservableField<String> washPrice = new ObservableField<>();
+    public final ObservableField<String> servicePrice = new ObservableField<>();
 
     public final ObservableInt clientNameVisibility = new ObservableInt();
     public final ObservableInt clientTelVisibility = new ObservableInt();
     public final ObservableInt specialCarVisibility = new ObservableInt();
+    public final ObservableInt washVisibility = new ObservableInt();
+    public final ObservableInt serviceVisibility = new ObservableInt();
 
     private Context context;
     private WorkSession workSession;
@@ -38,7 +46,45 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
     public void populateScreen() {
         Car car = workSession.getCar();
         populateData(car);
+        populateValues(car);
+    }
 
+    private void populateValues(Car car) {
+        populateCarType(car);
+
+        //todo populate prices
+
+        if(workSession.hasWash()) {
+            washVisibility.set(View.VISIBLE);
+            populateWash();
+        } else {
+            washVisibility.set(View.GONE);
+        }
+
+        if(workSession.hasService()) {
+            serviceVisibility.set(View.VISIBLE);
+            populateService();
+        } else {
+            serviceVisibility.set(View.GONE);
+        }
+    }
+
+    private void populateService() {
+        String unformattedService = context.getString(R.string.close_work_session_values_service);
+        String formattedService = String.format(unformattedService, workSession.getService().getName());
+        service.set(formattedService);
+    }
+
+    private void populateWash() {
+        String unformattedWash = context.getString(R.string.close_work_session_values_wash);
+        String formattedWash = String.format(unformattedWash, workSession.getWash().getName());
+        wash.set(formattedWash);
+    }
+
+    private void populateCarType(Car car) {
+        String unformattedCarType = context.getString(R.string.close_work_session_values_car_type);
+        String formattedCarType = String.format(unformattedCarType, car.getType().getName());
+        carType.set(formattedCarType);
     }
 
     private void populateData(Car car) {

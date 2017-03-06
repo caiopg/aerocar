@@ -5,6 +5,7 @@ import br.com.curiousguy.aerocar.model.WorkSession;
 
 public class Pricer {
 
+    //todo redo -> no cartype
     public static long price(WorkSession workSession) {
 
         long price = 0;
@@ -27,6 +28,11 @@ public class Pricer {
     }
 
     public interface Priced {
-        int getPrice();
+        int getSimplePrice();
+        int getWaxPrice();
+        int getResinPrice();
+        int getSanitationPrice();
+        int getPolishingPrice();
+        int getLittleRepairsPrice();
     }
 }
