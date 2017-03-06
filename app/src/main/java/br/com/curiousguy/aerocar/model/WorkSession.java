@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Random;
 
 import br.com.curiousguy.aerocar.R;
+import br.com.curiousguy.aerocar.enums.CarType;
 import br.com.curiousguy.aerocar.enums.Service;
 import br.com.curiousguy.aerocar.enums.Wash;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -70,10 +70,6 @@ public class WorkSession extends RealmObject {
         }
 
         return errors;
-    }
-
-    public boolean hasCar() {
-        return car != null;
     }
 
     public boolean hasService() {

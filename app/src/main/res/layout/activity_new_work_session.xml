@@ -181,6 +181,7 @@
                     android:onCheckedChanged="@{viewModel::onWashChanged}">
 
                     <RadioButton
+                        android:visibility="@{viewModel.simpleVisibility}"
                         style="@style/NewWorkSessionRadioButton"
                         android:id="@+id/new_work_session_simple_radiobutton"
                         android:layout_width="wrap_content"
@@ -195,7 +196,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:text="@string/new_work_session.wash.wax"/>
+                        android:text="@string/new_work_session.wash.wax"
+                        android:checked="@{viewModel.isWaxChecked}"/>
 
                     <RadioButton
                         style="@style/NewWorkSessionRadioButton"

@@ -42,6 +42,11 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
     public final ObservableField<Boolean> isTaxiChecked = new ObservableField<>(false);
     public final ObservableField<Boolean> isUberChecked = new ObservableField<>(false);
 
+    public final ObservableField<Boolean> isWaxChecked = new ObservableField<>(false);
+
+    public final ObservableField<Boolean> isSimpleEnabled = new ObservableField<>(true);
+
+    public final ObservableInt simpleVisibility = new ObservableInt(View.VISIBLE);
     public final ObservableInt uberRegisterVisibility = new ObservableInt(View.GONE);
 
     private DbFacade facade = new RealmFacade();
@@ -84,24 +89,43 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
             case R.id.new_work_session_small_radiobutton:
                 car.setType(CarType.SMALL);
                 hideUberFields();
+                enableSimple();
                 break;
             case R.id.new_work_session_medium_radiobutton:
                 car.setType(CarType.MEDIUM);
                 hideUberFields();
+                enableSimple();
                 break;
             case R.id.new_work_session_big_radiobutton:
                 car.setType(CarType.BIG);
                 hideUberFields();
+                enableSimple();
                 break;
             case R.id.new_work_session_taxi_radiobutton:
                 car.setType(CarType.TAXI);
                 hideUberFields();
+                checkWax();
+                disableSimple();
                 break;
             case R.id.car_uber_radiobutton:
                 car.setType(CarType.UBER);
                 showUberFields();
+                checkWax();
+                disableSimple();
                 break;
         }
+    }
+
+    private void disableSimple() {
+        simpleVisibility.set(View.GONE);
+    }
+
+    private void enableSimple() {
+        simpleVisibility.set(View.VISIBLE);
+    }
+
+    private void checkWax() {
+        isWaxChecked.set(true);
     }
 
     @Override
