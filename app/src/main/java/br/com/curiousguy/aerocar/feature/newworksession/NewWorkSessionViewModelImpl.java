@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.db.CarNotFoundException;
@@ -44,15 +45,13 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
 
     public final ObservableField<Boolean> isWaxChecked = new ObservableField<>(false);
 
-    public final ObservableField<Boolean> isSimpleEnabled = new ObservableField<>(true);
-
     public final ObservableInt simpleVisibility = new ObservableInt(View.VISIBLE);
     public final ObservableInt uberRegisterVisibility = new ObservableInt(View.GONE);
 
     private DbFacade facade = new RealmFacade();
     Handler handler = new Handler();
     private Car car = new Car();
-    private WorkSession workSession = new WorkSession();
+    private WorkSession workSession = WorkSession.build();
     private Client client = new Client();
     private Runnable searchCar = new Runnable() {
         @Override
@@ -181,7 +180,7 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                client.setTelefone(clientTel.get());
+                client.setTelephone(clientTel.get());
             }
         }, TEXT_CHANGED_DELAY_IN_MILLIS);
     }
@@ -272,8 +271,8 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
             clientName.set(client.getName());
         }
 
-        if(!TextUtils.isEmpty(client.getTelefone())) {
-            clientTel.set(client.getTelefone());
+        if(!TextUtils.isEmpty(client.getTelephone())) {
+            clientTel.set(client.getTelephone());
         }
     }
 

@@ -1,274 +1,299 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<layout
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/grey_light">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ScrollView
+    <data>
+        <variable
+            name="viewModel"
+            type="br.com.curiousguy.aerocar.feature.closeworksession.CloseWorkSessionViewModelImpl"/>
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/grey_light">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/TextTitle.Big"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:text="@string/close_work_session.data" />
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/new_work_session_toolbar"
+                    layout="@layout/toolbar_default" />
 
                 <TextView
-                    style="@style/TextTitle"
+                    style="@style/TextTitle.Big"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Placa: ABC1234" />
+                    android:layout_gravity="center"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:text="@string/close_work_session.data" />
 
-                <TextView
-                    style="@style/TextTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    tools:text="Nome: Caio Pontes Gandra" />
-
-                <TextView
-                    style="@style/TextTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textStyle="bold"
-                    tools:text="Uber" />
-
-                <TextView
-                    style="@style/TextTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    tools:text="Entrada: 01/03/2016 - 13:00" />
-
-            </LinearLayout>
-
-            <TextView
-                style="@style/TextTitle.Big"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:text="@string/close_work_session.values" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin">
-
-                <TextView
-                    android:id="@+id/close_work_session_wash"
-                    style="@style/TextTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="Lavagem: Carro pequeno" />
-
-                <TextView
-                    style="@style/TextTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    tools:text="R$30,00" />
-
-                <TextView
-                    android:id="@+id/close_work_session_additionals"
-                    style="@style/TextTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/close_work_session_wash"
-                    android:layout_marginTop="8dp"
-                    tools:text="Adicionais: Com cera" />
-
-                <TextView
-                    style="@style/TextTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@id/close_work_session_wash"
-                    android:layout_marginTop="8dp"
-                    tools:text="R$4,00" />
-
-                <TextView
-                    android:id="@+id/close_work_session_services"
-                    style="@style/TextTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/close_work_session_additionals"
-                    android:layout_marginTop="8dp"
-                    tools:text="Serviços: Pequenos Reparos" />
-
-                <TextView
-                    style="@style/TextTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@id/close_work_session_additionals"
-                    android:layout_marginTop="8dp"
-                    tools:text="R$20,00" />
-
-                <TextView
-                    style="@style/TextTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:textStyle="bold"
-                    tools:text="Total" />
-
-                <TextView
-                    style="@style/TextTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@id/close_work_session_services"
-                    android:layout_marginTop="24dp"
-                    android:textStyle="bold"
-                    tools:text="R$54,00" />
-
-            </RelativeLayout>
-
-            <TextView
-                style="@style/TextTitle.Big"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:text="@string/close_work_session.payment" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin">
-
-                <TextView
-                    style="@style/TextTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/close_work_session.payment.mode" />
-
-                <RadioGroup
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin">
+
+                    <TextView
+                        style="@style/TextTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.plate}"
+                        tools:text="Placa: ABC1234" />
+
+                    <TextView
+                        style="@style/TextTitle"
+                        android:visibility="@{viewModel.clientNameVisibility}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@{viewModel.clientName}"
+                        tools:text="Nome: Caio Pontes Gandra" />
+
+                    <TextView
+                        style="@style/TextTitle"
+                        android:visibility="@{viewModel.clientTelVisibility}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@{viewModel.clientTel}"
+                        tools:text="Telefone: 11996051479" />
+
+                    <TextView
+                        style="@style/TextTitle"
+                        android:visibility="@{viewModel.specialCarVisibility}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textStyle="bold"
+                        android:text="@{viewModel.specialCar}"
+                        tools:text="Uber" />
+
+                    <TextView
+                        style="@style/TextTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@{viewModel.entry}"
+                        tools:text="Entrada: 01/03/2016 - 13:00" />
+
+                </LinearLayout>
+
+                <TextView
+                    style="@style/TextTitle.Big"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:text="@string/close_work_session.values" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin">
+
+                    <TextView
+                        android:id="@+id/close_work_session_wash"
+                        style="@style/TextTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Lavagem: Carro pequeno" />
+
+                    <TextView
+                        style="@style/TextTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        tools:text="R$30,00" />
+
+                    <TextView
+                        android:id="@+id/close_work_session_additionals"
+                        style="@style/TextTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/close_work_session_wash"
+                        android:layout_marginTop="8dp"
+                        tools:text="Adicionais: Com cera" />
+
+                    <TextView
+                        style="@style/TextTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@id/close_work_session_wash"
+                        android:layout_marginTop="8dp"
+                        tools:text="R$4,00" />
+
+                    <TextView
+                        android:id="@+id/close_work_session_services"
+                        style="@style/TextTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/close_work_session_additionals"
+                        android:layout_marginTop="8dp"
+                        tools:text="Serviços: Pequenos Reparos" />
+
+                    <TextView
+                        style="@style/TextTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@id/close_work_session_additionals"
+                        android:layout_marginTop="8dp"
+                        tools:text="R$20,00" />
+
+                    <TextView
+                        style="@style/TextTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:textStyle="bold"
+                        tools:text="Total" />
+
+                    <TextView
+                        style="@style/TextTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@id/close_work_session_services"
+                        android:layout_marginTop="24dp"
+                        android:textStyle="bold"
+                        tools:text="R$54,00" />
+
+                </RelativeLayout>
+
+                <TextView
+                    style="@style/TextTitle.Big"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:text="@string/close_work_session.payment" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin">
+
+                    <TextView
+                        style="@style/TextTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/close_work_session.payment.mode" />
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <RadioButton
+                            style="@style/TextTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/close_work_session.payment.mode.money" />
+
+                        <RadioButton
+                            style="@style/TextTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/close_work_session.payment.mode.card" />
+
+                        <RadioButton
+                            style="@style/TextTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/close_work_session.payment.mode.check" />
+
+                    </RadioGroup>
+
+                    <TextView
+                        style="@style/InputTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:text="@string/close_work_session.payment.plus" />
+
+                    <EditText
+                        style="@style/Input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:maxLength="7" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="3">
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:weightSum="2">
 
-                    <RadioButton
-                        style="@style/TextTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="30dp"
                         android:layout_weight="1"
-                        android:text="@string/close_work_session.payment.mode.money" />
+                        android:backgroundTint="@color/blue_light"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:text="@string/close_work_session.button.pay_and_retreive"
+                        android:textColor="@color/white"
+                        android:textSize="24dp" />
 
-                    <RadioButton
-                        style="@style/TextTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="30dp"
                         android:layout_weight="1"
-                        android:text="@string/close_work_session.payment.mode.card" />
+                        android:backgroundTint="@color/blue_light"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:text="@string/close_work_session.button.only_pay"
+                        android:textColor="@color/white"
+                        android:textSize="24dp" />
 
-                    <RadioButton
-                        style="@style/TextTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/close_work_session.payment.mode.check" />
-
-                </RadioGroup>
-
-                <TextView
-                    style="@style/InputTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/close_work_session.payment.plus" />
-
-                <EditText
-                    style="@style/Input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:maxLength="7" />
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:weightSum="2">
+        </ScrollView>
 
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="30dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/blue_light"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="15dp"
-                    android:textColor="@color/white"
-                    android:textSize="24dp"
-                    android:text="@string/close_work_session.button.pay_and_retreive" />
+    </LinearLayout>
 
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="30dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/blue_light"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="15dp"
-                    android:textColor="@color/white"
-                    android:textSize="24dp"
-                    android:text="@string/close_work_session.button.only_pay" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-    <include
-        android:id="@+id/new_work_session_toolbar"
-        layout="@layout/toolbar_default" />
-
-</LinearLayout>
+</layout>

@@ -2,13 +2,15 @@ package br.com.curiousguy.aerocar.model;
 
 import android.text.TextUtils;
 
+import org.parceler.Parcel;
+import org.parceler.ParcelConstructor;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import br.com.curiousguy.aerocar.R;
-import br.com.curiousguy.aerocar.enums.CarType;
 import br.com.curiousguy.aerocar.enums.Service;
 import br.com.curiousguy.aerocar.enums.Wash;
 import io.realm.RealmObject;
@@ -16,12 +18,8 @@ import io.realm.annotations.PrimaryKey;
 import lombok.Getter;
 import lombok.Setter;
 
+@Parcel
 public class WorkSession extends RealmObject {
-
-    public WorkSession () {
-        Random generator = new Random();
-        this.id = generator.nextLong();
-    }
 
     @PrimaryKey
     @Getter @Setter
@@ -45,6 +43,16 @@ public class WorkSession extends RealmObject {
 
     @Getter @Setter
     private Date exit;
+
+    public static WorkSession build() {
+        WorkSession workSession = new WorkSession();
+
+        Random generator = new Random();
+        long id = generator.nextLong();
+        workSession.setId(id);
+
+        return workSession;
+    }
 
     public Service getService() {
         return Service.valueOf(service);

@@ -2,6 +2,8 @@ package br.com.curiousguy.aerocar.model;
 
 import android.text.TextUtils;
 
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +12,10 @@ import br.com.curiousguy.aerocar.enums.CarType;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Parcel
 public class Car extends RealmObject {
 
     @PrimaryKey
@@ -56,5 +60,9 @@ public class Car extends RealmObject {
         }
 
         return false;
+    }
+
+    public boolean hasClient() {
+        return getClient() != null ;
     }
 }

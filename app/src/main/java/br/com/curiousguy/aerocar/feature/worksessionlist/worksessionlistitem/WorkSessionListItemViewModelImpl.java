@@ -1,6 +1,7 @@
 package br.com.curiousguy.aerocar.feature.worksessionlist.worksessionlistitem;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.ObservableField;
 import android.support.v4.content.ContextCompat;
 
@@ -8,6 +9,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 import br.com.curiousguy.aerocar.R;
+import br.com.curiousguy.aerocar.feature.closeworksession.CloseWorkSessionActivity;
 import br.com.curiousguy.aerocar.model.WorkSession;
 import br.com.curiousguy.aerocar.util.Pricer;
 
@@ -34,6 +36,12 @@ public class WorkSessionListItemViewModelImpl implements WorkSessionListItemView
         populatePlate();
         populatePrice();
 
+    }
+
+    @Override
+    public void onItemClicked() {
+        Intent intent = CloseWorkSessionActivity.getStartIntent(context, workSession);
+        context.startActivity(intent);
     }
 
     private void populatePrice() {

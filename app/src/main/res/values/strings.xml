@@ -48,8 +48,10 @@
     <string name="close_work_session.data">Dados</string>
     <string name="close_work_session.data.plate">Placa: %s</string>
     <string name="close_work_session.data.name">Nome: %s</string>
+    <string name="close_work_session.data.telephone">Telefone: %s</string>
     <string name="close_work_session.data.taxi">Taxi</string>
     <string name="close_work_session.data.uber">Uber</string>
+    <string name="close_work_session.data.entry">Entrada: %s</string>
     <string name="close_work_session.values">Valores</string>
     <string name="close_work_session.values.wash">Lavagem: %s</string>
     <string name="close_work_session.values.additionals">Adicionais: %s</string>
