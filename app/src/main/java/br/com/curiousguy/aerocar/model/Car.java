@@ -12,7 +12,6 @@ import br.com.curiousguy.aerocar.enums.CarType;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Parcel
@@ -52,14 +51,6 @@ public class Car extends RealmObject {
         }
 
         return errors;
-    }
-
-    public boolean isSpecialCar() {
-        if(this.getType() == CarType.TAXI || this.getType() == CarType.UBER) {
-            return true;
-        }
-
-        return false;
     }
 
     public boolean hasClient() {

@@ -5,7 +5,7 @@ import io.realm.annotations.PrimaryKey;
 import lombok.Data;
 
 @Data
-public class Price extends RealmObject {
+public class PriceTable extends RealmObject {
 
     @PrimaryKey
     int version = 0;
@@ -41,4 +41,6 @@ public class Price extends RealmObject {
     int additionalWax = 5;
 
     int additionalResin = 10;
+
+    int additionalBigCarResin = 5;
 }

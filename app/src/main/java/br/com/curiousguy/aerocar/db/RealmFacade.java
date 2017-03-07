@@ -3,11 +3,9 @@ package br.com.curiousguy.aerocar.db;
 import java.util.List;
 
 import br.com.curiousguy.aerocar.model.Car;
-import br.com.curiousguy.aerocar.model.Client;
-import br.com.curiousguy.aerocar.model.Price;
+import br.com.curiousguy.aerocar.model.PriceTable;
 import br.com.curiousguy.aerocar.model.WorkSession;
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
 import io.realm.Sort;
 
@@ -42,15 +40,15 @@ public class RealmFacade implements DbFacade {
     }
 
     @Override
-    public Price fetchNewestPriceTable() {
-        Price price = realm.where(Price.class)
+    public PriceTable fetchPriceTable() {
+        PriceTable priceTable = realm.where(PriceTable.class)
                 .findFirst();
 
-        if(price == null) {
+        if(priceTable == null) {
             return null;
         }
 
-        return realm.copyFromRealm(price);
+        return realm.copyFromRealm(priceTable);
     }
 
     @Override

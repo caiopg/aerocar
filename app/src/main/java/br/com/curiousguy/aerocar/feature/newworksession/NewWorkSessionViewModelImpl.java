@@ -45,7 +45,12 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
 
     public final ObservableField<Boolean> isWaxChecked = new ObservableField<>(false);
 
+    public final ObservableField<Boolean> isSanitationChecked = new ObservableField<>(false);
+    public final ObservableField<Boolean> isLittleRepairsChecked = new ObservableField<>(false);
+    public final ObservableField<Boolean> isPolishingChecked = new ObservableField<>(false);
+
     public final ObservableInt simpleVisibility = new ObservableInt(View.VISIBLE);
+    public final ObservableInt serviceVisibility = new ObservableInt(View.VISIBLE);
     public final ObservableInt uberRegisterVisibility = new ObservableInt(View.GONE);
 
     private DbFacade facade = new RealmFacade();
@@ -89,34 +94,54 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
                 car.setType(CarType.SMALL);
                 hideUberFields();
                 enableSimple();
+                enableService();
                 break;
             case R.id.new_work_session_medium_radiobutton:
                 car.setType(CarType.MEDIUM);
                 hideUberFields();
                 enableSimple();
+                enableService();
                 break;
             case R.id.new_work_session_big_radiobutton:
                 car.setType(CarType.BIG);
                 hideUberFields();
-                enableSimple();
+                checkWax();
+                disableSimple();
+                enableService();
                 break;
             case R.id.new_work_session_taxi_radiobutton:
                 car.setType(CarType.TAXI);
                 hideUberFields();
                 checkWax();
                 disableSimple();
+                disableService();
                 break;
             case R.id.car_uber_radiobutton:
                 car.setType(CarType.UBER);
                 showUberFields();
                 checkWax();
                 disableSimple();
+                disableService();
                 break;
         }
     }
 
     private void disableSimple() {
         simpleVisibility.set(View.GONE);
+    }
+
+    private void disableService() {
+        isLittleRepairsChecked.set(false);
+        isPolishingChecked.set(false);
+        isSanitationChecked.set(false);
+
+        serviceVisibility.set(View.GONE);
+
+        workSession.setService(null);
+    }
+
+    private void enableService() {
+        serviceVisibility.set(View.VISIBLE);
     }
 
     private void enableSimple() {

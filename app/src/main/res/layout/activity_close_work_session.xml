@@ -74,16 +74,6 @@
 
                     <TextView
                         style="@style/TextTitle"
-                        android:visibility="@{viewModel.specialCarVisibility}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:textStyle="bold"
-                        android:text="@{viewModel.specialCar}"
-                        tools:text="Uber" />
-
-                    <TextView
-                        style="@style/TextTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -116,14 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.carType}"
-                        tools:text="Lavagem: Carro pequeno" />
-
-                    <TextView
-                        style="@style/TextTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        tools:text="R$30,00" />
+                        tools:text="Tipo: Carro pequeno" />
 
                     <TextView
                         android:visibility="@{viewModel.washVisibility}"
@@ -134,15 +117,17 @@
                         android:layout_below="@id/close_work_session_car_type"
                         android:layout_marginTop="8dp"
                         android:text="@{viewModel.wash}"
-                        tools:text="Adicionais: Com cera" />
+                        tools:text="Lavagem: Com cera" />
 
                     <TextView
+                        android:visibility="@{viewModel.washVisibility}"
                         style="@style/TextTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_below="@id/close_work_session_car_type"
                         android:layout_marginTop="8dp"
+                        android:text="@{viewModel.washPrice}"
                         tools:text="R$4,00" />
 
                     <TextView
@@ -157,12 +142,14 @@
                         tools:text="Serviços: Pequenos Reparos" />
 
                     <TextView
+                        android:visibility="@{viewModel.serviceVisibility}"
                         style="@style/TextTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_below="@id/close_work_session_additionals"
                         android:layout_marginTop="8dp"
+                        android:text="@{viewModel.servicePrice}"
                         tools:text="R$20,00" />
 
                     <TextView
@@ -173,6 +160,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:textStyle="bold"
+                        android:text="@string/close_work_session_values.total"
                         tools:text="Total" />
 
                     <TextView
@@ -183,6 +171,7 @@
                         android:layout_below="@id/close_work_session_services"
                         android:layout_marginTop="24dp"
                         android:textStyle="bold"
+                        android:text="@{viewModel.totalPrice}"
                         tools:text="R$54,00" />
 
                 </RelativeLayout>

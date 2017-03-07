@@ -59,6 +59,11 @@ public class WorkSession extends RealmObject {
     }
 
     public void setService(Service service) {
+        if(service == null) {
+            this.service = "";
+            return;
+        }
+
         this.service = String.valueOf(service);
     }
 
@@ -67,6 +72,11 @@ public class WorkSession extends RealmObject {
     }
 
     public void setWash(Wash wash) {
+        if(wash == null) {
+            this.wash = "";
+            return;
+        }
+
         this.wash = String.valueOf(wash);
     }
 

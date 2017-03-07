@@ -5,32 +5,35 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.view.View;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.model.Car;
 import br.com.curiousguy.aerocar.model.Client;
 import br.com.curiousguy.aerocar.model.WorkSession;
+import br.com.curiousguy.aerocar.util.Pricer;
 
 public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel {
 
     public final ObservableField<String> plate = new ObservableField<>();
     public final ObservableField<String> clientName = new ObservableField<>();
     public final ObservableField<String> clientTel = new ObservableField<>();
-    public final ObservableField<String> specialCar = new ObservableField<>();
     public final ObservableField<String> entry = new ObservableField<>();
     public final ObservableField<String> carType = new ObservableField<>();
     public final ObservableField<String> wash = new ObservableField<>();
     public final ObservableField<String> service = new ObservableField<>();
-    public final ObservableField<String> carTypePrice = new ObservableField<>();
     public final ObservableField<String> washPrice = new ObservableField<>();
     public final ObservableField<String> servicePrice = new ObservableField<>();
+    public final ObservableField<String> totalPrice = new ObservableField<>();
 
     public final ObservableInt clientNameVisibility = new ObservableInt();
     public final ObservableInt clientTelVisibility = new ObservableInt();
-    public final ObservableInt specialCarVisibility = new ObservableInt();
     public final ObservableInt washVisibility = new ObservableInt();
     public final ObservableInt serviceVisibility = new ObservableInt();
+
+    private final static NumberFormat real = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
     private Context context;
     private WorkSession workSession;
@@ -52,8 +55,6 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
     private void populateValues(Car car) {
         populateCarType(car);
 
-        //todo populate prices
-
         if(workSession.hasWash()) {
             washVisibility.set(View.VISIBLE);
             populateWash();
@@ -67,18 +68,31 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
         } else {
             serviceVisibility.set(View.GONE);
         }
+
+        populateTotal();
+    }
+
+    private void populateTotal() {
+        totalPrice.set(real.format(Pricer.price(workSession)));
     }
 
     private void populateService() {
         String unformattedService = context.getString(R.string.close_work_session_values_service);
         String formattedService = String.format(unformattedService, workSession.getService().getName());
         service.set(formattedService);
+
+        String serviceInReal = real.format(workSession.getService().getPrice(workSession.getCar().getType()));
+        servicePrice.set(serviceInReal);
     }
 
     private void populateWash() {
         String unformattedWash = context.getString(R.string.close_work_session_values_wash);
         String formattedWash = String.format(unformattedWash, workSession.getWash().getName());
         wash.set(formattedWash);
+
+        String washInReal = real.format(workSession.getWash().getPrice(workSession.getCar().getType()));
+        washPrice.set(washInReal);
+
     }
 
     private void populateCarType(Car car) {
@@ -106,13 +120,6 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
             } else {
                 clientTelVisibility.set(View.GONE);
             }
-        }
-
-        if(car.isSpecialCar()) {
-            specialCarVisibility.set(View.VISIBLE);
-            specialCar.set(car.getType().getName());
-        } else {
-            specialCarVisibility.set(View.GONE);
         }
 
         populateEntry();

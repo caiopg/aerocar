@@ -54,8 +54,9 @@
     <string name="close_work_session.data.entry">Entrada: %s</string>
     <string name="close_work_session.values">Valores</string>
     <string name="close_work_session.values.car_type">Tipo: %s</string>
-    <string name="close_work_session.values.wash">Adicionais: %s</string>
-    <string name="close_work_session_values_service">Serviços: %s</string>
+    <string name="close_work_session.values.wash">Lavagem: %s</string>
+    <string name="close_work_session_values.service">Serviços: %s</string>
+    <string name="close_work_session_values.total">Total</string>
     <string name="close_work_session.payment">Pagamento</string>
     <string name="close_work_session.payment.mode">Modo de pagamento</string>
     <string name="close_work_session.payment.mode.money">Dinheiro</string>

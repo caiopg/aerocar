@@ -211,6 +211,7 @@
                 </RadioGroup>
 
                 <TextView
+                    android:visibility="@{viewModel.serviceVisibility}"
                     style="@style/InputTitle"
                     android:layout_marginTop="19dp"
                     android:layout_width="wrap_content"
@@ -218,6 +219,7 @@
                     android:text="@string/new_work_session.services"/>
 
                 <RadioGroup
+                    android:visibility="@{viewModel.serviceVisibility}"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -232,7 +234,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/new_work_session.services.sanitation"/>
+                        android:text="@string/new_work_session.services.sanitation"
+                        android:checked="@{viewModel.isSanitationChecked}"/>
 
                     <RadioButton
                         style="@style/NewWorkSessionRadioButton"
@@ -241,7 +244,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:text="@string/new_work_session.services.polishing"/>
+                        android:text="@string/new_work_session.services.polishing"
+                        android:checked="@{viewModel.isPolishingChecked}"/>
 
                     <RadioButton
                         style="@style/NewWorkSessionRadioButton"
@@ -250,7 +254,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:text="@string/new_work_session.services.little_repairs"/>
+                        android:text="@string/new_work_session.services.little_repairs"
+                        android:checked="@{viewModel.isLittleRepairsChecked}"/>
 
                 </RadioGroup>
 
