@@ -211,6 +211,7 @@
                         android:weightSum="4">
 
                         <RadioButton
+                            android:enabled="@{viewModel.paymentEnabled}"
                             android:id="@+id/close_work_session_money"
                             style="@style/TextTitle"
                             android:layout_width="wrap_content"
@@ -219,6 +220,7 @@
                             android:text="@string/close_work_session.payment.type.money" />
 
                         <RadioButton
+                            android:enabled="@{viewModel.paymentEnabled}"
                             android:id="@+id/close_work_session_credit"
                             style="@style/TextTitle"
                             android:layout_width="wrap_content"
@@ -227,6 +229,7 @@
                             android:text="@string/close_work_session.payment.type.credit_card" />
 
                         <RadioButton
+                            android:enabled="@{viewModel.paymentEnabled}"
                             android:id="@+id/close_work_session_debit"
                             style="@style/TextTitle"
                             android:layout_width="wrap_content"
@@ -235,6 +238,7 @@
                             android:text="@string/close_work_session.payment.type.debit_card" />
 
                         <RadioButton
+                            android:enabled="@{viewModel.paymentEnabled}"
                             android:id="@+id/close_work_session_check"
                             style="@style/TextTitle"
                             android:layout_width="wrap_content"
@@ -253,6 +257,7 @@
 
                     <EditText
                         style="@style/Input"
+                        android:enabled="@{viewModel.paymentEnabled}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
@@ -288,6 +293,7 @@
                         android:onClick="@{() -> viewModel.onPayedAndRetreviedClicked()}"/>
 
                     <Button
+                        android:enabled="@{viewModel.paymentEnabled}"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginTop="30dp"

@@ -2,6 +2,7 @@ package br.com.curiousguy.aerocar.feature.closeworksession;
 
 import android.app.Activity;
 import android.content.Context;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.os.Handler;
@@ -11,6 +12,7 @@ import android.widget.RadioGroup;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,6 +42,8 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
     public final ObservableField<String> totalPrice = new ObservableField<>();
     public final ObservableField<String> tip = new ObservableField<>();
 
+    public final ObservableBoolean paymentEnabled = new ObservableBoolean(true);
+
     public final ObservableInt clientNameVisibility = new ObservableInt();
     public final ObservableInt clientTelVisibility = new ObservableInt();
     public final ObservableInt washVisibility = new ObservableInt();
@@ -62,6 +66,11 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
         Car car = workSession.getCar();
         populateData(car);
         populateValues(car);
+
+        if(workSession.isPayed()) {
+            //todo populate payment and disable focus on edittext
+            paymentEnabled.set(false);
+        }
     }
 
     @Override
@@ -116,6 +125,10 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
     private void persistData(boolean isActive) {
         workSession.setPayed(true);
         workSession.setActive(isActive);
+
+        if(!isActive) {
+            workSession.setExit(new Date());
+        }
 
         DbFacade facade = new RealmFacade();
         facade.updateOrSave(workSession);
