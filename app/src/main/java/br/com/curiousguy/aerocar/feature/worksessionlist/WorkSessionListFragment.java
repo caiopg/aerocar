@@ -47,7 +47,10 @@ public class WorkSessionListFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(resultCode == Activity.RESULT_OK && requestCode == RequestCode.NEW_WORK_SESSION.getRequestCode()) {
+        if(resultCode == Activity.RESULT_OK &&
+                (requestCode == RequestCode.NEW_WORK_SESSION.getRequestCode() ||
+                requestCode == RequestCode.CLOSE_WORK_SESSION.getRequestCode())) {
+
             setupListView(binding.workSessionListview);
         }
 

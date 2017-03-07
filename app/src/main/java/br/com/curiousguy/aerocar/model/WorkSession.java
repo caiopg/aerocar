@@ -3,7 +3,6 @@ package br.com.curiousguy.aerocar.model;
 import android.text.TextUtils;
 
 import org.parceler.Parcel;
-import org.parceler.ParcelConstructor;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 import br.com.curiousguy.aerocar.R;
+import br.com.curiousguy.aerocar.enums.PaymentType;
 import br.com.curiousguy.aerocar.enums.Service;
 import br.com.curiousguy.aerocar.enums.Wash;
 import io.realm.RealmObject;
@@ -39,6 +39,12 @@ public class WorkSession extends RealmObject {
     private boolean isPayed;
 
     @Getter @Setter
+    private String paymentType;
+
+    @Getter @Setter
+    private String tip;
+
+    @Getter @Setter
     private Date entry;
 
     @Getter @Setter
@@ -52,6 +58,19 @@ public class WorkSession extends RealmObject {
         workSession.setId(id);
 
         return workSession;
+    }
+
+    public PaymentType getPaymentType() {
+        return PaymentType.valueOf(paymentType);
+    }
+
+    public void setPaymentType(PaymentType paymentType) {
+        if(paymentType == null) {
+            this.paymentType = "";
+            return;
+        }
+
+        this.paymentType = String.valueOf(paymentType);
     }
 
     public Service getService() {
@@ -80,11 +99,21 @@ public class WorkSession extends RealmObject {
         this.wash = String.valueOf(wash);
     }
 
-    public List<Integer> getErrorIdList() {
+    public List<Integer> getCreationErrorIdList() {
         ArrayList<Integer> errors = new ArrayList<>();
 
         if(TextUtils.isEmpty(service) && TextUtils.isEmpty(wash)) {
             errors.add(R.string.new_work_session_error_no_work);
+        }
+
+        return errors;
+    }
+
+    public List<Integer> getPaymentErrorIdList() {
+        ArrayList<Integer> errors = new ArrayList<>();
+
+        if(TextUtils.isEmpty(paymentType)) {
+            errors.add(R.string.close_work_session_error_no_payment_type);
         }
 
         return errors;

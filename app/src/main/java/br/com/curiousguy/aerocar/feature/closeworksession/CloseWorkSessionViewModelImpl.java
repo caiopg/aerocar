@@ -1,21 +1,32 @@
 package br.com.curiousguy.aerocar.feature.closeworksession;
 
+import android.app.Activity;
 import android.content.Context;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.RadioGroup;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 
 import br.com.curiousguy.aerocar.R;
+import br.com.curiousguy.aerocar.db.DbFacade;
+import br.com.curiousguy.aerocar.db.RealmFacade;
+import br.com.curiousguy.aerocar.enums.PaymentType;
 import br.com.curiousguy.aerocar.model.Car;
 import br.com.curiousguy.aerocar.model.Client;
 import br.com.curiousguy.aerocar.model.WorkSession;
 import br.com.curiousguy.aerocar.util.Pricer;
+import lombok.val;
 
 public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel {
+
+    public static final int TEXT_CHANGED_DELAY_IN_MILLIS = 250;
 
     public final ObservableField<String> plate = new ObservableField<>();
     public final ObservableField<String> clientName = new ObservableField<>();
@@ -27,6 +38,7 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
     public final ObservableField<String> washPrice = new ObservableField<>();
     public final ObservableField<String> servicePrice = new ObservableField<>();
     public final ObservableField<String> totalPrice = new ObservableField<>();
+    public final ObservableField<String> tip = new ObservableField<>();
 
     public final ObservableInt clientNameVisibility = new ObservableInt();
     public final ObservableInt clientTelVisibility = new ObservableInt();
@@ -50,6 +62,101 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
         Car car = workSession.getCar();
         populateData(car);
         populateValues(car);
+    }
+
+    @Override
+    public void onPaymentTypeChanged (RadioGroup radioGroup, int checkedId) {
+        switch (checkedId) {
+            case R.id.close_work_session_money:
+                workSession.setPaymentType(PaymentType.MONEY);
+                break;
+            case R.id.close_work_session_credit:
+                workSession.setPaymentType(PaymentType.CREDIT_CARD);
+                break;
+            case R.id.close_work_session_debit:
+                workSession.setPaymentType(PaymentType.DEBIT_CARD);
+                break;
+            case R.id.close_work_session_check:
+                workSession.setPaymentType(PaymentType.CHECK);
+                break;
+        }
+    }
+
+    @Override
+    public void onTipTextChanged(CharSequence s, int start, int before, int count) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                workSession.setTip(tip.get());
+            }
+        }, TEXT_CHANGED_DELAY_IN_MILLIS);
+    }
+
+    @Override
+    public void onPayedClicked() {
+        if(verifyAndShowErrors()) {
+            return;
+        }
+
+        persistData(true);
+        returnToMain();
+    }
+
+    @Override
+    public void onPayedAndRetreviedClicked() {
+        if(verifyAndShowErrors()) {
+            return;
+        }
+
+        persistData(false);
+        returnToMain();
+    }
+
+    private void persistData(boolean isActive) {
+        workSession.setPayed(true);
+        workSession.setActive(isActive);
+
+        DbFacade facade = new RealmFacade();
+        facade.updateOrSave(workSession);
+    }
+
+    private void returnToMain() {
+        Activity activity = (Activity) this.context;
+
+        activity.setResult(Activity.RESULT_OK);
+        activity.finish();
+    }
+
+    private boolean verifyAndShowErrors() {
+        val errorIds = workSession.getPaymentErrorIdList();
+
+        if(errorIds.size() > 0) {
+            showErrors(errorIds);
+            return true;
+        }
+
+        return false;
+    }
+
+    private void showErrors(List<Integer> errorIds) {
+        String title = context.getString(R.string.close_work_session_error_ok);
+        String content = assembleErrorContent(errorIds);
+
+        new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(content)
+                .setNeutralButton(R.string.new_work_session_error_ok, null)
+                .show();
+    }
+
+    private String assembleErrorContent(List<Integer> errorIds) {
+        String content = context.getString(R.string.close_work_session_error_content);
+        for(int errorId : errorIds) {
+            content = content.concat(context.getString(errorId));
+        }
+
+        return content;
     }
 
     private void populateValues(Car car) {

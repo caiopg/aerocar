@@ -1,9 +1,12 @@
 package br.com.curiousguy.aerocar.feature.closeworksession;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import org.parceler.Parcels;
 
@@ -42,6 +45,32 @@ public class CloseWorkSessionActivity extends BaseActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_close_work_session);
         viewModel = new CloseWorkSessionViewModelImpl(this, workSession);
         binding.setViewModel(viewModel);
+
+        setupToolbar();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(Activity.RESULT_CANCELED);
+        finish();
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar = binding.closeWorkSessionToolbar.toolbar;
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(getString(R.string.close_work_session_toolbar_title));
     }
 }
 

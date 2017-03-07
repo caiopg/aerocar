@@ -25,7 +25,7 @@
                 android:orientation="vertical">
 
                 <include
-                    android:id="@+id/new_work_session_toolbar"
+                    android:id="@+id/close_work_session_toolbar"
                     layout="@layout/toolbar_default" />
 
                 <TextView
@@ -200,35 +200,47 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/close_work_session.payment.mode" />
+                        android:text="@string/close_work_session.payment.type" />
 
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:onCheckedChanged="@{viewModel::onPaymentTypeChanged}"
                         android:orientation="horizontal"
-                        android:weightSum="3">
+                        android:weightSum="4">
 
                         <RadioButton
+                            android:id="@+id/close_work_session_money"
                             style="@style/TextTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/close_work_session.payment.mode.money" />
+                            android:text="@string/close_work_session.payment.type.money" />
 
                         <RadioButton
+                            android:id="@+id/close_work_session_credit"
                             style="@style/TextTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/close_work_session.payment.mode.card" />
+                            android:text="@string/close_work_session.payment.type.credit_card" />
 
                         <RadioButton
+                            android:id="@+id/close_work_session_debit"
                             style="@style/TextTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/close_work_session.payment.mode.check" />
+                            android:text="@string/close_work_session.payment.type.debit_card" />
+
+                        <RadioButton
+                            android:id="@+id/close_work_session_check"
+                            style="@style/TextTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/close_work_session.payment.type.check" />
 
                     </RadioGroup>
 
@@ -237,14 +249,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="@string/close_work_session.payment.plus" />
+                        android:text="@string/close_work_session.payment.tip" />
 
                     <EditText
                         style="@style/Input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:maxLength="7" />
+                        android:hint="@string/close_work_session.payment.tip.hint"
+                        android:maxLength="7"
+                        android:inputType="numberDecimal"
+                        android:text="@{viewModel.tip}"
+                        android:onTextChanged="@{viewModel::onTipTextChanged}" />
 
                 </LinearLayout>
 
@@ -268,7 +284,8 @@
                         android:paddingTop="15dp"
                         android:text="@string/close_work_session.button.pay_and_retreive"
                         android:textColor="@color/white"
-                        android:textSize="24dp" />
+                        android:textSize="24dp"
+                        android:onClick="@{() -> viewModel.onPayedAndRetreviedClicked()}"/>
 
                     <Button
                         android:layout_width="0dp"
@@ -280,7 +297,8 @@
                         android:paddingTop="15dp"
                         android:text="@string/close_work_session.button.only_pay"
                         android:textColor="@color/white"
-                        android:textSize="24dp" />
+                        android:textSize="24dp"
+                        android:onClick="@{() -> viewModel.onPayedClicked()}"/>
 
                 </LinearLayout>
 

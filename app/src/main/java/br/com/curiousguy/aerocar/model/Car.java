@@ -37,7 +37,7 @@ public class Car extends RealmObject {
         this.type = String.valueOf(type);
     }
 
-    public List<Integer> getErrorIdList() {
+    public List<Integer> getCreationErrorIdList() {
         ArrayList<Integer> errors = new ArrayList<>();
 
         if(TextUtils.isEmpty(plate)) {

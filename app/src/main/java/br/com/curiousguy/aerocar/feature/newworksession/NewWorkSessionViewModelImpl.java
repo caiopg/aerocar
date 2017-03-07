@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.db.CarNotFoundException;
@@ -256,8 +255,8 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
     }
 
     private boolean verifyAndShowErrors() {
-        val errorIds = car.getErrorIdList();
-        errorIds.addAll(workSession.getErrorIdList());
+        val errorIds = car.getCreationErrorIdList();
+        errorIds.addAll(workSession.getCreationErrorIdList());
 
         if(errorIds.size() > 0) {
             showErrors(errorIds);

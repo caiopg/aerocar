@@ -1,5 +1,6 @@
 package br.com.curiousguy.aerocar.feature.worksessionlist;
 
+import android.app.Activity;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
@@ -17,14 +18,14 @@ import br.com.curiousguy.aerocar.model.WorkSession;
 public class WorkSessionListAdapter extends BaseAdapter {
 
     List<WorkSession> sessions;
-    Context context;
+    Activity activity;
 
-    public WorkSessionListAdapter(Context context, List<WorkSession> sessions) {
+    public WorkSessionListAdapter(Activity activity, List<WorkSession> sessions) {
         if(sessions == null) {
             throw new NullPointerException("Empty sessions list");
         }
 
-        this.context = context;
+        this.activity = activity;
         this.sessions = sessions;
     }
 
@@ -52,7 +53,7 @@ public class WorkSessionListAdapter extends BaseAdapter {
         ItemWorkSessionListBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_work_session_list, parent, false);
 
         WorkSession workSession = (WorkSession) this.getItem(position);
-        WorkSessionListItemViewModelImpl itemViewModel = new WorkSessionListItemViewModelImpl(context, workSession);
+        WorkSessionListItemViewModelImpl itemViewModel = new WorkSessionListItemViewModelImpl(activity, workSession);
         binding.setViewModel(itemViewModel);
 
         return binding.getRoot();
