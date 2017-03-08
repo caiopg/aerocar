@@ -217,7 +217,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/close_work_session.payment.type.money" />
+                            android:text="@string/close_work_session.payment.type.money"
+                            android:checked="@{viewModel.isMoneyChecked}"/>
 
                         <RadioButton
                             android:enabled="@{viewModel.paymentEnabled}"
@@ -226,7 +227,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/close_work_session.payment.type.credit_card" />
+                            android:text="@string/close_work_session.payment.type.credit_card"
+                            android:checked="@{viewModel.isCreditChecked}"/>
 
                         <RadioButton
                             android:enabled="@{viewModel.paymentEnabled}"
@@ -235,7 +237,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/close_work_session.payment.type.debit_card" />
+                            android:text="@string/close_work_session.payment.type.debit_card"
+                            android:checked="@{viewModel.isDebitChecked}" />
 
                         <RadioButton
                             android:enabled="@{viewModel.paymentEnabled}"
@@ -244,7 +247,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/close_work_session.payment.type.check" />
+                            android:text="@string/close_work_session.payment.type.check"
+                            android:checked="@{viewModel.isCheckChecked}" />
 
                     </RadioGroup>
 
@@ -264,7 +268,7 @@
                         android:hint="@string/close_work_session.payment.tip.hint"
                         android:maxLength="7"
                         android:inputType="numberDecimal"
-                        android:text="@{viewModel.tip}"
+                        android:text="@={viewModel.tip}"
                         android:onTextChanged="@{viewModel::onTipTextChanged}" />
 
                 </LinearLayout>
@@ -294,6 +298,7 @@
 
                     <Button
                         android:enabled="@{viewModel.paymentEnabled}"
+                        android:alpha="@{viewModel.paymentEnabled ? 1.0f : 0.5f}"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginTop="30dp"

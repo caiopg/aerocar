@@ -120,10 +120,14 @@ public class WorkSession extends RealmObject {
     }
 
     public boolean hasService() {
-        return !TextUtils.isEmpty(service);
+        return !TextUtils.isEmpty(this.service);
     }
 
     public boolean hasWash() {
-        return !TextUtils.isEmpty(wash);
+        return !TextUtils.isEmpty(this.wash);
+    }
+
+    public boolean hasTip() {
+        return !TextUtils.isEmpty(this.tip);
     }
 }

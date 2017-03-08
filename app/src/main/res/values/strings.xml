@@ -61,7 +61,7 @@
     <string name="close_work_session.payment">Pagamento</string>
     <string name="close_work_session.payment.type">Modo de pagamento</string>
     <string name="close_work_session.payment.type.money">Dinheiro</string>
-    <string name="close_work_session.payment.type.credit_card">Crédio</string>
+    <string name="close_work_session.payment.type.credit_card">Crédito</string>
     <string name="close_work_session.payment.type.debit_card">Débito</string>
     <string name="close_work_session.payment.type.check">Cheque</string>
     <string name="close_work_session.payment.tip">Gorjeta</string>

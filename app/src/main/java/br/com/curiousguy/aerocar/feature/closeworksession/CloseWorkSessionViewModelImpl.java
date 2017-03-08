@@ -19,6 +19,7 @@ import java.util.Locale;
 import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.db.DbFacade;
 import br.com.curiousguy.aerocar.db.RealmFacade;
+import br.com.curiousguy.aerocar.enums.CarType;
 import br.com.curiousguy.aerocar.enums.PaymentType;
 import br.com.curiousguy.aerocar.model.Car;
 import br.com.curiousguy.aerocar.model.Client;
@@ -44,6 +45,11 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
 
     public final ObservableBoolean paymentEnabled = new ObservableBoolean(true);
 
+    public final ObservableField<Boolean> isMoneyChecked = new ObservableField<>(false);
+    public final ObservableField<Boolean> isCreditChecked = new ObservableField<>(false);
+    public final ObservableField<Boolean> isDebitChecked = new ObservableField<>(false);
+    public final ObservableField<Boolean> isCheckChecked = new ObservableField<>(false);
+
     public final ObservableInt clientNameVisibility = new ObservableInt();
     public final ObservableInt clientTelVisibility = new ObservableInt();
     public final ObservableInt washVisibility = new ObservableInt();
@@ -66,9 +72,10 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
         Car car = workSession.getCar();
         populateData(car);
         populateValues(car);
+        upateTip();
 
         if(workSession.isPayed()) {
-            //todo populate payment and disable focus on edittext
+            updatePaymentType();
             paymentEnabled.set(false);
         }
     }
@@ -120,6 +127,32 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
 
         persistData(false);
         returnToMain();
+    }
+
+    private void updatePaymentType() {
+        PaymentType paymentType = workSession.getPaymentType();
+        switch (paymentType) {
+            case MONEY:
+                isMoneyChecked.set(true);
+                break;
+            case DEBIT_CARD:
+                isDebitChecked.set(true);
+                break;
+            case CREDIT_CARD:
+                isCreditChecked.set(true);
+                break;
+            case CHECK:
+                isCheckChecked.set(true);
+                break;
+        }
+    }
+
+    private void upateTip() {
+        if(workSession.hasTip()) {
+            tip.set(workSession.getTip());
+        } else {
+            tip.set("0");
+        }
     }
 
     private void persistData(boolean isActive) {
