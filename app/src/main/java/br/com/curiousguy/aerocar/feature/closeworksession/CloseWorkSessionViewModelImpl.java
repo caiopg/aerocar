@@ -32,6 +32,7 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
     public static final int TEXT_CHANGED_DELAY_IN_MILLIS = 250;
 
     public final ObservableField<String> plate = new ObservableField<>();
+    public final ObservableField<String> model = new ObservableField<>();
     public final ObservableField<String> clientName = new ObservableField<>();
     public final ObservableField<String> clientTel = new ObservableField<>();
     public final ObservableField<String> entry = new ObservableField<>();
@@ -256,6 +257,7 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
 
     private void populateData(Car car) {
         populatePlate(car);
+        populateModel(car);
 
         if(car.hasClient()) {
             Client client = car.getClient();
@@ -279,10 +281,8 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
     }
 
     private void populateEntry() {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy - kk:mm");
-
         String unformattedDate = context.getString(R.string.close_work_session_data_entry);
-        String formattedDate = String.format(unformattedDate, format.format(workSession.getEntry()));
+        String formattedDate = String.format(unformattedDate, workSession.getFormattedEntry());
         entry.set(formattedDate);
     }
 
@@ -298,9 +298,15 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
         clientName.set(formattedName);
     }
 
+    private void populateModel(Car car) {
+        String unformattedModel = context.getString(R.string.close_work_session_data_plate);
+        String formattedModel = String.format(unformattedModel, car.getModel());
+        model.set(formattedModel);
+    }
+
     private void populatePlate(Car car) {
-        String unformattedplate = context.getString(R.string.close_work_session_data_plate);
-        String formattedplate = String.format(unformattedplate, car.getPlate());
-        plate.set(formattedplate);
+        String unformattedPlate = context.getString(R.string.close_work_session_data_plate);
+        String formattedPlate = String.format(unformattedPlate, car.getPlate());
+        plate.set(formattedPlate);
     }
 }

@@ -56,6 +56,13 @@
 
                     <TextView
                         style="@style/TextTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.model}"
+                        tools:text="Modelo: Citroen" />
+
+                    <TextView
+                        style="@style/TextTitle"
                         android:visibility="@{viewModel.clientNameVisibility}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

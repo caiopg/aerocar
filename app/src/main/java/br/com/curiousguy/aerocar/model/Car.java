@@ -27,6 +27,9 @@ public class Car extends RealmObject {
     private String type;
 
     @Getter @Setter
+    private String model;
+
+    @Getter @Setter
     private String uberRegistry;
 
     public CarType getType() {
@@ -42,6 +45,10 @@ public class Car extends RealmObject {
 
         if(TextUtils.isEmpty(plate)) {
             errors.add(R.string.new_work_session_error_no_plate);
+        }
+
+        if(TextUtils.isEmpty(model)) {
+            errors.add(R.string.new_work_session_error_no_model);
         }
 
         if(TextUtils.isEmpty(type)) {

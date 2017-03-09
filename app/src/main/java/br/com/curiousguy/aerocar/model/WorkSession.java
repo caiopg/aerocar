@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import org.parceler.Parcel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -129,5 +130,11 @@ public class WorkSession extends RealmObject {
 
     public boolean hasTip() {
         return !TextUtils.isEmpty(this.tip);
+    }
+
+    public String getFormattedEntry() {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy -HH:mm");
+
+        return format.format(getEntry());
     }
 }

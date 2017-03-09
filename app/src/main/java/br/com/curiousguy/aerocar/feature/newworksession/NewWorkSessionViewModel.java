@@ -14,6 +14,8 @@ public interface NewWorkSessionViewModel {
 
     void onPlateTextChanged(CharSequence s, int start, int before, int count);
 
+    void onModelTextChanged(CharSequence s, int start, int before, int count);
+
     void onClientNameTextChanged(CharSequence s, int start, int before, int count);
 
     void onClientTelTextChanged(CharSequence s, int start, int before, int count);

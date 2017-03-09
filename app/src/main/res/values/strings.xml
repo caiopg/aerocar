@@ -13,6 +13,8 @@
     <string name="new_work_session.toolbar.title">Adicionar carro</string>
     <string name="new_work_session.plate">Placa</string>
     <string name="new_work_session.plate.hint">Insira a placa do carro</string>
+    <string name="new_work_session.model">Modelo</string>
+    <string name="new_work_session.model.hint">Insira o modelo do carro</string>
     <string name="new_work_session.client_name">Nome do cliente</string>
     <string name="new_work_session.client_name.hint">Insira o nome do cliente</string>
     <string name="new_work_session.client_tel">Telefone do cliente</string>
@@ -40,6 +42,7 @@
     <string name="new_work_session.error.title">Erro!</string>
     <string name="new_work_session.error.content">Os seguintes erros foram encontrados:\n\n</string>
     <string name="new_work_session.error.no_plate">Placa não informada\n</string>
+    <string name="new_work_session.error.no_model">Modelo não informado\n</string>
     <string name="new_work_session.error.no_car_type">Tipo do carro não informado\n</string>
     <string name="new_work_session.error.no_uber_register">Registro do uber não informado\n</string>
     <string name="new_work_session.error.no_work">Nenhuma lavagem ou serviço selecionado\n</string>
@@ -48,6 +51,7 @@
     <string name="close_work_session.toolbar.title">Serviço</string>
     <string name="close_work_session.data">Dados</string>
     <string name="close_work_session.data.plate">Placa: %s</string>
+    <string name="close_work_session.data.model">Modelo: %s</string>
     <string name="close_work_session.data.name">Nome: %s</string>
     <string name="close_work_session.data.telephone">Telefone: %s</string>
     <string name="close_work_session.data.taxi">Taxi</string>

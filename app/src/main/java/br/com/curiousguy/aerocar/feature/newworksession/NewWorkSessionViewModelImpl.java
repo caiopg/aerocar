@@ -32,6 +32,7 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
     public static final int TEXT_CHANGED_DELAY_IN_MILLIS = 250;
 
     public final ObservableField<String> plate = new ObservableField<>();
+    public final ObservableField<String> model = new ObservableField<>();
     public final ObservableField<String> clientName = new ObservableField<>();
     public final ObservableField<String> clientTel = new ObservableField<>();
     public final ObservableField<String> uberRegistry = new ObservableField<>();
@@ -188,6 +189,17 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
     }
 
     @Override
+    public void onModelTextChanged(CharSequence s, int start, int before, int count) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                car.setModel(model.get());
+            }
+        }, TEXT_CHANGED_DELAY_IN_MILLIS);
+    }
+
+    @Override
     public void onClientNameTextChanged(CharSequence s, int start, int before, int count) {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -311,6 +323,8 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
     }
 
     private void updateCarFields() {
+        model.set(car.getModel());
+
         if(car.getType() != null) {
             switch (car.getType()) {
                 case SMALL:
