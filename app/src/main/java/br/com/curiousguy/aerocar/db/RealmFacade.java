@@ -1,5 +1,6 @@
 package br.com.curiousguy.aerocar.db;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.curiousguy.aerocar.model.Car;
@@ -59,5 +60,15 @@ public class RealmFacade implements DbFacade {
                 realm.copyToRealmOrUpdate(data);
             }
         });
+    }
+
+    @Override
+    public List<WorkSession> fetchInactiveWorkSessions(Date start, Date end) {
+        List<WorkSession> workSessions = realm.where(WorkSession.class)
+                .equalTo("isActive", false)
+                .between("entry", start, end)
+                .findAllSorted("entry", Sort.ASCENDING);
+
+        return realm.copyFromRealm(workSessions);
     }
 }

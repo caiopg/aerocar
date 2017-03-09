@@ -1,5 +1,6 @@
 package br.com.curiousguy.aerocar.db;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.curiousguy.aerocar.model.Car;
@@ -16,4 +17,6 @@ public interface DbFacade {
     PriceTable fetchPriceTable();
 
     <T extends RealmObject> void updateOrSave(T data);
+
+    List<WorkSession> fetchInactiveWorkSessions(Date start, Date end);
 }

@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.curiousguy.aerocar.BaseActivity;
@@ -24,6 +25,7 @@ import br.com.curiousguy.aerocar.feature.newworksession.NewWorkSessionActivity;
 import br.com.curiousguy.aerocar.databinding.ActivityMainBinding;
 import br.com.curiousguy.aerocar.feature.report.ReportFragment;
 import br.com.curiousguy.aerocar.feature.settings.SettingsFragment;
+import br.com.curiousguy.aerocar.util.ReportBuilder;
 
 
 public class MainActivity extends BaseActivity {
@@ -39,6 +41,10 @@ public class MainActivity extends BaseActivity {
         setupToolbar();
         setupViewpager();
         setupBottomNavigationView();
+
+        //todo remove
+        ReportBuilder builder = new ReportBuilder(this, new Date(), new Date());
+        builder.build();
     }
 
     @Override
@@ -142,7 +148,7 @@ public class MainActivity extends BaseActivity {
 
     private void startAddNewWorkSessionActivity() {
         Intent intent = NewWorkSessionActivity.getStartIntent(this);
-        startActivityForResult(intent, RequestCode.NEW_WORK_SESSION.getRequestCode());
+        startActivityForResult(intent, RequestCode.NEW_WORK_SESSIO.getRequestCode());
     }
 
 }
