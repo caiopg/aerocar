@@ -209,45 +209,92 @@
                         android:layout_marginTop="8dp"
                         android:text="@string/close_work_session.payment.type" />
 
-                    <RadioGroup
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:onCheckedChanged="@{viewModel::onPaymentTypeChanged}"
-                        android:orientation="horizontal"
-                        android:weightSum="3">
+                        android:weightSum="5">
 
-                        <RadioButton
+                        <CheckBox
+                            style="@style/TextTitle"
                             android:enabled="@{viewModel.paymentEnabled}"
                             android:id="@+id/close_work_session_money"
-                            style="@style/TextTitle"
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="2"
                             android:text="@string/close_work_session.payment.type.money"
                             android:checked="@{viewModel.isMoneyChecked}"/>
 
-                        <RadioButton
+                        <EditText
+                            style="@style/Input"
+                            android:enabled="@{viewModel.paymentEnabled}"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:hint="@string/close_work_session.payment.type.hint"
+                            android:inputType="numberDecimal"
+                            android:maxLength="7"
+                            android:onTextChanged="@{viewModel::onMoneyTextChanged}"
+                            android:text="@={viewModel.moneyValue}" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:weightSum="5">
+
+                        <CheckBox
+                            style="@style/TextTitle"
                             android:enabled="@{viewModel.paymentEnabled}"
                             android:id="@+id/close_work_session_credit"
-                            style="@style/TextTitle"
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="2"
                             android:text="@string/close_work_session.payment.type.credit_card"
                             android:checked="@{viewModel.isCreditChecked}"/>
 
-                        <RadioButton
+                        <EditText
+                            style="@style/Input"
+                            android:enabled="@{viewModel.paymentEnabled}"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:hint="@string/close_work_session.payment.type.hint"
+                            android:inputType="numberDecimal"
+                            android:maxLength="7"
+                            android:onTextChanged="@{viewModel::onCreditTextChanged}"
+                            android:text="@={viewModel.creditValue}" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:weightSum="5">
+
+                        <CheckBox
+                            style="@style/TextTitle"
                             android:enabled="@{viewModel.paymentEnabled}"
                             android:id="@+id/close_work_session_debit"
-                            style="@style/TextTitle"
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="2"
                             android:text="@string/close_work_session.payment.type.debit_card"
                             android:checked="@{viewModel.isDebitChecked}" />
 
-                    </RadioGroup>
+                        <EditText
+                            style="@style/Input"
+                            android:enabled="@{viewModel.paymentEnabled}"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:hint="@string/close_work_session.payment.type.hint"
+                            android:inputType="numberDecimal"
+                            android:maxLength="7"
+                            android:onTextChanged="@{viewModel::onDebitTextChanged}"
+                            android:text="@={viewModel.debitValue}" />
+
+                    </LinearLayout>
 
                     <TextView
                         style="@style/InputTitle"
@@ -258,15 +305,15 @@
 
                     <EditText
                         style="@style/Input"
-                        android:enabled="@{viewModel.paymentEnabled}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
+                        android:enabled="@{viewModel.paymentEnabled}"
                         android:hint="@string/close_work_session.payment.tip.hint"
-                        android:maxLength="7"
                         android:inputType="numberDecimal"
-                        android:text="@={viewModel.tip}"
-                        android:onTextChanged="@{viewModel::onTipTextChanged}" />
+                        android:maxLength="7"
+                        android:onTextChanged="@{viewModel::onTipTextChanged}"
+                        android:text="@={viewModel.tip}" />
 
                 </LinearLayout>
 

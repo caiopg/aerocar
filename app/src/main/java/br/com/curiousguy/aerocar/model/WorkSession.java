@@ -40,7 +40,7 @@ public class WorkSession extends RealmObject {
     private boolean isPayed;
 
     @Getter @Setter
-    private String paymentType;
+    private ArrayList<Payment> payment = new ArrayList<>();
 
     @Getter @Setter
     private String tip;
@@ -59,19 +59,6 @@ public class WorkSession extends RealmObject {
         workSession.setId(id);
 
         return workSession;
-    }
-
-    public PaymentType getPaymentType() {
-        return PaymentType.valueOf(paymentType);
-    }
-
-    public void setPaymentType(PaymentType paymentType) {
-        if(paymentType == null) {
-            this.paymentType = "";
-            return;
-        }
-
-        this.paymentType = String.valueOf(paymentType);
     }
 
     public Service getService() {
@@ -113,7 +100,7 @@ public class WorkSession extends RealmObject {
     public List<Integer> getPaymentErrorIdList() {
         ArrayList<Integer> errors = new ArrayList<>();
 
-        if(TextUtils.isEmpty(paymentType)) {
+        if(payment.size() == 0) {
             errors.add(R.string.close_work_session_error_no_payment_type);
         }
 

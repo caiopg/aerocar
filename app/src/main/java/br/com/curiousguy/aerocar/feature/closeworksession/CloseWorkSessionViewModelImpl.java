@@ -8,10 +8,8 @@ import android.databinding.ObservableInt;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.widget.RadioGroup;
 
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -19,10 +17,10 @@ import java.util.Locale;
 import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.db.DbFacade;
 import br.com.curiousguy.aerocar.db.RealmFacade;
-import br.com.curiousguy.aerocar.enums.CarType;
 import br.com.curiousguy.aerocar.enums.PaymentType;
 import br.com.curiousguy.aerocar.model.Car;
 import br.com.curiousguy.aerocar.model.Client;
+import br.com.curiousguy.aerocar.model.Payment;
 import br.com.curiousguy.aerocar.model.WorkSession;
 import br.com.curiousguy.aerocar.util.Pricer;
 import lombok.val;
@@ -43,6 +41,9 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
     public final ObservableField<String> servicePrice = new ObservableField<>();
     public final ObservableField<String> totalPrice = new ObservableField<>();
     public final ObservableField<String> tip = new ObservableField<>();
+    public final ObservableField<String> moneyValue = new ObservableField<>();
+    public final ObservableField<String> creditValue = new ObservableField<>();
+    public final ObservableField<String> debitValue = new ObservableField<>();
 
     public final ObservableBoolean paymentEnabled = new ObservableBoolean(true);
 
@@ -54,6 +55,11 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
     public final ObservableInt clientTelVisibility = new ObservableInt();
     public final ObservableInt washVisibility = new ObservableInt();
     public final ObservableInt serviceVisibility = new ObservableInt();
+
+    // TODO: 09/03/17 oncheckchanged mechanism 
+    public final ObservableInt moneyVisibility = new ObservableInt(View.GONE);
+    public final ObservableInt creditVisibility = new ObservableInt(View.GONE);
+    public final ObservableInt debitVisibility = new ObservableInt(View.GONE);
 
     private final static NumberFormat real = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
@@ -81,27 +87,45 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
     }
 
     @Override
-    public void onPaymentTypeChanged (RadioGroup radioGroup, int checkedId) {
-        switch (checkedId) {
-            case R.id.close_work_session_money:
-                workSession.setPaymentType(PaymentType.MONEY);
-                break;
-            case R.id.close_work_session_credit:
-                workSession.setPaymentType(PaymentType.CREDIT_CARD);
-                break;
-            case R.id.close_work_session_debit:
-                workSession.setPaymentType(PaymentType.DEBIT_CARD);
-                break;
-        }
-    }
-
-    @Override
     public void onTipTextChanged(CharSequence s, int start, int before, int count) {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 workSession.setTip(tip.get());
+            }
+        }, TEXT_CHANGED_DELAY_IN_MILLIS);
+    }
+
+    @Override
+    public void onMoneyTextChanged(CharSequence s, int start, int before, int count) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                savePayment(moneyValue.get(), PaymentType.MONEY);
+            }
+        }, TEXT_CHANGED_DELAY_IN_MILLIS);
+    }
+
+    @Override
+    public void onCreditTextChanged(CharSequence s, int start, int before, int count) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                savePayment(creditValue.get(), PaymentType.CREDIT_CARD);
+            }
+        }, TEXT_CHANGED_DELAY_IN_MILLIS);
+    }
+
+    @Override
+    public void onDebitTextChanged(CharSequence s, int start, int before, int count) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                savePayment(debitValue.get(), PaymentType.DEBIT_CARD);
             }
         }, TEXT_CHANGED_DELAY_IN_MILLIS);
     }
@@ -126,18 +150,33 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
         returnToMain();
     }
 
+    private void savePayment(String value, PaymentType paymentType) {
+        for(Payment payment : workSession.getPayment()) {
+            if(payment.getPaymentType() == paymentType) {
+                payment.setValue(value);
+            }
+        }
+    }
+
     private void updatePaymentType() {
-        PaymentType paymentType = workSession.getPaymentType();
-        switch (paymentType) {
-            case MONEY:
-                isMoneyChecked.set(true);
-                break;
-            case DEBIT_CARD:
-                isDebitChecked.set(true);
-                break;
-            case CREDIT_CARD:
-                isCreditChecked.set(true);
-                break;
+        for(Payment payment : workSession.getPayment()) {
+            switch (payment.getPaymentType()) {
+                case MONEY:
+                    isMoneyChecked.set(true);
+                    moneyValue.set(payment.getValue());
+                    moneyVisibility.set(View.VISIBLE);
+                    break;
+                case DEBIT_CARD:
+                    isDebitChecked.set(true);
+                    debitValue.set(payment.getValue());
+                    debitVisibility.set(View.VISIBLE);
+                    break;
+                case CREDIT_CARD:
+                    isCreditChecked.set(true);
+                    creditValue.set(payment.getValue());
+                    creditVisibility.set(View.VISIBLE);
+                    break;
+            }
         }
     }
 
