@@ -67,7 +67,6 @@
     <string name="close_work_session.payment.type.money">Dinheiro</string>
     <string name="close_work_session.payment.type.credit_card">Crédito</string>
     <string name="close_work_session.payment.type.debit_card">Débito</string>
-    <string name="close_work_session.payment.type.check">Cheque</string>
     <string name="close_work_session.payment.tip">Gorjeta</string>
     <string name="close_work_session.payment.tip.hint">Insira a gorjeta</string>
     <string name="close_work_session.button.pay_and_retreive">Pagou e retirou carro</string>

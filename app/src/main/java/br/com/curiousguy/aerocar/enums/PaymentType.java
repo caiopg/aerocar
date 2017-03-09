@@ -6,8 +6,7 @@ public enum PaymentType {
 
     CREDIT_CARD ("Crédito"),
     DEBIT_CARD ("Débito"),
-    MONEY ("Dinheiro"),
-    CHECK ("Cheque");
+    MONEY ("Dinheiro");
 
     @Getter
     private String name;

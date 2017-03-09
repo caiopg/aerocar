@@ -49,7 +49,6 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
     public final ObservableField<Boolean> isMoneyChecked = new ObservableField<>(false);
     public final ObservableField<Boolean> isCreditChecked = new ObservableField<>(false);
     public final ObservableField<Boolean> isDebitChecked = new ObservableField<>(false);
-    public final ObservableField<Boolean> isCheckChecked = new ObservableField<>(false);
 
     public final ObservableInt clientNameVisibility = new ObservableInt();
     public final ObservableInt clientTelVisibility = new ObservableInt();
@@ -92,9 +91,6 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
                 break;
             case R.id.close_work_session_debit:
                 workSession.setPaymentType(PaymentType.DEBIT_CARD);
-                break;
-            case R.id.close_work_session_check:
-                workSession.setPaymentType(PaymentType.CHECK);
                 break;
         }
     }
@@ -141,9 +137,6 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
                 break;
             case CREDIT_CARD:
                 isCreditChecked.set(true);
-                break;
-            case CHECK:
-                isCheckChecked.set(true);
                 break;
         }
     }
