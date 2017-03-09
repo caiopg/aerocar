@@ -13,18 +13,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import br.com.curiousguy.aerocar.BaseActivity;
 import br.com.curiousguy.aerocar.BaseFragment;
 import br.com.curiousguy.aerocar.R;
-import br.com.curiousguy.aerocar.enums.RequestCode;
-import br.com.curiousguy.aerocar.feature.worksessionlist.WorkSessionListFragment;
-import br.com.curiousguy.aerocar.feature.newworksession.NewWorkSessionActivity;
 import br.com.curiousguy.aerocar.databinding.ActivityMainBinding;
+import br.com.curiousguy.aerocar.enums.RequestCode;
+import br.com.curiousguy.aerocar.feature.newworksession.NewWorkSessionActivity;
 import br.com.curiousguy.aerocar.feature.report.ReportFragment;
 import br.com.curiousguy.aerocar.feature.settings.SettingsFragment;
+import br.com.curiousguy.aerocar.feature.worksessionlist.WorkSessionListFragment;
 import br.com.curiousguy.aerocar.util.ReportBuilder;
 
 
@@ -43,7 +44,21 @@ public class MainActivity extends BaseActivity {
         setupBottomNavigationView();
 
         //todo remove
-        ReportBuilder builder = new ReportBuilder(this, new Date(), new Date());
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DATE);
+        calendar.set(year, month, day, 0, 0, 0);
+        Date start = calendar.getTime();
+
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DATE);
+        calendar.set(year, month, day, 23, 59, 59);
+        Date end = calendar.getTime();
+
+        ReportBuilder builder = new ReportBuilder(this, start, end);
         builder.build();
     }
 
