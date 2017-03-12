@@ -3,6 +3,7 @@ package br.com.curiousguy.aerocar.model;
 import android.text.TextUtils;
 
 import org.parceler.Parcel;
+import org.parceler.ParcelPropertyConverter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.enums.PaymentType;
 import br.com.curiousguy.aerocar.enums.Service;
 import br.com.curiousguy.aerocar.enums.Wash;
+import br.com.curiousguy.aerocar.model.parcelconverter.RealmListParcelConverter;
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import lombok.Getter;
@@ -40,7 +43,8 @@ public class WorkSession extends RealmObject {
     private boolean isPayed;
 
     @Getter @Setter
-    private ArrayList<Payment> payment = new ArrayList<>();
+    @ParcelPropertyConverter(RealmListParcelConverter.class)
+    private RealmList<Payment> payment;
 
     @Getter @Setter
     private String tip;
