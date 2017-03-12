@@ -72,6 +72,7 @@
     <string name="close_work_session.payment.tip.hint">Insira a gorjeta</string>
     <string name="close_work_session.button.pay_and_retreive">Pagou e retirou carro</string>
     <string name="close_work_session.button.only_pay">Só pagou</string>
+    <string name="close_work_session.error.title">Erro!</string>
     <string name="close_work_session.error.content">Os seguintes erros foram encontrados:\n\n</string>
     <string name="close_work_session.error.no_payment_type">Nenhum método de pagamento escolhido\n</string>
     <string name="close_work_session.error.ok">OK</string>

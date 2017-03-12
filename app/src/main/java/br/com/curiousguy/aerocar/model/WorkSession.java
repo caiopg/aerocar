@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Random;
 
 import br.com.curiousguy.aerocar.R;
-import br.com.curiousguy.aerocar.enums.PaymentType;
 import br.com.curiousguy.aerocar.enums.Service;
 import br.com.curiousguy.aerocar.enums.Wash;
 import br.com.curiousguy.aerocar.model.parcelconverter.RealmListParcelConverter;
@@ -44,7 +43,7 @@ public class WorkSession extends RealmObject {
 
     @Getter @Setter
     @ParcelPropertyConverter(RealmListParcelConverter.class)
-    private RealmList<Payment> payment;
+    private RealmList<Payment> payments;
 
     @Getter @Setter
     private String tip;
@@ -104,7 +103,7 @@ public class WorkSession extends RealmObject {
     public List<Integer> getPaymentErrorIdList() {
         ArrayList<Integer> errors = new ArrayList<>();
 
-        if(payment.size() == 0) {
+        if(payments.size() == 0) {
             errors.add(R.string.close_work_session_error_no_payment_type);
         }
 
@@ -127,5 +126,9 @@ public class WorkSession extends RealmObject {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy -HH:mm");
 
         return format.format(getEntry());
+    }
+
+    public int getIntTip() {
+        return Integer.valueOf(this.tip);
     }
 }

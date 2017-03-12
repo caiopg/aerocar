@@ -23,6 +23,7 @@ import br.com.curiousguy.aerocar.model.Client;
 import br.com.curiousguy.aerocar.model.Payment;
 import br.com.curiousguy.aerocar.model.WorkSession;
 import br.com.curiousguy.aerocar.util.Pricer;
+import io.realm.RealmList;
 import lombok.val;
 
 public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel {
@@ -56,7 +57,6 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
     public final ObservableInt washVisibility = new ObservableInt();
     public final ObservableInt serviceVisibility = new ObservableInt();
 
-    // TODO: 09/03/17 oncheckchanged mechanism 
     public final ObservableInt moneyVisibility = new ObservableInt(View.GONE);
     public final ObservableInt creditVisibility = new ObservableInt(View.GONE);
     public final ObservableInt debitVisibility = new ObservableInt(View.GONE);
@@ -78,10 +78,12 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
         Car car = workSession.getCar();
         populateData(car);
         populateValues(car);
-        upateTip();
 
         if(workSession.isPayed()) {
-            updatePaymentType();
+            NumberFormat real = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
+            updateTip(real);
+            updatePaymentType(real);
             paymentEnabled.set(false);
         }
     }
@@ -131,6 +133,39 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
     }
 
     @Override
+    public void onMoneyCheckChanged(boolean isChecked) {
+        if(isChecked) {
+            moneyVisibility.set(View.VISIBLE);
+        } else {
+            moneyVisibility.set(View.GONE);
+            moneyValue.set("");
+            removePayment(PaymentType.MONEY);
+        }
+    }
+
+    @Override
+    public void onCreditCheckChanged(boolean isChecked) {
+        if(isChecked) {
+            creditVisibility.set(View.VISIBLE);
+        } else {
+            creditVisibility.set(View.GONE);
+            creditValue.set("");
+            removePayment(PaymentType.CREDIT_CARD);
+        }
+    }
+
+    @Override
+    public void onDebitCheckChanged(boolean isChecked) {
+        if(isChecked) {
+            debitVisibility.set(View.VISIBLE);
+        } else {
+            debitVisibility.set(View.GONE);
+            debitValue.set("");
+            removePayment(PaymentType.DEBIT_CARD);
+        }
+    }
+
+    @Override
     public void onPayedClicked() {
         if(verifyAndShowErrors()) {
             return;
@@ -150,47 +185,66 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
         returnToMain();
     }
 
-    private void savePayment(String value, PaymentType paymentType) {
-        for(Payment payment : workSession.getPayment()) {
+    private void removePayment(PaymentType paymentType) {
+        RealmList<Payment> payments = workSession.getPayments();
+
+        for(Payment payment : payments) {
             if(payment.getPaymentType() == paymentType) {
-                payment.setValue(value);
+                payments.remove(payment);
+                return;
             }
         }
     }
 
-    private void updatePaymentType() {
-        for(Payment payment : workSession.getPayment()) {
+    private void savePayment(String value, PaymentType paymentType) {
+        for(Payment payment : workSession.getPayments()) {
+            if(payment.getPaymentType() == paymentType) {
+                payment.setValue(value);
+                return;
+            }
+        }
+
+        Payment payment = new Payment();
+        payment.setPaymentType(paymentType);
+        payment.setValue(value);
+        workSession.getPayments().add(payment);
+    }
+
+    private void updatePaymentType(NumberFormat moneyFormat) {
+        for(Payment payment : workSession.getPayments()) {
             switch (payment.getPaymentType()) {
                 case MONEY:
                     isMoneyChecked.set(true);
-                    moneyValue.set(payment.getValue());
+                    this.moneyValue.set(moneyFormat.format(payment.getIntValue()));
                     moneyVisibility.set(View.VISIBLE);
                     break;
                 case DEBIT_CARD:
                     isDebitChecked.set(true);
-                    debitValue.set(payment.getValue());
+                    debitValue.set(moneyFormat.format(payment.getIntValue()));
                     debitVisibility.set(View.VISIBLE);
                     break;
                 case CREDIT_CARD:
                     isCreditChecked.set(true);
-                    creditValue.set(payment.getValue());
+                    creditValue.set(moneyFormat.format(payment.getIntValue()));
                     creditVisibility.set(View.VISIBLE);
                     break;
             }
         }
     }
 
-    private void upateTip() {
+    private void updateTip(NumberFormat moneyFormat) {
         if(workSession.hasTip()) {
-            tip.set(workSession.getTip());
-        } else {
-            tip.set("0");
+            tip.set(moneyFormat.format(workSession.getIntTip()));
         }
     }
 
     private void persistData(boolean isActive) {
         workSession.setPayed(true);
         workSession.setActive(isActive);
+
+        if(!workSession.hasTip()) {
+            workSession.setTip("0");
+        }
 
         if(!isActive) {
             workSession.setExit(new Date());
@@ -219,7 +273,7 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
     }
 
     private void showErrors(List<Integer> errorIds) {
-        String title = context.getString(R.string.close_work_session_error_ok);
+        String title = context.getString(R.string.close_work_session_error_title);
         String content = assembleErrorContent(errorIds);
 
         new AlertDialog.Builder(context)

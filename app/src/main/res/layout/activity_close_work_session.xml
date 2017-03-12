@@ -58,6 +58,7 @@
                         style="@style/TextTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:text="@{viewModel.model}"
                         tools:text="Modelo: Citroen" />
 
@@ -221,14 +222,18 @@
                             android:enabled="@{viewModel.paymentEnabled}"
                             android:id="@+id/close_work_session_money"
                             android:layout_height="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_weight="2"
                             android:text="@string/close_work_session.payment.type.money"
-                            android:checked="@{viewModel.isMoneyChecked}"/>
+                            android:onCheckedChanged="@{(v, checked) -> viewModel.onMoneyCheckChanged(checked)}"
+                            android:checked="@{viewModel.isMoneyChecked}" />
 
                         <EditText
                             style="@style/Input"
+                            android:visibility="@{viewModel.moneyVisibility}"
                             android:enabled="@{viewModel.paymentEnabled}"
                             android:layout_height="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_weight="3"
                             android:hint="@string/close_work_session.payment.type.hint"
                             android:inputType="numberDecimal"
@@ -250,14 +255,18 @@
                             android:enabled="@{viewModel.paymentEnabled}"
                             android:id="@+id/close_work_session_credit"
                             android:layout_height="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_weight="2"
                             android:text="@string/close_work_session.payment.type.credit_card"
+                            android:onCheckedChanged="@{(v, checked) -> viewModel.onCreditCheckChanged(checked)}"
                             android:checked="@{viewModel.isCreditChecked}"/>
 
                         <EditText
                             style="@style/Input"
+                            android:visibility="@{viewModel.creditVisibility}"
                             android:enabled="@{viewModel.paymentEnabled}"
                             android:layout_height="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_weight="3"
                             android:hint="@string/close_work_session.payment.type.hint"
                             android:inputType="numberDecimal"
@@ -279,14 +288,18 @@
                             android:enabled="@{viewModel.paymentEnabled}"
                             android:id="@+id/close_work_session_debit"
                             android:layout_height="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_weight="2"
                             android:text="@string/close_work_session.payment.type.debit_card"
+                            android:onCheckedChanged="@{(v, checked) -> viewModel.onDebitCheckChanged(checked)}"
                             android:checked="@{viewModel.isDebitChecked}" />
 
                         <EditText
                             style="@style/Input"
+                            android:visibility="@{viewModel.debitVisibility}"
                             android:enabled="@{viewModel.paymentEnabled}"
                             android:layout_height="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_weight="3"
                             android:hint="@string/close_work_session.payment.type.hint"
                             android:inputType="numberDecimal"

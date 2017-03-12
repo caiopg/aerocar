@@ -12,6 +12,12 @@ public interface CloseWorkSessionViewModel {
 
     void onDebitTextChanged(CharSequence s, int start, int before, int count);
 
+    void onMoneyCheckChanged(boolean isChecked);
+
+    void onCreditCheckChanged(boolean isChecked);
+
+    void onDebitCheckChanged(boolean isChecked);
+
     void onPayedClicked();
 
     void onPayedAndRetreviedClicked();

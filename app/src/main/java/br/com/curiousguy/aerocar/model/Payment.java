@@ -16,10 +16,14 @@ public class Payment extends RealmObject {
     String value;
 
     public PaymentType getPaymentType() {
-        return PaymentType.valueOf(paymentType);
+        return PaymentType.valueOf(this.paymentType);
     }
 
-    public void setPaymentType(String paymentType) {
+    public void setPaymentType(PaymentType paymentType) {
         this.paymentType = String.valueOf(paymentType);
+    }
+
+    public int getIntValue() {
+        return Integer.valueOf(this.value);
     }
 }
