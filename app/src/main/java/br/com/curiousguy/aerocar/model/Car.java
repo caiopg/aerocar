@@ -63,4 +63,8 @@ public class Car extends RealmObject {
     public boolean hasClient() {
         return getClient() != null ;
     }
+
+    public boolean isSpecial() {
+        return this.getType() == CarType.TAXI || this.getType() == CarType.UBER;
+    }
 }

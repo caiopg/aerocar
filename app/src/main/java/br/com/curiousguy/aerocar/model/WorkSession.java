@@ -125,7 +125,13 @@ public class WorkSession extends RealmObject {
     public String getFormattedEntry() {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy -HH:mm");
 
-        return format.format(getEntry());
+        return format.format(this.getEntry());
+    }
+
+    public String getFormattedExit() {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy -HH:mm");
+
+        return format.format(this.getExit());
     }
 
     public int getIntTip() {

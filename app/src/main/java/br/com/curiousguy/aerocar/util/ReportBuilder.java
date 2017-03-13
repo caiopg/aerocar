@@ -12,6 +12,9 @@ import java.util.List;
 
 import br.com.curiousguy.aerocar.db.DbFacade;
 import br.com.curiousguy.aerocar.db.RealmFacade;
+import br.com.curiousguy.aerocar.enums.PaymentType;
+import br.com.curiousguy.aerocar.enums.Wash;
+import br.com.curiousguy.aerocar.model.Payment;
 import br.com.curiousguy.aerocar.model.WorkSession;
 import jxl.Workbook;
 import jxl.format.CellFormat;
@@ -27,7 +30,6 @@ public class ReportBuilder {
 
     private static final String SUFFIX = ".xls";
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("ddMMyyyy_HHmmss");
-    private static final int INITIAL_ITEM = 1;
 
     private Context context;
     private Date start;
@@ -89,23 +91,17 @@ public class ReportBuilder {
         createTableTitles(cellFormat, sheet);
 
         int row = Cell.getContentAnchor();
-        int item = INITIAL_ITEM;
+
         for(WorkSession workSession : workSessions) {
-            // TODO: 09/03/17 continue populating
+            for (Cell cell : Cell.values()) {
+                Label label;
+                label = new Label(cell.getColumn(), row,
+                        cell.getContent(workSessions, workSession), cellFormat);
+                sheet.addCell(label);
+            }
 
-            Label label;
-
-            label = new Label(Cell.NUMBER.getColumn(), row, String.valueOf(item), cellFormat);
-            sheet.addCell(label);
-            label = new Label(Cell.PLATE.getColumn(), row, workSession.getCar().getPlate(), cellFormat);
-            sheet.addCell(label);
-            label = new Label(Cell.TIP.getColumn(), row, workSession.getTip(), cellFormat);
-            sheet.addCell(label);
-            label = new Label(Cell.ENTRY.getColumn(), row, workSession.getEntry().toString(), cellFormat);
-            sheet.addCell(label);
-
-            item++;
             row++;
+
         }
 
         workbook.write();
@@ -139,17 +135,116 @@ public class ReportBuilder {
     }
 
     private enum Cell {
-        NUMBER(1, 1, "No."),
-        VEHICLE(1, 2, "Veículo"),
-        PLATE(1, 3, "Placa"),
-        SERVICE(1, 4, "Serviço"),
-        VALUE(1, 5, "Valor"),
-        DEBIT(1, 6, "Débito"),
-        CREDIT(1, 7, "Crédito"),
-        MONEY(1, 8, "Dinheiro"),
-        TIP(1, 9, "Gorjeta"),
-        ENTRY(1, 10, "Entrada"),
-        EXIT(1, 11, "Saída");
+        NUMBER(1, 1, "No.") {
+            @Override
+            public String getContent(List<WorkSession> workSessions, WorkSession workSession) {
+                return String.valueOf(workSessions.indexOf(workSession) + 1);
+            }
+        },
+        VEHICLE(1, 2, "Veículo") {
+            @Override
+            public String getContent(List<WorkSession> workSessions, WorkSession workSession) {
+                return workSession.getCar().getModel();
+            }
+        },
+        PLATE(1, 3, "Placa") {
+            @Override
+            public String getContent(List<WorkSession> workSessions, WorkSession workSession) {
+                return workSession.getCar().getPlate();
+            }
+        },
+        SERVICE(1, 4, "Serviço") {
+            @Override
+            public String getContent(List<WorkSession> workSessions, WorkSession workSession) {
+
+                if(workSession.getCar().isSpecial()) {
+                    return getSpecialService(workSession);
+                } else {
+                    return getNormalServices(workSession);
+                }
+            }
+        },
+        VALUE(1, 5, "Valor") {
+            @Override
+            public String getContent(List<WorkSession> workSessions, WorkSession workSession) {
+                return String.valueOf(Pricer.price(workSession));
+            }
+        },
+        DEBIT(1, 6, "Débito") {
+            @Override
+            public String getContent(List<WorkSession> workSessions, WorkSession workSession) {
+                return getPaymentContent(workSession, PaymentType.DEBIT_CARD);
+            }
+        },
+        CREDIT(1, 7, "Crédito") {
+            @Override
+            public String getContent(List<WorkSession> workSessions, WorkSession workSession) {
+                return getPaymentContent(workSession, PaymentType.CREDIT_CARD);
+            }
+        },
+        MONEY(1, 8, "Dinheiro") {
+            @Override
+            public String getContent(List<WorkSession> workSessions, WorkSession workSession) {
+                return getPaymentContent(workSession, PaymentType.MONEY);
+            }
+        },
+        TIP(1, 9, "Gorjeta") {
+            @Override
+            public String getContent(List<WorkSession> workSessions, WorkSession workSession) {
+                if(workSession.hasTip()) {
+                    return workSession.getTip();
+                }
+
+                return "";
+            }
+        },
+        ENTRY(1, 10, "Entrada") {
+            @Override
+            public String getContent(List<WorkSession> workSessions, WorkSession workSession) {
+                return workSession.getFormattedEntry();
+            }
+        },
+        EXIT(1, 11, "Saída") {
+            @Override
+            public String getContent(List<WorkSession> workSessions, WorkSession workSession) {
+                return workSession.getFormattedExit();
+            }
+        };
+
+        private static String getNormalServices(WorkSession workSession) {
+            String services = "";
+
+            if(workSession.hasService()) {
+                services = services.concat(workSession.getService().getName());
+            }
+
+            if(workSession.hasWash()) {
+                services = services.concat(" + " + workSession.getWash().getName());
+            }
+            return services;
+        }
+
+        private static String getSpecialService(WorkSession workSession) {
+            String services = workSession.getCar().getType().getName();
+
+            if(workSession.getWash() == Wash.RESIN) {
+                services = services.concat(" + " + workSession.getWash().getName());
+            }
+
+            return services;
+        }
+
+        private static String getPaymentContent(WorkSession workSession, PaymentType paymentType) {
+            List<Payment> payments = workSession.getPayments();
+
+            for(Payment payment : payments) {
+                if(payment.getPaymentType() == paymentType) {
+                    return payment.getValue();
+                }
+            }
+
+            return "";
+        }
 
         @Getter
         private int row;
@@ -169,5 +264,7 @@ public class ReportBuilder {
         public static int getContentAnchor() {
             return EXIT.getRow() + 1;
         }
+
+        public abstract String getContent(List<WorkSession> workSessions, WorkSession workSession);
     }
 }
