@@ -79,7 +79,7 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
         populateData(car);
         populateValues(car);
 
-        if(workSession.isPayed()) {
+        if(!isPayMode()) {
             NumberFormat real = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
             updateTip(real);
@@ -94,7 +94,9 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                workSession.setTip(tip.get());
+                if(isPayMode()) {
+                    workSession.setTip(tip.get());
+                }
             }
         }, TEXT_CHANGED_DELAY_IN_MILLIS);
     }
@@ -105,7 +107,9 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                savePayment(moneyValue.get(), PaymentType.MONEY);
+                if(isPayMode()) {
+                    addPaymentToWorkSession(moneyValue.get(), PaymentType.MONEY);
+                }
             }
         }, TEXT_CHANGED_DELAY_IN_MILLIS);
     }
@@ -116,7 +120,9 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                savePayment(creditValue.get(), PaymentType.CREDIT_CARD);
+                if(isPayMode()) {
+                    addPaymentToWorkSession(creditValue.get(), PaymentType.CREDIT_CARD);
+                }
             }
         }, TEXT_CHANGED_DELAY_IN_MILLIS);
     }
@@ -127,7 +133,9 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                savePayment(debitValue.get(), PaymentType.DEBIT_CARD);
+                if(isPayMode()) {
+                    addPaymentToWorkSession(debitValue.get(), PaymentType.DEBIT_CARD);
+                }
             }
         }, TEXT_CHANGED_DELAY_IN_MILLIS);
     }
@@ -185,6 +193,10 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
         returnToMain();
     }
 
+    private boolean isPayMode() {
+        return !workSession.isPayed();
+    }
+
     private void removePayment(PaymentType paymentType) {
         RealmList<Payment> payments = workSession.getPayments();
 
@@ -196,7 +208,7 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
         }
     }
 
-    private void savePayment(String value, PaymentType paymentType) {
+    private void addPaymentToWorkSession(String value, PaymentType paymentType) {
         for(Payment payment : workSession.getPayments()) {
             if(payment.getPaymentType() == paymentType) {
                 payment.setValue(value);
@@ -239,11 +251,14 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
     }
 
     private void persistData(boolean isActive) {
-        workSession.setPayed(true);
         workSession.setActive(isActive);
 
-        if(!workSession.hasTip()) {
-            workSession.setTip("0");
+        if(isPayMode()) {
+            workSession.setPayed(true);
+
+            if(!workSession.hasTip()) {
+                workSession.setTip("0");
+            }
         }
 
         if(!isActive) {

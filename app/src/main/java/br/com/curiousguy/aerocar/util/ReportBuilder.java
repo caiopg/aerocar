@@ -219,8 +219,13 @@ public class ReportBuilder {
             }
 
             if(workSession.hasWash()) {
-                services = services.concat(" + " + workSession.getWash().getName());
+                if(!services.equals("")) {
+                    services = services.concat(" + ");
+                }
+
+                services = services.concat(workSession.getWash().getName());
             }
+
             return services;
         }
 
