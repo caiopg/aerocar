@@ -53,6 +53,7 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
     public final ObservableInt serviceVisibility = new ObservableInt(View.VISIBLE);
     public final ObservableInt uberRegisterVisibility = new ObservableInt(View.GONE);
 
+    // TODO: 12/03/17 add clear button for all filters except cartype
     private DbFacade facade = new RealmFacade();
     Handler handler = new Handler();
     private Car car = new Car();
@@ -77,6 +78,7 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
             } finally {
                 plate.set(plate.get().toUpperCase());
                 car.setPlate(plate.get().toUpperCase());
+                // TODO: 12/03/17 fix cursos position after car searched
             }
         }
     };
