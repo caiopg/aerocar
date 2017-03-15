@@ -81,4 +81,17 @@
     <string name="item_car_list.not_payed">PENDENTE</string>
     <string name="item_car_list.plate">Placa: %s</string>
     <string name="item_car_list.price">Preço: %s</string>
+
+    <string name="report.date">Data ou intervalo</string>
+    <string name="report.date.today">Hoje</string>
+    <string name="report.date.other">Outro </string>
+    <string name="report.date.other.start">Inicio</string>
+    <string name="report.date.other.start.hint">Insira a data de inicio</string>
+    <string name="report.date.other.end">Fim</string>
+    <string name="report.date.other.end.hint">Insira a data de fim</string>
+    <string name="report.email">E-mail para envio do relatório</string>
+    <string name="report.email.hint">Insira o e-mail para envio do relatório</string>
+    <string name="report.create">Criar relatório</string>
+    <string name="report.error.invalid_date.title">Data inválida</string>
+    <string name="report.error.invalid_date.content">Data de inicio não pode ser após a data de fim.</string>
 </resources>

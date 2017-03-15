@@ -42,24 +42,6 @@ public class MainActivity extends BaseActivity {
         setupToolbar();
         setupViewpager();
         setupBottomNavigationView();
-
-        //todo remove
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DATE);
-        calendar.set(year, month, day, 0, 0, 0);
-        Date start = calendar.getTime();
-
-        calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DATE);
-        calendar.set(year, month, day, 23, 59, 59);
-        Date end = calendar.getTime();
-
-        ReportBuilder builder = new ReportBuilder(this, start, end);
-        builder.build();
     }
 
     @Override

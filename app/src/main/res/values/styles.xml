@@ -48,4 +48,8 @@
         <item name="android:textSize">24dp</item>
     </style>
 
+    <style name="ReportRadioButton">
+        <item name="android:textSize">20dp</item>
+    </style>
+
 </resources>

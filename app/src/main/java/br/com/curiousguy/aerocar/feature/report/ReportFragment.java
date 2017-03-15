@@ -23,6 +23,7 @@ public class ReportFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_report, container, false);
+        binding.setViewModel(new ReportViewModelImpl(getActivity()));
         View rootView = binding.getRoot();
 
         return rootView;

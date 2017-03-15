@@ -4,14 +4,135 @@
     <data>
         <variable
             name="viewModel"
-            type="br.com.curiousguy.aerocar.feature.report.ReportFragment"/>
+            type="br.com.curiousguy.aerocar.feature.report.ReportViewModelImpl"/>
     </data>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black">
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:animateLayoutChanges="true">
+
+        <TextView
+            style="@style/InputTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/report.date" />
+
+        <RadioGroup
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onCheckedChanged="@{viewModel::onDateOptionChanged}">
+
+            <RadioButton
+                style="@style/ReportRadioButton"
+                android:id="@+id/report_date_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/report.date.today"
+                android:checked="true"/>
+
+            <RadioButton
+                style="@style/ReportRadioButton"
+                android:id="@+id/report_date_other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/report.date.other" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:visibility="@{viewModel.otherDateVisibility}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/InputTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/report.date.other.start" />
+
+                <EditText
+                    android:id="@+id/editText"
+                    style="@style/Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@{viewModel.otherDateStart}"
+                    android:hint="@string/report.date.other.start.hint"
+                    android:onClick="@{() -> viewModel.onStartDateClicked()}"
+                    android:focusable="false"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/InputTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/report.date.other.end" />
+
+                <EditText
+                    style="@style/Input"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.otherDateEnd}"
+                    android:hint="@string/report.date.other.end.hint"
+                    android:onClick="@{() -> viewModel.onEndDateClicked()}"
+                    android:focusable="false"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/InputTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/report.email" />
+
+        <EditText
+            style="@style/Input"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={viewModel.email}"
+            android:hint="@string/report.email.hint" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:backgroundTint="@color/blue_light"
+            android:textColor="@color/white"
+            android:textSize="24dp"
+            android:text="@string/report.create"
+            android:onClick="@{() -> viewModel.onCreateClicked()}"/>
 
     </LinearLayout>
 </layout>
