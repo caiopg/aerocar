@@ -154,6 +154,9 @@ public class ReportViewModelImpl implements ReportViewModel {
 
     @Override
     public void onShareClicked() {
+
+        //todo do correctly
+        
         String emailValue = email.get();
         if(TextUtils.isEmpty(emailValue) || !Validator.isValidEmailAddress(emailValue)) {
             String title = context.getString(R.string.report_error_invalid_email_title);
