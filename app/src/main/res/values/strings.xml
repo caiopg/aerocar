@@ -92,6 +92,10 @@
     <string name="report.email">E-mail para envio do relatório</string>
     <string name="report.email.hint">Insira o e-mail para envio do relatório</string>
     <string name="report.create">Criar relatório</string>
+    <string name="report.share_last">Compartilhar último relatório</string>
+    <string name="report.open_dialog.message">Gostaria de abrir o relatório?</string>
+    <string name="report.open_dialog.yes">Sim</string>
+    <string name="report.open_dialog.no">Não</string>
     <string name="report.error.invalid_date.title">Data inválida</string>
     <string name="report.error.invalid_email.title">E-mail inválido</string>
     <string name="report.error.invalid_date.content">Data de inicio não pode ser após a data de fim.</string>

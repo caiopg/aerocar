@@ -1,8 +1,9 @@
 package br.com.curiousguy.aerocar.util;
 
-import android.content.Context;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+
+import com.orhanobut.hawk.Hawk;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import br.com.curiousguy.aerocar.db.DbFacade;
 import br.com.curiousguy.aerocar.db.RealmFacade;
+import br.com.curiousguy.aerocar.enums.HawkKey;
 import br.com.curiousguy.aerocar.enums.PaymentType;
 import br.com.curiousguy.aerocar.enums.Wash;
 import br.com.curiousguy.aerocar.model.Payment;
@@ -31,16 +33,12 @@ public class ReportBuilder {
     private static final String SUFFIX = ".xls";
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("ddMMyyyy_HHmmss");
 
-    private Context context;
-    private Date start;
-    private Date end;
     private List<WorkSession> workSessions;
 
-    public ReportBuilder(Context context, Date start, Date end) {
-        this.context = context;
-        this.start = start;
-        this.end = end;
+    @Getter
+    private String path;
 
+    public ReportBuilder(Date start, Date end) {
         DbFacade facade = new RealmFacade();
         this.workSessions = facade.fetchInactiveWorkSessions(start, end);
     }
@@ -56,6 +54,8 @@ public class ReportBuilder {
         } catch (WriteException e) {
             e.printStackTrace();
         }
+
+        this.path = reportFile.getAbsolutePath();
 
         return reportFile;
     }

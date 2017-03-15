@@ -134,5 +134,17 @@
             android:text="@string/report.create"
             android:onClick="@{() -> viewModel.onCreateClicked()}"/>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:backgroundTint="@color/blue_light"
+            android:textColor="@color/white"
+            android:textSize="24dp"
+            android:text="@string/report.share_last"
+            android:onClick="@{() -> viewModel.onShareClicked()}"/>
+
     </LinearLayout>
 </layout>

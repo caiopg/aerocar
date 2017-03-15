@@ -11,4 +11,6 @@ public interface ReportViewModel {
     void onEndDateClicked();
 
     void onCreateClicked();
+
+    void onShareClicked();
 }

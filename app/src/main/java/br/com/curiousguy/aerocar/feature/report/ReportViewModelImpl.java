@@ -2,8 +2,11 @@ package br.com.curiousguy.aerocar.feature.report;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.RadioGroup;
 
 import com.orhanobut.hawk.Hawk;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -101,6 +105,55 @@ public class ReportViewModelImpl implements ReportViewModel {
         Date initialDate = startOfDay(start);
         Date finalDate = endOfDay(end);
 
+        if(start.after(end)) {
+            String title = context.getString(R.string.report_error_invalid_date_title);
+            String content = context.getString(R.string.report_error_invalid_date_content);
+
+            showError(title, content);
+            return;
+        }
+
+        String path = buildReportAndSave(initialDate, finalDate);
+        showOpenReportDialog(path);
+    }
+
+    private String buildReportAndSave(Date initialDate, Date finalDate) {
+        ReportBuilder builder = new ReportBuilder(initialDate, finalDate);
+        builder.build();
+
+        String path = builder.getPath();
+        Hawk.put(HawkKey.LAST_REPORT_ADDRESS.getKey(), path);
+
+        return path;
+    }
+
+    private void showOpenReportDialog(final String path) {
+        new AlertDialog.Builder(context)
+                .setMessage(R.string.report_open_dialog_message)
+                .setPositiveButton(R.string.report_open_dialog_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        openReport(path);
+                    }
+                })
+                .setNegativeButton(R.string.report_open_dialog_no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                })
+                .show();
+    }
+
+    private void openReport(String path) {
+        File file = new File(path);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(file),"application/vnd.ms-excel");
+        context.startActivity(intent);
+    }
+
+    @Override
+    public void onShareClicked() {
         String emailValue = email.get();
         if(TextUtils.isEmpty(emailValue) || !Validator.isValidEmailAddress(emailValue)) {
             String title = context.getString(R.string.report_error_invalid_email_title);
@@ -110,19 +163,7 @@ public class ReportViewModelImpl implements ReportViewModel {
             return;
         }
 
-
-        if(start.after(end)) {
-            String title = context.getString(R.string.report_error_invalid_date_title);
-            String content = context.getString(R.string.report_error_invalid_date_content);
-
-            showError(title, content);
-            return;
-        }
-
         Hawk.put(HawkKey.RECIPIENT_EMAIL.getKey(), emailValue);
-
-        ReportBuilder builder = new ReportBuilder(context, initialDate, finalDate);
-        builder.build();
 
     }
 
