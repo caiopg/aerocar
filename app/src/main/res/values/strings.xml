@@ -93,5 +93,7 @@
     <string name="report.email.hint">Insira o e-mail para envio do relatório</string>
     <string name="report.create">Criar relatório</string>
     <string name="report.error.invalid_date.title">Data inválida</string>
+    <string name="report.error.invalid_email.title">E-mail inválido</string>
     <string name="report.error.invalid_date.content">Data de inicio não pode ser após a data de fim.</string>
+    <string name="report.error.invalid_email.content">Por favor insira um e-mail válido.</string>
 </resources>

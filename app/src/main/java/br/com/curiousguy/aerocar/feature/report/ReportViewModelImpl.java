@@ -5,16 +5,21 @@ import android.content.Context;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.RadioGroup;
+
+import com.orhanobut.hawk.Hawk;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import br.com.curiousguy.aerocar.R;
+import br.com.curiousguy.aerocar.enums.HawkKey;
 import br.com.curiousguy.aerocar.util.ReportBuilder;
+import br.com.curiousguy.aerocar.util.Validator;
 
 public class ReportViewModelImpl implements ReportViewModel {
 
@@ -32,6 +37,8 @@ public class ReportViewModelImpl implements ReportViewModel {
 
     public ReportViewModelImpl(Context context) {
         this.context = context;
+
+        populateFields();
     }
 
     @Override
@@ -89,31 +96,41 @@ public class ReportViewModelImpl implements ReportViewModel {
                 .show();
     }
 
-    private void setCalendar(int year, int month, int dayOfMonth, Calendar startCal) {
-        startCal.set(Calendar.YEAR, year);
-        startCal.set(Calendar.MONTH, month);
-        startCal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-    }
-
     @Override
     public void onCreateClicked() {
-        //todo verify and save email
         Date initialDate = startOfDay(start);
         Date finalDate = endOfDay(end);
 
-        if(start.after(end)) {
-            showInvalidDateError();
+        String emailValue = email.get();
+        if(TextUtils.isEmpty(emailValue) || !Validator.isValidEmailAddress(emailValue)) {
+            String title = context.getString(R.string.report_error_invalid_email_title);
+            String content = context.getString(R.string.report_error_invalid_email_content);
+
+            showError(title, content);
             return;
         }
 
+
+        if(start.after(end)) {
+            String title = context.getString(R.string.report_error_invalid_date_title);
+            String content = context.getString(R.string.report_error_invalid_date_content);
+
+            showError(title, content);
+            return;
+        }
+
+        Hawk.put(HawkKey.RECIPIENT_EMAIL.getKey(), emailValue);
+
         ReportBuilder builder = new ReportBuilder(context, initialDate, finalDate);
         builder.build();
+
     }
 
-    private void showInvalidDateError() {
-        String title = context.getString(R.string.report_error_invalid_date_title);
-        String content = context.getString(R.string.report_error_invalid_date_content);
+    private void populateFields() {
+        email.set(Hawk.get(HawkKey.RECIPIENT_EMAIL.getKey(), ""));
+    }
 
+    private void showError(String title, String content) {
         new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(content)
@@ -141,5 +158,11 @@ public class ReportViewModelImpl implements ReportViewModel {
         int day = calendar.get(Calendar.DATE);
         calendar.set(year, month, day, 23, 59, 59);
         return calendar.getTime();
+    }
+
+    private void setCalendar(int year, int month, int dayOfMonth, Calendar startCal) {
+        startCal.set(Calendar.YEAR, year);
+        startCal.set(Calendar.MONTH, month);
+        startCal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
     }
 }

@@ -2,6 +2,8 @@ package br.com.curiousguy.aerocar;
 
 import android.app.Application;
 
+import com.orhanobut.hawk.Hawk;
+
 import br.com.curiousguy.aerocar.db.DbFacade;
 import br.com.curiousguy.aerocar.db.RealmFacade;
 import br.com.curiousguy.aerocar.model.PriceTable;
@@ -14,8 +16,13 @@ public class AeroCarApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initializeRealm();
+        initializeHawk();
 
         createDefaultPriceTableIfNecessary();
+    }
+
+    private void initializeHawk() {
+        Hawk.init(this).build();
     }
 
     private void initializeRealm() {
