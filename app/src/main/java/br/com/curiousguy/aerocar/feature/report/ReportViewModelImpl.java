@@ -1,5 +1,6 @@
 package br.com.curiousguy.aerocar.feature.report;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,7 +23,9 @@ import java.util.Date;
 import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.db.DataFacade;
 import br.com.curiousguy.aerocar.db.DbFacade;
+import br.com.curiousguy.aerocar.enums.RequestCode;
 import br.com.curiousguy.aerocar.model.Report;
+import br.com.curiousguy.aerocar.util.PermissionHelper;
 import br.com.curiousguy.aerocar.util.ReportBuilder;
 import br.com.curiousguy.aerocar.util.Validator;
 
@@ -107,7 +110,7 @@ public class ReportViewModelImpl implements ReportViewModel {
         Date initialDate = startOfDay(start);
         Date finalDate = endOfDay(end);
 
-        if(start.after(end)) {
+        if(initialDate.after(finalDate)) {
             String title = context.getString(R.string.report_error_invalid_date_title);
             String content = context.getString(R.string.report_error_invalid_date_content);
 
@@ -115,52 +118,11 @@ public class ReportViewModelImpl implements ReportViewModel {
             return;
         }
 
-        Report lastReport = buildReportAndSave(initialDate, finalDate);
-        updateLastReportCreated(lastReport);
-
-        showOpenReportDialog(lastReport);
-    }
-
-    private void updateLastReportCreated(Report lastReport) {
-        if(lastReport != null) {
-            String unformattedCreationDate = context.getString(R.string.report_last_report_created);
-            lastReportCreated.set(String.format(unformattedCreationDate, lastReport.getFormattedCreatedIn()));
+        if(PermissionHelper.verifyStoragePermissions((Activity) context)) {
+            createAndSaveReport(initialDate, finalDate);
+        } else {
+            PermissionHelper.requestPermissions((Activity) context);
         }
-    }
-
-    private Report buildReportAndSave(Date initialDate, Date finalDate) {
-        ReportBuilder builder = new ReportBuilder(initialDate, finalDate);
-        builder.build();
-
-        Report lastReport = builder.build();
-        facade.saveLastReport(lastReport);
-
-        return lastReport;
-    }
-
-    private void showOpenReportDialog(final Report lastReport) {
-        new AlertDialog.Builder(context)
-                .setMessage(R.string.report_open_dialog_message)
-                .setPositiveButton(R.string.report_open_dialog_yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        openReport(lastReport.getPath());
-                    }
-                })
-                .setNegativeButton(R.string.report_open_dialog_no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        return;
-                    }
-                })
-                .show();
-    }
-
-    private void openReport(String path) {
-        File file = new File(path);
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(file),"application/vnd.ms-excel");
-        context.startActivity(intent);
     }
 
     @Override
@@ -193,6 +155,82 @@ public class ReportViewModelImpl implements ReportViewModel {
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == RequestCode.REQUEST_PERMISSION.getRequestCode()) {
+
+            boolean permissionsGranted = verifyIfPermissionsGranted(grantResults);
+
+            if(permissionsGranted) {
+                Date initialDate = startOfDay(start);
+                Date finalDate = endOfDay(end);
+
+                createAndSaveReport(initialDate, finalDate);
+            } else {
+                String title = context.getString(R.string.report_error_not_authorized_title);
+                String content = context.getString(R.string.report_error_not_authorized_content);
+
+                showError(title, content);
+            }
+        }
+    }
+
+    private void createAndSaveReport(Date initialDate, Date finalDate) {
+        Report lastReport = buildReport(initialDate, finalDate);
+        facade.saveLastReport(lastReport);
+        updateLastReportCreatedDate(lastReport);
+
+        showOpenReportDialog(lastReport);
+    }
+
+    private void updateLastReportCreatedDate(Report lastReport) {
+        if(lastReport != null) {
+            String unformattedCreationDate = context.getString(R.string.report_last_report_created);
+            lastReportCreated.set(String.format(unformattedCreationDate, lastReport.getFormattedCreatedIn()));
+        }
+    }
+
+    private Report buildReport(Date initialDate, Date finalDate) {
+        ReportBuilder builder = new ReportBuilder(initialDate, finalDate);
+        builder.build();
+
+        return builder.build();
+    }
+
+    private void showOpenReportDialog(final Report lastReport) {
+        new AlertDialog.Builder(context)
+                .setMessage(R.string.report_open_dialog_message)
+                .setPositiveButton(R.string.report_open_dialog_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        openReport(lastReport.getPath());
+                    }
+                })
+                .setNegativeButton(R.string.report_open_dialog_no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                })
+                .show();
+    }
+
+    private void openReport(String path) {
+        File file = new File(path);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(file),"application/vnd.ms-excel");
+        context.startActivity(intent);
+    }
+
+    private boolean verifyIfPermissionsGranted(@NonNull int[] grantResults) {
+        for(int grantResult : grantResults) {
+            if (grantResult != context.getPackageManager().PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @NonNull
     private Intent createShareIntent(Report lastReport, String recipient) {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -210,7 +248,7 @@ public class ReportViewModelImpl implements ReportViewModel {
 
     private void populateFields() {
         Report lastReport = facade.fetchLastReport();
-        updateLastReportCreated(lastReport);
+        updateLastReportCreatedDate(lastReport);
 
         email.set(facade.fetchRecipientEmail());
     }

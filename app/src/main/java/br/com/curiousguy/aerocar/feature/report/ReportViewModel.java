@@ -1,5 +1,6 @@
 package br.com.curiousguy.aerocar.feature.report;
 
+import android.support.annotation.NonNull;
 import android.widget.RadioGroup;
 
 public interface ReportViewModel {
@@ -13,4 +14,6 @@ public interface ReportViewModel {
     void onCreateClicked();
 
     void onShareClicked();
+
+    void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults);
 }
