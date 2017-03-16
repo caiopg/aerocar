@@ -31,6 +31,7 @@ public class ReportViewModelImpl implements ReportViewModel {
     public final ObservableField<String> email = new ObservableField<>();
     public final ObservableField<String> otherDateStart = new ObservableField<>();
     public final ObservableField<String> otherDateEnd = new ObservableField<>();
+    public final ObservableField<String> lastReportCreated = new ObservableField<>();
 
     public final ObservableInt otherDateVisibility = new ObservableInt(View.GONE);
 
@@ -115,7 +116,16 @@ public class ReportViewModelImpl implements ReportViewModel {
         }
 
         Report lastReport = buildReportAndSave(initialDate, finalDate);
+        updateLastReportCreated(lastReport);
+
         showOpenReportDialog(lastReport);
+    }
+
+    private void updateLastReportCreated(Report lastReport) {
+        if(lastReport != null) {
+            String unformattedCreationDate = context.getString(R.string.report_last_report_created);
+            lastReportCreated.set(String.format(unformattedCreationDate, lastReport.getFormattedCreatedIn()));
+        }
     }
 
     private Report buildReportAndSave(Date initialDate, Date finalDate) {
@@ -199,6 +209,9 @@ public class ReportViewModelImpl implements ReportViewModel {
     }
 
     private void populateFields() {
+        Report lastReport = facade.fetchLastReport();
+        updateLastReportCreated(lastReport);
+
         email.set(facade.fetchRecipientEmail());
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -145,6 +146,14 @@
             android:textSize="24dp"
             android:text="@string/report.share_last"
             android:onClick="@{() -> viewModel.onShareClicked()}"/>
+
+        <TextView
+            style="@style/TextObs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@{viewModel.lastReportCreated}"
+            tools:text="Último relatório criado em: 14/05/1990" />
 
     </LinearLayout>
 </layout>

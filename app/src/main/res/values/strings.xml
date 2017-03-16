@@ -92,6 +92,7 @@
     <string name="report.email">E-mail para envio do relatório</string>
     <string name="report.email.hint">Insira o e-mail para envio do relatório</string>
     <string name="report.create">Criar relatório</string>
+    <string name="report.last_report_created">Último relatório criado em: %s</string>
     <string name="report.share_last">Compartilhar último relatório</string>
     <string name="report.open_dialog.message">Gostaria de abrir o relatório?</string>
     <string name="report.open_dialog.yes">Sim</string>

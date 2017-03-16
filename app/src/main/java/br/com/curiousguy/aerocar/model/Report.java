@@ -1,6 +1,7 @@
 package br.com.curiousguy.aerocar.model;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -15,5 +16,11 @@ public class Report {
     private String path;
 
     private File file;
+
+    public String getFormattedCreatedIn() {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy -HH:mm");
+
+        return format.format(this.createdIn);
+    }
 
 }
