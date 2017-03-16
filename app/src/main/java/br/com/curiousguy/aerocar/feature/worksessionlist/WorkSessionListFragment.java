@@ -14,7 +14,7 @@ import br.com.curiousguy.aerocar.BaseFragment;
 import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.databinding.FragmentWorkSessionListBinding;
 import br.com.curiousguy.aerocar.db.DbFacade;
-import br.com.curiousguy.aerocar.db.RealmFacade;
+import br.com.curiousguy.aerocar.db.DataFacade;
 import br.com.curiousguy.aerocar.enums.RequestCode;
 
 public class WorkSessionListFragment extends BaseFragment {
@@ -32,7 +32,7 @@ public class WorkSessionListFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_work_session_list, container, false);
         View rootView = binding.getRoot();
-        dbFacade = new RealmFacade();
+        dbFacade = new DataFacade();
 
         setupListView(binding.workSessionListview);
 

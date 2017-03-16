@@ -16,7 +16,7 @@ import java.util.Locale;
 
 import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.db.DbFacade;
-import br.com.curiousguy.aerocar.db.RealmFacade;
+import br.com.curiousguy.aerocar.db.DataFacade;
 import br.com.curiousguy.aerocar.enums.PaymentType;
 import br.com.curiousguy.aerocar.model.Car;
 import br.com.curiousguy.aerocar.model.Client;
@@ -265,7 +265,7 @@ public class CloseWorkSessionViewModelImpl implements CloseWorkSessionViewModel 
             workSession.setExit(new Date());
         }
 
-        DbFacade facade = new RealmFacade();
+        DbFacade facade = new DataFacade();
         facade.updateOrSave(workSession);
     }
 

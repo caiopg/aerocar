@@ -1,20 +1,24 @@
 package br.com.curiousguy.aerocar.db;
 
+import com.orhanobut.hawk.Hawk;
+
 import java.util.Date;
 import java.util.List;
 
+import br.com.curiousguy.aerocar.enums.HawkKey;
 import br.com.curiousguy.aerocar.model.Car;
 import br.com.curiousguy.aerocar.model.PriceTable;
+import br.com.curiousguy.aerocar.model.Report;
 import br.com.curiousguy.aerocar.model.WorkSession;
 import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.Sort;
 
-public class RealmFacade implements DbFacade {
+public class DataFacade implements DbFacade {
 
     Realm realm;
 
-    public RealmFacade() {
+    public DataFacade() {
         realm = Realm.getDefaultInstance();
     }
 
@@ -63,6 +67,16 @@ public class RealmFacade implements DbFacade {
     }
 
     @Override
+    public void saveRecipientEmail(String email) {
+        Hawk.put(HawkKey.RECIPIENT_EMAIL.getKey(), email);
+    }
+
+    @Override
+    public void saveLastReport(Report report) {
+        Hawk.put(HawkKey.LAST_REPORT.getKey(), report);
+    }
+
+    @Override
     public List<WorkSession> fetchInactiveWorkSessions(Date start, Date end) {
         List<WorkSession> workSessions = realm.where(WorkSession.class)
                 .equalTo("isActive", false)
@@ -70,5 +84,15 @@ public class RealmFacade implements DbFacade {
                 .findAllSorted("entry", Sort.ASCENDING);
 
         return realm.copyFromRealm(workSessions);
+    }
+
+    @Override
+    public String fetchRecipientEmail() {
+        return Hawk.get(HawkKey.RECIPIENT_EMAIL.getKey(), "");
+    }
+
+    @Override
+    public Report fetchLastReport() {
+        return Hawk.get(HawkKey.LAST_REPORT.getKey(), null);
     }
 }

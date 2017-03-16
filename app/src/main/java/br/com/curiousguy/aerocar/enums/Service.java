@@ -1,7 +1,7 @@
 package br.com.curiousguy.aerocar.enums;
 
 import br.com.curiousguy.aerocar.db.DbFacade;
-import br.com.curiousguy.aerocar.db.RealmFacade;
+import br.com.curiousguy.aerocar.db.DataFacade;
 import br.com.curiousguy.aerocar.model.PriceTable;
 import br.com.curiousguy.aerocar.util.Pricer;
 import lombok.Getter;
@@ -67,7 +67,7 @@ public enum Service implements Pricer.Priced {
     }
 
     private static PriceTable getPriceTable() {
-        DbFacade facade = new RealmFacade();
+        DbFacade facade = new DataFacade();
         return facade.fetchPriceTable();
     }
 }

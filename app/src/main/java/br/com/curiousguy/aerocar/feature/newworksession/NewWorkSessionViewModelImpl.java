@@ -17,7 +17,7 @@ import java.util.List;
 import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.db.CarNotFoundException;
 import br.com.curiousguy.aerocar.db.DbFacade;
-import br.com.curiousguy.aerocar.db.RealmFacade;
+import br.com.curiousguy.aerocar.db.DataFacade;
 import br.com.curiousguy.aerocar.enums.CarType;
 import br.com.curiousguy.aerocar.enums.Service;
 import br.com.curiousguy.aerocar.enums.Wash;
@@ -54,7 +54,7 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
     public final ObservableInt uberRegisterVisibility = new ObservableInt(View.GONE);
 
     // TODO: 12/03/17 add clear button for all filters except cartype
-    private DbFacade facade = new RealmFacade();
+    private DbFacade facade = new DataFacade();
     Handler handler = new Handler();
     private Car car = new Car();
     private WorkSession workSession = WorkSession.build();

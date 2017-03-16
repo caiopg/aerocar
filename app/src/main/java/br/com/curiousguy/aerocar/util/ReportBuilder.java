@@ -3,8 +3,6 @@ package br.com.curiousguy.aerocar.util;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 
-import com.orhanobut.hawk.Hawk;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -12,11 +10,11 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.curiousguy.aerocar.db.DbFacade;
-import br.com.curiousguy.aerocar.db.RealmFacade;
-import br.com.curiousguy.aerocar.enums.HawkKey;
+import br.com.curiousguy.aerocar.db.DataFacade;
 import br.com.curiousguy.aerocar.enums.PaymentType;
 import br.com.curiousguy.aerocar.enums.Wash;
 import br.com.curiousguy.aerocar.model.Payment;
+import br.com.curiousguy.aerocar.model.Report;
 import br.com.curiousguy.aerocar.model.WorkSession;
 import jxl.Workbook;
 import jxl.format.CellFormat;
@@ -35,15 +33,12 @@ public class ReportBuilder {
 
     private List<WorkSession> workSessions;
 
-    @Getter
-    private String path;
-
     public ReportBuilder(Date start, Date end) {
-        DbFacade facade = new RealmFacade();
+        DbFacade facade = new DataFacade();
         this.workSessions = facade.fetchInactiveWorkSessions(start, end);
     }
 
-    public File build() {
+    public Report build() {
         File reportFile = null;
         try {
             File reportFolder = createReportFolder();
@@ -55,9 +50,9 @@ public class ReportBuilder {
             e.printStackTrace();
         }
 
-        this.path = reportFile.getAbsolutePath();
+        Report lastReport = new Report(new Date(), reportFile.getAbsolutePath(), reportFile);
 
-        return reportFile;
+        return lastReport;
     }
 
     @NonNull

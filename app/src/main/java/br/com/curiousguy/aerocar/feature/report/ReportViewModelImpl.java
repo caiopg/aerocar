@@ -7,12 +7,12 @@ import android.content.Intent;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.RadioGroup;
-
-import com.orhanobut.hawk.Hawk;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -20,8 +20,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 import br.com.curiousguy.aerocar.R;
-import br.com.curiousguy.aerocar.enums.HawkKey;
+import br.com.curiousguy.aerocar.db.DataFacade;
+import br.com.curiousguy.aerocar.db.DbFacade;
+import br.com.curiousguy.aerocar.model.Report;
 import br.com.curiousguy.aerocar.util.ReportBuilder;
+import br.com.curiousguy.aerocar.util.Validator;
 
 public class ReportViewModelImpl implements ReportViewModel {
 
@@ -31,9 +34,9 @@ public class ReportViewModelImpl implements ReportViewModel {
 
     public final ObservableInt otherDateVisibility = new ObservableInt(View.GONE);
 
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
     private Context context;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private DbFacade facade = new DataFacade();
     private Date start = new Date();
     private Date end = new Date();
 
@@ -111,27 +114,27 @@ public class ReportViewModelImpl implements ReportViewModel {
             return;
         }
 
-        String path = buildReportAndSave(initialDate, finalDate);
-        showOpenReportDialog(path);
+        Report lastReport = buildReportAndSave(initialDate, finalDate);
+        showOpenReportDialog(lastReport);
     }
 
-    private String buildReportAndSave(Date initialDate, Date finalDate) {
+    private Report buildReportAndSave(Date initialDate, Date finalDate) {
         ReportBuilder builder = new ReportBuilder(initialDate, finalDate);
         builder.build();
 
-        String path = builder.getPath();
-        Hawk.put(HawkKey.LAST_REPORT_ADDRESS.getKey(), path);
+        Report lastReport = builder.build();
+        facade.saveLastReport(lastReport);
 
-        return path;
+        return lastReport;
     }
 
-    private void showOpenReportDialog(final String path) {
+    private void showOpenReportDialog(final Report lastReport) {
         new AlertDialog.Builder(context)
                 .setMessage(R.string.report_open_dialog_message)
                 .setPositiveButton(R.string.report_open_dialog_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        openReport(path);
+                        openReport(lastReport.getPath());
                     }
                 })
                 .setNegativeButton(R.string.report_open_dialog_no, new DialogInterface.OnClickListener() {
@@ -152,10 +155,29 @@ public class ReportViewModelImpl implements ReportViewModel {
 
     @Override
     public void onShareClicked() {
+        Report lastReport = facade.fetchLastReport();
+        String recipient = facade.fetchRecipientEmail();
 
-        String path = Hawk.get(HawkKey.LAST_REPORT_ADDRESS.getKey());
-        String recipient = Hawk.get(HawkKey.RECIPIENT_EMAIL.getKey());
+        if(!lastReport.getFile().exists()) {
+            //todo show error
+            return;
+        }
 
+        if(TextUtils.isEmpty(recipient) || !Validator.isValidEmailAddress(recipient)) {
+            String title = context.getString(R.string.report_error_invalid_email_title);
+            String content = context.getString(R.string.report_error_invalid_email_content);
+
+            showError(title, content);
+            return;
+        }
+
+        Intent shareIntent = createShareIntent(lastReport, recipient);
+        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.report_share_title)));
+
+    }
+
+    @NonNull
+    private Intent createShareIntent(Report lastReport, String recipient) {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
 
         shareIntent.setType("*/*");
@@ -163,17 +185,14 @@ public class ReportViewModelImpl implements ReportViewModel {
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.report_share_email_subject));
         shareIntent.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.report_share_email_body));
 
-        File file = new File(path);
-        Uri uri = Uri.fromFile(file);
+        Uri uri = Uri.fromFile(lastReport.getFile());
 
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-
-        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.report_share_title)));
-
+        return shareIntent;
     }
 
     private void populateFields() {
-        email.set(Hawk.get(HawkKey.RECIPIENT_EMAIL.getKey(), ""));
+        email.set(facade.fetchRecipientEmail());
     }
 
     private void showError(String title, String content) {
