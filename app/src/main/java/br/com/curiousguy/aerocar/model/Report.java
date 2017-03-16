@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
+@AllArgsConstructor(suppressConstructorProperties = true)
 public class Report {
 
     private Date createdIn;
