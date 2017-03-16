@@ -8,7 +8,6 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.RadioGroup;
@@ -23,7 +22,6 @@ import java.util.Date;
 import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.enums.HawkKey;
 import br.com.curiousguy.aerocar.util.ReportBuilder;
-import br.com.curiousguy.aerocar.util.Validator;
 
 public class ReportViewModelImpl implements ReportViewModel {
 
@@ -155,18 +153,22 @@ public class ReportViewModelImpl implements ReportViewModel {
     @Override
     public void onShareClicked() {
 
-        //todo do correctly
-        
-        String emailValue = email.get();
-        if(TextUtils.isEmpty(emailValue) || !Validator.isValidEmailAddress(emailValue)) {
-            String title = context.getString(R.string.report_error_invalid_email_title);
-            String content = context.getString(R.string.report_error_invalid_email_content);
+        String path = Hawk.get(HawkKey.LAST_REPORT_ADDRESS.getKey());
+        String recipient = Hawk.get(HawkKey.RECIPIENT_EMAIL.getKey());
 
-            showError(title, content);
-            return;
-        }
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
 
-        Hawk.put(HawkKey.RECIPIENT_EMAIL.getKey(), emailValue);
+        shareIntent.setType("*/*");
+        shareIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.report_share_email_subject));
+        shareIntent.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.report_share_email_body));
+
+        File file = new File(path);
+        Uri uri = Uri.fromFile(file);
+
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+
+        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.report_share_title)));
 
     }
 
