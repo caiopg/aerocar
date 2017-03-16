@@ -15,17 +15,19 @@ public interface DbFacade {
 
     List<WorkSession> fetchActiveWorkSessions();
 
-    PriceTable fetchPriceTable();
-
     <T extends RealmObject> void updateOrSave(T data);
 
     void saveRecipientEmail (String email);
 
     void saveLastReport(Report report);
 
+    void savePriceTable(PriceTable priceTable);
+
     List<WorkSession> fetchInactiveWorkSessions(Date start, Date end);
 
     String fetchRecipientEmail();
 
     Report fetchLastReport();
+
+    PriceTable fetchPriceTable();
 }

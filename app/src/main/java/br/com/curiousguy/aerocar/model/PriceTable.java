@@ -1,14 +1,9 @@
 package br.com.curiousguy.aerocar.model;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 import lombok.Data;
 
 @Data
-public class PriceTable extends RealmObject {
-
-    @PrimaryKey
-    int version = 0;
+public class PriceTable {
 
     int simpleSmallCar = 30;
 

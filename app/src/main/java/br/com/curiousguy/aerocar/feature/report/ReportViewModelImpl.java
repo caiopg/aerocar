@@ -158,18 +158,25 @@ public class ReportViewModelImpl implements ReportViewModel {
         Report lastReport = facade.fetchLastReport();
         String recipient = facade.fetchRecipientEmail();
 
+        String title;
+        String content;
         if(!lastReport.getFile().exists()) {
-            //todo show error
-            return;
-        }
-
-        if(TextUtils.isEmpty(recipient) || !Validator.isValidEmailAddress(recipient)) {
-            String title = context.getString(R.string.report_error_invalid_email_title);
-            String content = context.getString(R.string.report_error_invalid_email_content);
+            title = context.getString(R.string.report_error_invalid_file_title);
+            content = context.getString(R.string.report_error_invalid_file_content);
 
             showError(title, content);
             return;
         }
+
+        if(TextUtils.isEmpty(recipient) || !Validator.isValidEmailAddress(recipient)) {
+            title = context.getString(R.string.report_error_invalid_email_title);
+            content = context.getString(R.string.report_error_invalid_email_content);
+
+            showError(title, content);
+            return;
+        }
+
+        facade.saveRecipientEmail(email.get());
 
         Intent shareIntent = createShareIntent(lastReport, recipient);
         context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.report_share_title)));

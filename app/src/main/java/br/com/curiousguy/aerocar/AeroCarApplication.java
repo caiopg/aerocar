@@ -37,7 +37,7 @@ public class AeroCarApplication extends Application {
         PriceTable priceTable = facade.fetchPriceTable();
 
         if(priceTable == null) {
-            facade.updateOrSave(new PriceTable());
+            facade.savePriceTable(new PriceTable());
         }
     }
 

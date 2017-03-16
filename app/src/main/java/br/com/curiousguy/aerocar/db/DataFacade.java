@@ -45,18 +45,6 @@ public class DataFacade implements DbFacade {
     }
 
     @Override
-    public PriceTable fetchPriceTable() {
-        PriceTable priceTable = realm.where(PriceTable.class)
-                .findFirst();
-
-        if(priceTable == null) {
-            return null;
-        }
-
-        return realm.copyFromRealm(priceTable);
-    }
-
-    @Override
     public <T extends RealmObject> void updateOrSave(final T data) {
         realm.executeTransaction(new Realm.Transaction() {
             @Override
@@ -77,6 +65,11 @@ public class DataFacade implements DbFacade {
     }
 
     @Override
+    public void savePriceTable(PriceTable priceTable) {
+        Hawk.put(HawkKey.PRICE_TABLE.getKey(), priceTable);
+    }
+
+    @Override
     public List<WorkSession> fetchInactiveWorkSessions(Date start, Date end) {
         List<WorkSession> workSessions = realm.where(WorkSession.class)
                 .equalTo("isActive", false)
@@ -94,5 +87,10 @@ public class DataFacade implements DbFacade {
     @Override
     public Report fetchLastReport() {
         return Hawk.get(HawkKey.LAST_REPORT.getKey(), null);
+    }
+
+    @Override
+    public PriceTable fetchPriceTable() {
+        return Hawk.get(HawkKey.PRICE_TABLE.getKey(), null);
     }
 }
