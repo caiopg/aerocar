@@ -1,6 +1,7 @@
 package br.com.curiousguy.aerocar.feature.prices;
 
 import android.databinding.ObservableField;
+import android.text.TextUtils;
 
 import br.com.curiousguy.aerocar.db.DataFacade;
 import br.com.curiousguy.aerocar.db.DbFacade;
@@ -63,6 +64,37 @@ public class PricesViewModelImpl implements PricesViewModel {
 
     @Override
     public void onUpdateClicked() {
+        updateFields();
 
+        facade.savePriceTable(priceTable);
+    }
+
+    private void updateFields() {
+        priceTable.setSimpleSmallCar(toInt(smallSimpleWash.get()));
+        priceTable.setSimpleMediumCar(toInt(mediumSimpleWash.get()));
+        priceTable.setSimpleBigCar(toInt(bigSimpleWash.get()));
+
+        priceTable.setTaxi(toInt(taxi.get()));
+        priceTable.setUber(toInt(uber.get()));
+
+        priceTable.setAdditionalWax(toInt(additionalWax.get()));
+        priceTable.setAdditionalResin(toInt(additionalResin.get()));
+        priceTable.setAdditionalBigCarResin(toInt(additionalResinBig.get()));
+
+        priceTable.setSmallPolishing(toInt(smallPolishing.get()));
+        priceTable.setMediumPolishing(toInt(mediumPolishing.get()));
+        priceTable.setBigPolishing(toInt(bigPolishing.get()));
+
+        priceTable.setSmallSanitation(toInt(smallSanitation.get()));
+        priceTable.setMediumSanitation(toInt(mediumSanitation.get()));
+        priceTable.setBigSanitation(toInt(bigSanitation.get()));
+
+        priceTable.setSmallLittleRepairs(toInt(smallLittleRepairs.get()));
+        priceTable.setMediumLittleRepairs(toInt(mediumLittleRepairs.get()));
+        priceTable.setBigLittleRepairs(toInt(bigLittleRepairs.get()));
+    }
+
+    private int toInt(String value) {
+        return TextUtils.isEmpty(value) ? 0 : Integer.valueOf(value);
     }
 }
