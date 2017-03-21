@@ -13,8 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import br.com.curiousguy.aerocar.BaseActivity;
@@ -24,9 +22,8 @@ import br.com.curiousguy.aerocar.databinding.ActivityMainBinding;
 import br.com.curiousguy.aerocar.enums.RequestCode;
 import br.com.curiousguy.aerocar.feature.newworksession.NewWorkSessionActivity;
 import br.com.curiousguy.aerocar.feature.report.ReportFragment;
-import br.com.curiousguy.aerocar.feature.settings.SettingsFragment;
+import br.com.curiousguy.aerocar.feature.prices.PricesFragment;
 import br.com.curiousguy.aerocar.feature.worksessionlist.WorkSessionListFragment;
-import br.com.curiousguy.aerocar.util.ReportBuilder;
 
 
 public class MainActivity extends BaseActivity {
@@ -89,7 +86,7 @@ public class MainActivity extends BaseActivity {
                     case R.id.action_cars:
                         viewPager.setCurrentItem(0);
                         break;
-                    case R.id.action_config:
+                    case R.id.action_prices:
                         viewPager.setCurrentItem(1);
                         break;
                     case R.id.action_report:
@@ -132,7 +129,7 @@ public class MainActivity extends BaseActivity {
         List<BaseFragment> fragments = new ArrayList<>();
 
         fragments.add(WorkSessionListFragment.newInstance());
-        fragments.add(SettingsFragment.newInstance());
+        fragments.add(PricesFragment.newInstance());
         fragments.add(ReportFragment.newInstance());
 
         return fragments;

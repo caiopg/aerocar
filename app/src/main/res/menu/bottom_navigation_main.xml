@@ -7,9 +7,9 @@
         android:title="@string/main.bottom_navigation_bar.car_list"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_config"
+        android:id="@+id/action_prices"
         android:enabled="true"
-        android:title="@string/main.bottom_navigation_bar.settings"
+        android:title="@string/main.bottom_navigation_bar.prices"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_report"

@@ -6,7 +6,7 @@
     <string name="splash.loading">Carregando...</string>
 
     <string name="main.bottom_navigation_bar.car_list">Carros</string>
-    <string name="main.bottom_navigation_bar.settings">Configurações</string>
+    <string name="main.bottom_navigation_bar.prices">Preços</string>
     <string name="main.bottom_navigation_bar.report">Relatório</string>
     <string name="main.menu.add_car">Adicionar Carro</string>
 
@@ -108,5 +108,22 @@
     <string name="report.error.invalid_email.content">Por favor insira um e-mail válido.</string>
     <string name="report.error.invalid_file.content">Arquivo não encontrado. Por favor recrie o relatório.</string>
     <string name="report.error.not_authorized.content">Não foi dada autorização para realizar operação.</string>
+
+    <string name="prices.all.small_car">Carro Pequeno</string>
+    <string name="prices.all.medium_car">Carro Médio</string>
+    <string name="prices.all.big_car">Carro Grande</string>
+    <string name="prices.all.taxi">Taxi</string>
+    <string name="prices.all.uber">Uber</string>
+    <string name="prices.all.hint">Insira um valor</string>
+    <string name="prices.simple_wash">Lavagem - Simples</string>
+    <string name="prices.special_offers">Ofertas Especiais</string>
+    <string name="prices.wash_additionals">Lavagem - Adicionais</string>
+    <string name="prices.wash_additionals.wax">Cera</string>
+    <string name="prices.wash_additionals.resin">Resina</string>
+    <string name="prices.wash_additionals.resin_big_car">Resina - Grande</string>
+    <string name="prices.polishing">Polimento</string>
+    <string name="prices.sanitation">Higienização</string>
+    <string name="prices.little_repais">Pequenos Reparos</string>
+    <string name="prices.update">Atualizar</string>
 
 </resources>

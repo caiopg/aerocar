@@ -1,4 +1,4 @@
-package br.com.curiousguy.aerocar.feature.settings;
+package br.com.curiousguy.aerocar.feature.prices;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -9,20 +9,20 @@ import android.view.ViewGroup;
 
 import br.com.curiousguy.aerocar.BaseFragment;
 import br.com.curiousguy.aerocar.R;
-import br.com.curiousguy.aerocar.databinding.FragmentSettingsBinding;
+import br.com.curiousguy.aerocar.databinding.FragmentPricesBinding;
 
-public class SettingsFragment extends BaseFragment {
+public class PricesFragment extends BaseFragment {
 
-    FragmentSettingsBinding binding;
+    FragmentPricesBinding binding;
 
-    public static SettingsFragment newInstance() {
-        return new SettingsFragment();
+    public static PricesFragment newInstance() {
+        return new PricesFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_prices, container, false);
         View rootView = binding.getRoot();
 
         return rootView;
