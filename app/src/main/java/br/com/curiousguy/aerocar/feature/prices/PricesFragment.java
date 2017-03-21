@@ -23,6 +23,7 @@ public class PricesFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_prices, container, false);
+        binding.setViewModel(new PricesViewModelImpl());
         View rootView = binding.getRoot();
 
         return rootView;
