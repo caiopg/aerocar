@@ -57,7 +57,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLength="7"
+                    android:maxLength="20"
                     android:hint="@string/new_work_session.model.hint"
                     android:text="@={viewModel.model}"
                     android:onTextChanged="@{viewModel::onModelTextChanged}"/>
@@ -204,7 +204,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/new_work_session.wash.simple"/>
+                        android:text="@string/new_work_session.wash.simple"
+                        android:checked="@{viewModel.isSimpleChecked}"/>
 
                     <RadioButton
                         style="@style/NewWorkSessionRadioButton"
@@ -223,7 +224,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_weight="1"
-                        android:text="@string/new_work_session.wash.resin"/>
+                        android:text="@string/new_work_session.wash.resin"
+                        android:checked="@{viewModel.isResinChecked}"/>
 
                 </RadioGroup>
 

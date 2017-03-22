@@ -11,6 +11,7 @@ import java.util.Locale;
 import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.enums.RequestCode;
 import br.com.curiousguy.aerocar.feature.closeworksession.CloseWorkSessionActivity;
+import br.com.curiousguy.aerocar.feature.newworksession.NewWorkSessionActivity;
 import br.com.curiousguy.aerocar.model.WorkSession;
 import br.com.curiousguy.aerocar.util.Pricer;
 
@@ -43,6 +44,14 @@ public class WorkSessionListItemViewModelImpl implements WorkSessionListItemView
     public void onItemClicked() {
         Intent intent = CloseWorkSessionActivity.getStartIntent(activity, workSession);
         activity.startActivityForResult(intent, RequestCode.CLOSE_WORK_SESSION.getRequestCode());
+    }
+
+    @Override
+    public boolean onLongItemClicked() {
+        Intent intent = NewWorkSessionActivity.getStartIntent(activity, workSession);
+        activity.startActivityForResult(intent, RequestCode.NEW_WORK_SESSIO.getRequestCode());
+
+        return true;
     }
 
     private void populatePrice() {

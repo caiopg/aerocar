@@ -14,7 +14,9 @@
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:weightSum="3"
-        android:onClick="@{() -> viewModel.onItemClicked()}">
+        android:onClick="@{() -> viewModel.onItemClicked()}"
+        android:onLongClick="@{() -> viewModel.onLongItemClicked()}"
+        android:background="?attr/selectableItemBackground">
 
         <LinearLayout
             android:orientation="vertical"

@@ -16,8 +16,8 @@ import java.util.List;
 
 import br.com.curiousguy.aerocar.R;
 import br.com.curiousguy.aerocar.db.CarNotFoundException;
-import br.com.curiousguy.aerocar.db.DbFacade;
 import br.com.curiousguy.aerocar.db.DataFacade;
+import br.com.curiousguy.aerocar.db.DbFacade;
 import br.com.curiousguy.aerocar.enums.CarType;
 import br.com.curiousguy.aerocar.enums.Service;
 import br.com.curiousguy.aerocar.enums.Wash;
@@ -44,6 +44,8 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
     public final ObservableField<Boolean> isUberChecked = new ObservableField<>(false);
 
     public final ObservableField<Boolean> isWaxChecked = new ObservableField<>(false);
+    public final ObservableField<Boolean> isResinChecked = new ObservableField<>(false);
+    public final ObservableField<Boolean> isSimpleChecked = new ObservableField<>(false);
 
     public final ObservableField<Boolean> isSanitationChecked = new ObservableField<>(false);
     public final ObservableField<Boolean> isLittleRepairsChecked = new ObservableField<>(false);
@@ -54,8 +56,9 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
     public final ObservableInt uberRegisterVisibility = new ObservableInt(View.GONE);
 
     // TODO: 12/03/17 add clear button for all filters except cartype
+    private boolean editMode = false;
     private DbFacade facade = new DataFacade();
-    Handler handler = new Handler();
+    private Handler handler = new Handler();
     private Car car = new Car();
     private WorkSession workSession = WorkSession.build();
     private Client client = new Client();
@@ -78,7 +81,6 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
             } finally {
                 plate.set(plate.get().toUpperCase());
                 car.setPlate(plate.get().toUpperCase());
-                // TODO: 12/03/17 fix cursos position after car searched
             }
         }
     };
@@ -87,6 +89,19 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
 
     public NewWorkSessionViewModelImpl(Context context) {
         this.context = context;
+    }
+
+    public NewWorkSessionViewModelImpl(Context context, WorkSession workSession) {
+        this.context = context;
+        this.workSession = workSession;
+        this.client = workSession.getCar().getClient();
+        this.car = workSession.getCar();
+        this.editMode = true;
+
+        updateCarFields();
+        updateCarPlateFields();
+        updateClientFields();
+        updateWorkSessionFields();
     }
 
     @Override
@@ -126,32 +141,6 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
                 disableService();
                 break;
         }
-    }
-
-    private void disableSimple() {
-        simpleVisibility.set(View.GONE);
-    }
-
-    private void disableService() {
-        isLittleRepairsChecked.set(false);
-        isPolishingChecked.set(false);
-        isSanitationChecked.set(false);
-
-        serviceVisibility.set(View.GONE);
-
-        workSession.setService(null);
-    }
-
-    private void enableService() {
-        serviceVisibility.set(View.VISIBLE);
-    }
-
-    private void enableSimple() {
-        simpleVisibility.set(View.VISIBLE);
-    }
-
-    private void checkWax() {
-        isWaxChecked.set(true);
     }
 
     @Override
@@ -244,6 +233,66 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
         returnToMain();
     }
 
+
+    private void updateCarPlateFields() {
+        plate.set(car.getPlate());
+    }
+
+    private void updateWorkSessionFields() {
+        if(workSession.hasService()) {
+            switch (workSession.getService()) {
+                case SANITATION:
+                    isSanitationChecked.set(true);
+                    break;
+                case LITTLE_REPAIRS:
+                    isLittleRepairsChecked.set(true);
+                    break;
+                case POLISHING:
+                    isPolishingChecked.set(true);
+            }
+        }
+
+        if(workSession.hasWash()) {
+            switch (workSession.getWash()) {
+                case SIMPLE:
+                    isSimpleChecked.set(true);
+                    break;
+                case WAX:
+                    isWaxChecked.set(true);
+                    break;
+                case RESIN:
+                    isResinChecked.set(true);
+                    break;
+            }
+        }
+    }
+
+    private void disableSimple() {
+        simpleVisibility.set(View.GONE);
+    }
+
+    private void disableService() {
+        isLittleRepairsChecked.set(false);
+        isPolishingChecked.set(false);
+        isSanitationChecked.set(false);
+
+        serviceVisibility.set(View.GONE);
+
+        workSession.setService(null);
+    }
+
+    private void enableService() {
+        serviceVisibility.set(View.VISIBLE);
+    }
+
+    private void enableSimple() {
+        simpleVisibility.set(View.VISIBLE);
+    }
+
+    private void checkWax() {
+        isWaxChecked.set(true);
+    }
+
     private void returnToMain() {
         Activity activity = (Activity) this.context;
 
@@ -264,7 +313,9 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
         facade.updateOrSave(car);
 
         workSession.setCar(car);
-        workSession.setEntry(new Date());
+        if(!editMode) {
+            workSession.setEntry(new Date());
+        }
         facade.updateOrSave(workSession);
     }
 
@@ -304,7 +355,7 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
         Toast.makeText(context, content, Toast.LENGTH_SHORT).show();
     }
 
-    private void updateClientFields(Client client) {
+    private void updateClientFields() {
         if(!TextUtils.isEmpty(client.getName())) {
             clientName.set(client.getName());
         }
@@ -316,7 +367,7 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
 
     private void updateFields() {
         if(car.getClient() != null) {
-            updateClientFields(car.getClient());
+            updateClientFields();
         }
 
         if(car != null) {

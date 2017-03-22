@@ -5,4 +5,6 @@ public interface WorkSessionListItemViewModel {
     void populateItem();
 
     void onItemClicked();
+
+    boolean onLongItemClicked();
 }
