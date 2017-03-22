@@ -22,4 +22,6 @@ public interface NewWorkSessionViewModel {
 
     void onUberRegistryTextChanged(CharSequence s, int start, int before, int count);
 
+    void clearServiceFields();
+
 }

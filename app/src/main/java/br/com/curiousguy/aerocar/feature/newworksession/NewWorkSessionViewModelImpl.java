@@ -2,6 +2,7 @@ package br.com.curiousguy.aerocar.feature.newworksession;
 
 import android.app.Activity;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.os.Handler;
@@ -15,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.curiousguy.aerocar.R;
+import br.com.curiousguy.aerocar.databinding.ActivityNewWorkSessionBinding;
 import br.com.curiousguy.aerocar.db.CarNotFoundException;
 import br.com.curiousguy.aerocar.db.DataFacade;
 import br.com.curiousguy.aerocar.db.DbFacade;
@@ -55,7 +57,6 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
     public final ObservableInt serviceVisibility = new ObservableInt(View.VISIBLE);
     public final ObservableInt uberRegisterVisibility = new ObservableInt(View.GONE);
 
-    // TODO: 12/03/17 add clear button for all filters except cartype
     private boolean editMode = false;
     private DbFacade facade = new DataFacade();
     private Handler handler = new Handler();
@@ -86,13 +87,11 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
     };
 
     Context context;
+    Communicator communicator;
 
-    public NewWorkSessionViewModelImpl(Context context) {
+    public NewWorkSessionViewModelImpl(Context context, Communicator communicator, WorkSession workSession) {
         this.context = context;
-    }
-
-    public NewWorkSessionViewModelImpl(Context context, WorkSession workSession) {
-        this.context = context;
+        this.communicator = communicator;
         this.workSession = workSession;
         this.client = workSession.getCar().getClient();
         this.car = workSession.getCar();
@@ -103,6 +102,12 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
         updateClientFields();
         updateWorkSessionFields();
     }
+
+    public NewWorkSessionViewModelImpl(Context context, Communicator communicator) {
+        this.context = context;
+        this.communicator = communicator;
+    }
+
 
     @Override
     public void onCarTypeChanged (RadioGroup radioGroup, int checkedId) {
@@ -221,6 +226,17 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
                 car.setUberRegistry(uberRegistry.get());
             }
         }, TEXT_CHANGED_DELAY_IN_MILLIS);
+    }
+
+    @Override
+    public void clearServiceFields() {
+        ActivityNewWorkSessionBinding binding = communicator.getBinding();
+
+        binding.newWorkSessionServiceRadiogroup.clearCheck();
+        binding.newWorkSessionWashRadiogroup.clearCheck();
+
+        workSession.setService(null);
+        workSession.setWash(null);
     }
 
     @Override
@@ -404,5 +420,9 @@ public class NewWorkSessionViewModelImpl implements NewWorkSessionViewModel {
                     break;
             }
         }
+    }
+
+    protected interface Communicator {
+        ActivityNewWorkSessionBinding getBinding();
     }
 }

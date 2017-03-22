@@ -47,6 +47,7 @@
     <string name="new_work_session.error.no_uber_register">Registro do uber não informado\n</string>
     <string name="new_work_session.error.no_work">Nenhuma lavagem ou serviço selecionado\n</string>
     <string name="new_work_session.error.ok">OK</string>
+    <string name="new_work_session.menu.clean_service">Limpar Serviço</string>
 
     <string name="close_work_session.toolbar.title">Serviço</string>
     <string name="close_work_session.data">Dados</string>

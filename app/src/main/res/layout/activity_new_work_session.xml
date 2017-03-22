@@ -189,6 +189,7 @@
                     android:text="@string/new_work_session.wash"/>
 
                 <RadioGroup
+                    android:id="@+id/new_work_session_wash_radiogroup"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -238,6 +239,7 @@
                     android:text="@string/new_work_session.services"/>
 
                 <RadioGroup
+                    android:id="@+id/new_work_session_service_radiogroup"
                     android:visibility="@{viewModel.serviceVisibility}"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
